@@ -1,235 +1,1086 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-  
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
-    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.5.2-Thread_Communication/">
-    <link rel="shortcut icon" href="../../img/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Thread Communication - CSSE4011 Tutorial Docs</title>
-    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
-    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
-    <link href="../../css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/highlight.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
 
-    <script src="../../js/jquery-3.2.1.min.js"></script>
-    <script src="../../js/bootstrap-3.3.7.min.js"></script>
-    <script src="../../js/highlight.pack.js"></script>
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <base target="_top">
-    <script>
-      var base_url = '../..';
-      var is_top_frame = false;
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.5.2-Thread_Communication/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
+    
+    
+      
+        <title>5.2 Thread Communication - CSSE4011 Tutorial Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2b4465f4.min.css">
+      
         
-        var pageToc = [
-          {title: "CSSE4011: Tute 5.2 - Thread Communication", url: "#_top", children: [
-              {title: "1.0 Motivation", url: "#10-motivation" },
-              {title: "2.0 Thread Communication in Zephyr", url: "#20-thread-communication-in-zephyr" },
-              {title: "2.3 Implementing Message Queues", url: "#23-implementing-message-queues" },
-              {title: "3.0 Sample Solution", url: "#30-sample-solution" },
-          ]},
-        ];
-
-    </script>
-    <script src="../../js/base.js"></script> 
-</head>
-
-<body>
-<script>
-if (is_top_frame) { $('body').addClass('wm-top-page'); }
-</script>
-
-
-
-<div class="container-fluid wm-page-content">
-  <a name="_top"></a>
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
     
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:""}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
+    
+    
+  </head>
+  
+  
     
     
       
     
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
-    <div class="wm-article-nav pull-right">
-      <a href="../../Connectivity/about/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#csse4011-tute-52-thread-communication" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CSSE4011 Tutorial Docs" class="md-header__button md-logo" aria-label="CSSE4011 Tutorial Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSSE4011 Tutorial Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5.2 Thread Communication
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    csse4011_zephyr_guides
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CSSE4011 Tutorial Docs" class="md-nav__button md-logo" aria-label="CSSE4011 Tutorial Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CSSE4011 Tutorial Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    csse4011_zephyr_guides
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        Contents
       </a>
-      <a href="../../Connectivity/about/" class="btn btn-xs btn-link">
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Operating System
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Operating System" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Operating System
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
         Overview
       </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-link">
-        Thread Synchronization
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS.1-Getting_Started/" class="md-nav__link">
+        1.0 Getting Started
       </a>
-    </div>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS.2-First_Program/" class="md-nav__link">
+        2.0 First Program
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS.2.1-Building_Tips/" class="md-nav__link">
+        2.1 Building Tips
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS.2.2-Implementing_Libraries/" class="md-nav__link">
+        2.2 Implementing Libraries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS.4-Threading/" class="md-nav__link">
+        4.0 Threading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS.5.1-Thread_Sync/" class="md-nav__link">
+        5.1 Thread Synchronization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
-  </div>
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          5.2 Thread Communication
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        5.2 Thread Communication
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-motivation" class="md-nav__link">
+    1.0 Motivation
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Motivation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-inter-thread-communication-itc" class="md-nav__link">
+    1.1 Inter-Thread Communication (ITC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-prerequisites" class="md-nav__link">
+    1.2. Prerequisites
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-thread-communication-in-zephyr" class="md-nav__link">
+    2.0 Thread Communication in Zephyr
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Thread Communication in Zephyr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-data-passing-in-zephyr" class="md-nav__link">
+    2.1 Data Passing in Zephyr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-general-message-queues" class="md-nav__link">
+    2.2 General Message Queues
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-implementing-message-queues" class="md-nav__link">
+    2.3 Implementing Message Queues
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Implementing Message Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#24-testing" class="md-nav__link">
+    2.4 Testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-additional-notes" class="md-nav__link">
+    2.5 Additional Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-sample-solution" class="md-nav__link">
+    3.0 Sample Solution
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
+      
+      
+      
 
-    <h1 id="csse4011-tute-52-thread-communication">CSSE4011: Tute 5.2 - Thread Communication<a class="headerlink" href="#csse4011-tute-52-thread-communication" title="Permanent link">#</a></h1>
-<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Connectivity
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Connectivity" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Connectivity
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Connectivity/about/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Connectivity/CN.1-GPIO/" class="md-nav__link">
+        1.0 GPIO
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Connectivity/CN.2-Sensors/" class="md-nav__link">
+        2.0 Sensors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Connectivity/CN.3-Serial_Console/" class="md-nav__link">
+        3.0 Serial Console
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Connectivity/CN.4-Shell/" class="md-nav__link">
+        4.0 Shell
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Connectivity/CN.4.1-Shell_Commands/" class="md-nav__link">
+        4.1 Shell Commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Connectivity/CN.5-Logging/" class="md-nav__link">
+        5.0 Logging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Connectivity/CN.6-Segger_RTT/" class="md-nav__link">
+        6.0 Segger RTT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Boards
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Boards" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Boards
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/about/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.1-Arduino_Sense/" class="md-nav__link">
+        1.0 Arduino Sense BLE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.2-Thingy52/" class="md-nav__link">
+        2.0 Thingy52
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.3-Dongle_NRF52840/" class="md-nav__link">
+        3.0 nRF Dongle
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-motivation" class="md-nav__link">
+    1.0 Motivation
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Motivation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-inter-thread-communication-itc" class="md-nav__link">
+    1.1 Inter-Thread Communication (ITC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-prerequisites" class="md-nav__link">
+    1.2. Prerequisites
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-thread-communication-in-zephyr" class="md-nav__link">
+    2.0 Thread Communication in Zephyr
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Thread Communication in Zephyr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-data-passing-in-zephyr" class="md-nav__link">
+    2.1 Data Passing in Zephyr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-general-message-queues" class="md-nav__link">
+    2.2 General Message Queues
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-implementing-message-queues" class="md-nav__link">
+    2.3 Implementing Message Queues
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Implementing Message Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#24-testing" class="md-nav__link">
+    2.4 Testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-additional-notes" class="md-nav__link">
+    2.5 Additional Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-sample-solution" class="md-nav__link">
+    3.0 Sample Solution
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/edit/master/docs/OS/OS.5.2-Thread_Communication.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="csse4011-tute-52-thread-communication">CSSE4011: Tute 5.2 - Thread Communication</h1>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong></h2>
 <p>The following tutorial aims to introduce inter-thread communication (ITC) and useful communication primitives within Zephyr RTOS. </p>
-<h3 id="11-inter-thread-communication-itc"><strong>1.1 Inter-Thread Communication (ITC)</strong><a class="headerlink" href="#11-inter-thread-communication-itc" title="Permanent link">#</a></h3>
+<h3 id="11-inter-thread-communication-itc"><strong>1.1 Inter-Thread Communication (ITC)</strong></h3>
 <p>Similar to inter-process-communications (IPC) in typical operating systems, ITC allows one thead to share data between another thread(s). Where mutexs and semaphores are typically used for mutual exclusion and signalling, data passing/ITC allows for threads to communicate beyond primitive signaling. </p>
-<h3 id="12-prerequisites"><strong>1.2. Prerequisites</strong><a class="headerlink" href="#12-prerequisites" title="Permanent link">#</a></h3>
+<h3 id="12-prerequisites"><strong>1.2. Prerequisites</strong></h3>
 <p>Ensure that you have completed/understand the following tutorials. </p>
 <blockquote>
 <p>OS.1, OS.2, OS.2.1, BRD.1 and CN.3-Serial_Console or CN.5-Shell (for printk() usage)</p>
 </blockquote>
-<h2 id="20-thread-communication-in-zephyr"><strong>2.0 Thread Communication in Zephyr</strong><a class="headerlink" href="#20-thread-communication-in-zephyr" title="Permanent link">#</a></h2>
-<h3 id="21-data-passing-in-zephyr"><strong>2.1 Data Passing in Zephyr</strong><a class="headerlink" href="#21-data-passing-in-zephyr" title="Permanent link">#</a></h3>
+<h2 id="20-thread-communication-in-zephyr"><strong>2.0 Thread Communication in Zephyr</strong></h2>
+<h3 id="21-data-passing-in-zephyr"><strong>2.1 Data Passing in Zephyr</strong></h3>
 <p>Zephyr RTOS (as of V2.7.XX) offers a few different options for ITC. To name a few,
 * First in first out buffers (FIFO)
 * Last in first out buffer (LIFO)
 * Stacks
 *  Message queues, Mailboxes and Pipes</p>
 <p>Some of these are ideal for particular use cases, to determine which ITC protocol might best fit an application, refer to the <em>Data Passing</em> <a href="https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing">guidelines table</a>. More information on the implementation of each primitive can be found in the api guides (links below the <a href="https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing">table</a>).</p>
-<h3 id="22-general-message-queues"><strong>2.2 General Message Queues</strong><a class="headerlink" href="#22-general-message-queues" title="Permanent link">#</a></h3>
+<h3 id="22-general-message-queues"><strong>2.2 General Message Queues</strong></h3>
 <p>In this tutorial, we will focus on implementing a message queues between threads. As they can be typically be used for a wide range of applications, it is a good starting point for learning ITC in Zephyr. The api guide can be found <a href="https://docs.zephyrproject.org/latest/reference/kernel/data_passing/message_queues.html">here</a>.</p>
 <p>What is a message queue?</p>
 <ul>
 <li>"<em>A message queue is a kernel object that implements a simple message queue, allowing threads and ISRs to </em><em>asynchronously</em><em> send and receive fixed-size data items</em>."</li>
 </ul>
-<h2 id="23-implementing-message-queues"><strong>2.3 Implementing Message Queues</strong><a class="headerlink" href="#23-implementing-message-queues" title="Permanent link">#</a></h2>
+<h2 id="23-implementing-message-queues"><strong>2.3 Implementing Message Queues</strong></h2>
 <p>Start by making a basic Zephyr application, you may use a copy of the sample solution provided in CN.4-Shell (<em>shell_example</em>) and use this as a boilerplate. The provided solution has USB-Shell and USB-Printk enabled. </p>
-<p>Start by editing the source file.</p>
-<pre><code class="language-shell">vim src/main.c
-</code></pre>
-<p>The following macro allows for the definition of a message queue in Zephyr, add this to your source file. </p>
-<pre><code class="language-C">K_MSGQ_DEFINE(my_msgq, sizeof(struct data_packet), 10, 4);
-</code></pre>
-<p>Where, a message queue named <em>my_msgq</em> is initialized, that queues <em>10</em> struct <em>data_packet</em> items, where the structure is aligned to an address that is divisible by 4 (4-byte aligned). </p>
-<p>To make this work, we must also define a struct <em>data_packet</em> globally (before macro usage).</p>
-<pre><code class="language-C">struct data_packet {
-        uint16_t preamble;
-        char string[32];
-};
-</code></pre>
-<p>In our main(), we can add some data to our struct</p>
-<pre><code class="language-C">/* MSGQ Packet */
-struct data_packet packet;
-packet.preamble = 0xAA;
-snprintk(packet.string, sizeof(packet.string), &quot;Colonels Recipe.exe\n&quot;);
-</code></pre>
-<p>and lets put this packet on our queue, (add this to the while loop in main())</p>
-<pre><code class="language-C">/* Send Messages to consumers */
-if (k_msgq_put(&amp;my_msgq, &amp;packet, K_NO_WAIT) != 0) {
-        /* Queue is full, we could purge it, a loop can be
-        * implemented here to keep trying after a purge.
-        */
-        k_msgq_purge(&amp;my_msgq);
-     }
-</code></pre>
-<p>Now, we will add another thread (alongside main), so we can test the ITC between two threads using the message queue. Note: Make sure to give this thread sufficient stack size as <strong>message queues are passed by copy</strong>. </p>
-<pre><code class="language-C">/* Define Consumer Thread */
-void consumer_thread(void);
-#define STACK_SIZE 1024
-#define THREAD_PRIOR 3
-#define THREAD_DELAY 0
-#define OPTIONS 0
-K_THREAD_DEFINE(consumer_thread_tid, STACK_SIZE, consumer_thread, NULL, NULL, NULL, THREAD_PRIOR, OPTIONS, THREAD_DELAY);
-
-/*
- * Consumer thread for testing message queue
- */
-void
-consumer_thread(void)
-{
-        struct data_packet data;
-
-        while(1) {
-                if (k_msgq_get(&amp;my_msgq, &amp;data, K_FOREVER) == 0) {
-                        if (data.preamble == 0xAA)
-                                printk(&quot;MSG Received: %s\n&quot;, data.string);
-                        memset(&amp;data, 0, sizeof(struct data_packet));
-                }
-        }
-}
-</code></pre>
-<h3 id="24-testing"><strong>2.4 Testing</strong><a class="headerlink" href="#24-testing" title="Permanent link">#</a></h3>
-<p>This application can now be built and flashed using:</p>
-<pre><code class="language-shell">west  build -p auto -b arduino_nano_33_ble
-west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
-</code></pre>
-<p>As per previous guides on Shell and Console implementation, attach a session to screen. </p>
-<pre><code class="language-shell">sudo screen /dev/ttyACM0
-</code></pre>
-<pre><code>[00:00:00.005,340] &lt;inf&gt; usb_cdc_acm: Device suspended
-[00:00:00.165,863] &lt;inf&gt; usb_cdc_acm: Device resumed
-[00:00:00.432,922] &lt;inf&gt; usb_cdc_acm: Device configured
-MSG Received: Colonels Recipe.exe
-
-MSG Received: Colonels Recipe.exe
-
-MSG Received: Colonels Recipe.exe
-
-MSG Received: Colonels Recipe.exe
-
-MSG Received: Colonels Recipe.exe
-
-CSSE4011:~$
-</code></pre>
-<h3 id="25-additional-notes"><strong>2.5 Additional Notes</strong><a class="headerlink" href="#25-additional-notes" title="Permanent link">#</a></h3>
+<p>Start by editing the source file.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>vim src/main.c
+</code></pre></div>
+The following macro allows for the definition of a message queue in Zephyr, add this to your source file. 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">K_MSGQ_DEFINE</span><span class="p">(</span><span class="n">my_msgq</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">data_packet</span><span class="p">),</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+Where, a message queue named <em>my_msgq</em> is initialized, that queues <em>10</em> struct <em>data_packet</em> items, where the structure is aligned to an address that is divisible by 4 (4-byte aligned). </p>
+<p>To make this work, we must also define a struct <em>data_packet</em> globally (before macro usage).
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">data_packet</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">        </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">preamble</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">string</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span><span class="w"></span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+In our main(), we can add some data to our struct
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cm">/* MSGQ Packet */</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">struct</span><span class="w"> </span><span class="nc">data_packet</span><span class="w"> </span><span class="n">packet</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">packet</span><span class="p">.</span><span class="n">preamble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xAA</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">snprintk</span><span class="p">(</span><span class="n">packet</span><span class="p">.</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">packet</span><span class="p">.</span><span class="n">string</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;Colonels Recipe.exe</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+and lets put this packet on our queue, (add this to the while loop in main())
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cm">/* Send Messages to consumers */</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">k_msgq_put</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_msgq</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="n">K_NO_WAIT</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">        </span><span class="cm">/* Queue is full, we could purge it, a loop can be</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="cm">        * implemented here to keep trying after a purge.</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="cm">        */</span><span class="w"></span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="n">k_msgq_purge</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_msgq</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">     </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+Now, we will add another thread (alongside main), so we can test the ITC between two threads using the message queue. Note: Make sure to give this thread sufficient stack size as <strong>message queues are passed by copy</strong>. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cm">/* Define Consumer Thread */</span><span class="w"></span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">consumer_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="cp">#define STACK_SIZE 1024</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="cp">#define THREAD_PRIOR 3</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="cp">#define THREAD_DELAY 0</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="cp">#define OPTIONS 0</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">K_THREAD_DEFINE</span><span class="p">(</span><span class="n">consumer_thread_tid</span><span class="p">,</span><span class="w"> </span><span class="n">STACK_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">consumer_thread</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">THREAD_PRIOR</span><span class="p">,</span><span class="w"> </span><span class="n">OPTIONS</span><span class="p">,</span><span class="w"> </span><span class="n">THREAD_DELAY</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="cm">/*</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="cm"> * Consumer thread for testing message queue</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="cm"> */</span><span class="w"></span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="kt">void</span><span class="w"></span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="nf">consumer_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">data_packet</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">k_msgq_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_msgq</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">K_FOREVER</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">                        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">preamble</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">0xAA</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">                                </span><span class="n">printk</span><span class="p">(</span><span class="s">&quot;MSG Received: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">string</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">                        </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">data_packet</span><span class="p">));</span><span class="w"></span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">                </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 id="24-testing"><strong>2.4 Testing</strong></h3>
+<p>This application can now be built and flashed using:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>west  build -p auto -b arduino_nano_33_ble
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>west flash --bossac<span class="o">=</span><span class="nv">$HOME</span>/csse4011/BOSSA/BOSSA/bin/bossac   <span class="c1">#Check the Path is correct</span>
+</code></pre></div>
+As per previous guides on Shell and Console implementation, attach a session to screen. 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo screen /dev/ttyACM0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[00:00:00.005,340] &lt;inf&gt; usb_cdc_acm: Device suspended
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>[00:00:00.165,863] &lt;inf&gt; usb_cdc_acm: Device resumed
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>[00:00:00.432,922] &lt;inf&gt; usb_cdc_acm: Device configured
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>MSG Received: Colonels Recipe.exe
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>MSG Received: Colonels Recipe.exe
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>MSG Received: Colonels Recipe.exe
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>MSG Received: Colonels Recipe.exe
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>MSG Received: Colonels Recipe.exe
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>CSSE4011:~$
+</code></pre></div></p>
+<h3 id="25-additional-notes"><strong>2.5 Additional Notes</strong></h3>
 <p>This tutorial is a guide for implementing basic message queues in Zephyr RTOS, it is <strong>strongly suggested</strong> that you refer to the Zephyr API guides <a href="https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing">here</a> and <a href="https://docs.zephyrproject.org/latest/reference/kernel/data_passing/message_queues.html">here</a> for additional information.</p>
-<h2 id="30-sample-solution"><strong>3.0 Sample Solution</strong><a class="headerlink" href="#30-sample-solution" title="Permanent link">#</a></h2>
+<h2 id="30-sample-solution"><strong>3.0 Sample Solution</strong></h2>
 <p>A sample solution is provided under, </p>
 <p><strong>REPO_TOP/tute_soltions/OS-5.2_tute/</strong></p>
 <p>this solution implements the above functionality into a Zephyr application. Feel free to use it and modify it.</p>
 
-  <br>
+  <hr>
+<div class="md-source-file">
+  <small>
     
+      Last update:
+      2022-02-17
+    
+  </small>
+</div>
 
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../OS.5.1-Thread_Sync/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 5.1 Thread Synchronization" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              5.1 Thread Synchronization
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../Connectivity/about/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Overview
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
     
     
       
+      
     
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../../Connectivity/about/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../../Connectivity/about/" class="btn btn-xs btn-link">
-        Overview
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-link">
-        Thread Synchronization
-      </a>
-    </div>
-    
-  </div>
-
-    <br>
+    <a href="https://github.com/thulithwilfred" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
 </div>
-
-<footer class="container-fluid wm-page-content">
-  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+      
+    </div>
+  </div>
 </footer>
-
-</body>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "content.code.annotate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js", "version": 1.0}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      
+    
+  </body>
 </html>

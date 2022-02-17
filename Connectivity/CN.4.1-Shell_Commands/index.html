@@ -1,244 +1,1058 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-  
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
-    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.4.1-Shell_Commands/">
-    <link rel="shortcut icon" href="../../img/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Shell Commands - CSSE4011 Tutorial Docs</title>
-    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
-    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
-    <link href="../../css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/highlight.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
 
-    <script src="../../js/jquery-3.2.1.min.js"></script>
-    <script src="../../js/bootstrap-3.3.7.min.js"></script>
-    <script src="../../js/highlight.pack.js"></script>
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <base target="_top">
-    <script>
-      var base_url = '../..';
-      var is_top_frame = false;
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.4.1-Shell_Commands/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
+    
+    
+      
+        <title>4.1 Shell Commands - CSSE4011 Tutorial Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2b4465f4.min.css">
+      
         
-        var pageToc = [
-          {title: "CSSE4011: Connectivity - Shell Commands", url: "#_top", children: [
-              {title: "1.0 Motivation", url: "#10-motivation" },
-              {title: "1.1 Test Hardware", url: "#11-test-hardware" },
-              {title: "1.2. Prerequisites", url: "#12-prerequisites" },
-              {title: "1.3 Setup", url: "#13-setup" },
-              {title: "2.0 Zephyr Shell Command Implementation", url: "#20-zephyr-shell-command-implementation" },
-              {title: "2.2 Testing", url: "#22-testing" },
-              {title: "3.0 Sample Application", url: "#30-sample-application" },
-          ]},
-        ];
-
-    </script>
-    <script src="../../js/base.js"></script> 
-</head>
-
-<body>
-<script>
-if (is_top_frame) { $('body').addClass('wm-top-page'); }
-</script>
-
-
-
-<div class="container-fluid wm-page-content">
-  <a name="_top"></a>
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
     
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:""}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
+    
+    
+  </head>
+  
+  
     
     
       
     
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#csse4011-connectivity-shell-commands" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
 
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../CN.5-Logging/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../CN.5-Logging/" class="btn btn-xs btn-link">
-        Logging
-      </a>
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CSSE4011 Tutorial Docs" class="md-header__button md-logo" aria-label="CSSE4011 Tutorial Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSSE4011 Tutorial Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4.1 Shell Commands
+            
+          </span>
+        </div>
+      </div>
     </div>
     
-    <div class="wm-article-nav">
-      <a href="../CN.4-Shell/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../CN.4-Shell/" class="btn btn-xs btn-link">
-        Shell
-      </a>
-    </div>
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
     
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    csse4011_zephyr_guides
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CSSE4011 Tutorial Docs" class="md-nav__button md-logo" aria-label="CSSE4011 Tutorial Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CSSE4011 Tutorial Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    csse4011_zephyr_guides
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        Contents
+      </a>
+    </li>
+  
 
     
+      
+      
+      
 
-    <h1 id="csse4011-connectivity-shell-commands">CSSE4011: Connectivity - Shell Commands<a class="headerlink" href="#csse4011-connectivity-shell-commands" title="Permanent link">#</a></h1>
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Operating System
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Operating System" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Operating System
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/about/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/OS.1-Getting_Started/" class="md-nav__link">
+        1.0 Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/OS.2-First_Program/" class="md-nav__link">
+        2.0 First Program
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/OS.2.1-Building_Tips/" class="md-nav__link">
+        2.1 Building Tips
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/OS.2.2-Implementing_Libraries/" class="md-nav__link">
+        2.2 Implementing Libraries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/OS.4-Threading/" class="md-nav__link">
+        4.0 Threading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/OS.5.1-Thread_Sync/" class="md-nav__link">
+        5.1 Thread Synchronization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/OS.5.2-Thread_Communication/" class="md-nav__link">
+        5.2 Thread Communication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Connectivity
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Connectivity" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Connectivity
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CN.1-GPIO/" class="md-nav__link">
+        1.0 GPIO
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CN.2-Sensors/" class="md-nav__link">
+        2.0 Sensors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CN.3-Serial_Console/" class="md-nav__link">
+        3.0 Serial Console
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CN.4-Shell/" class="md-nav__link">
+        4.0 Shell
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          4.1 Shell Commands
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        4.1 Shell Commands
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-motivation" class="md-nav__link">
+    1.0 Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-test-hardware" class="md-nav__link">
+    1.1 Test Hardware
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-prerequisites" class="md-nav__link">
+    1.2. Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-setup" class="md-nav__link">
+    1.3 Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-zephyr-shell-command-implementation" class="md-nav__link">
+    2.0 Zephyr Shell Command Implementation
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Zephyr Shell Command Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-boilerplate" class="md-nav__link">
+    2.1 Boilerplate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-implementing-a-shell-command" class="md-nav__link">
+    2.1 Implementing a Shell Command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-testing" class="md-nav__link">
+    2.2 Testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-sample-application" class="md-nav__link">
+    3.0 Sample Application
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CN.5-Logging/" class="md-nav__link">
+        5.0 Logging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CN.6-Segger_RTT/" class="md-nav__link">
+        6.0 Segger RTT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Boards
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Boards" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Boards
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/about/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.1-Arduino_Sense/" class="md-nav__link">
+        1.0 Arduino Sense BLE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.2-Thingy52/" class="md-nav__link">
+        2.0 Thingy52
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.3-Dongle_NRF52840/" class="md-nav__link">
+        3.0 nRF Dongle
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-motivation" class="md-nav__link">
+    1.0 Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-test-hardware" class="md-nav__link">
+    1.1 Test Hardware
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-prerequisites" class="md-nav__link">
+    1.2. Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-setup" class="md-nav__link">
+    1.3 Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-zephyr-shell-command-implementation" class="md-nav__link">
+    2.0 Zephyr Shell Command Implementation
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Zephyr Shell Command Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-boilerplate" class="md-nav__link">
+    2.1 Boilerplate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-implementing-a-shell-command" class="md-nav__link">
+    2.1 Implementing a Shell Command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-testing" class="md-nav__link">
+    2.2 Testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-sample-application" class="md-nav__link">
+    3.0 Sample Application
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/edit/master/docs/Connectivity/CN.4.1-Shell_Commands.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="csse4011-connectivity-shell-commands">CSSE4011: Connectivity - Shell Commands</h1>
 <p>This tutorial aims to introduce adding shell commands to the Zephyr shell that we explored in  <code>CN.4-Shell</code>.</p>
-<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong></h2>
 <p>To get the most out of an application that implement a shell, it is often useful to add specific functionality. By adding application specific shell commands, specific features of an application can be exposed to a user/developer. </p>
 <p>Typically, a command will <code>hook</code> into a <code>piece of code</code> or a <code>callback function</code> and execute some functionality for that command. For instance, in a embedded application, if the user aims to turn some hardware off, you could issue a shell command to the device to carry this out, or if you wanted to get a reading from a sensor and print it to the shell, you could issue a command to do this. Similar to how in a unix based shell you would issue commands to interact/request services from the OS.</p>
-<h2 id="11-test-hardware">1.1 Test Hardware<a class="headerlink" href="#11-test-hardware" title="Permanent link">#</a></h2>
-<blockquote>
+<h2 id="11-test-hardware">1.1 Test Hardware</h2>
+<ul>
+<li>
 <p>Arduino Sense Board</p>
+</li>
+<li>
 <p>mUSB Cable</p>
-</blockquote>
+</li>
+</ul>
 <p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
-<h2 id="12-prerequisites">1.2. Prerequisites<a class="headerlink" href="#12-prerequisites" title="Permanent link">#</a></h2>
+<h2 id="12-prerequisites">1.2. Prerequisites</h2>
 <p>Ensure that you have completed/understand the following tutorials. </p>
-<blockquote>
-<p>OS.1, OS.2, OS.2.1, BRD.1 and <strong>CN.4-Shell</strong></p>
-</blockquote>
-<h2 id="13-setup">1.3 Setup<a class="headerlink" href="#13-setup" title="Permanent link">#</a></h2>
+<ul>
+<li>OS.1, OS.2, OS.2.1, BRD.1 and <strong>CN.4-Shell</strong></li>
+</ul>
+<h2 id="13-setup">1.3 Setup</h2>
 <p>Connect the Arduino sense board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine). </p>
-<h2 id="20-zephyr-shell-command-implementation"><strong>2.0 Zephyr Shell Command Implementation</strong><a class="headerlink" href="#20-zephyr-shell-command-implementation" title="Permanent link">#</a></h2>
-<h3 id="21-boilerplate"><strong>2.1 Boilerplate</strong><a class="headerlink" href="#21-boilerplate" title="Permanent link">#</a></h3>
+<h2 id="20-zephyr-shell-command-implementation"><strong>2.0 Zephyr Shell Command Implementation</strong></h2>
+<h3 id="21-boilerplate"><strong>2.1 Boilerplate</strong></h3>
 <p>In the previous tutorial <code>(CN.4 - Shell)</code> we set up the Zephyr Shell through USB. We will use that as our boilerplate for this tutorial and add to it the functionality required to implement shell commands.</p>
 <p><em>The following commands assume that you have setup your files/directories following the respective tutorial(s).</em></p>
-<pre><code class="language-shell">cd ~/csse4011/csse4011_repo/apps
-mkdir shell_cmd_sample/
-</code></pre>
-<p>Copy shell sample files (from <code>CN.4 - Shell</code>) into new directory for shell commands</p>
-<pre><code class="language-Shell">cd -R shell_sample/* shell_cmd_sample/
-</code></pre>
-<h3 id="21-implementing-a-shell-command"><strong>2.1 Implementing a Shell Command</strong><a class="headerlink" href="#21-implementing-a-shell-command" title="Permanent link">#</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span> ~/csse4011/csse4011_repo/apps
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>mkdir shell_cmd_sample/
+</code></pre></div>
+Copy shell sample files (from <code>CN.4 - Shell</code>) into new directory for shell commands
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span> -R shell_sample/* shell_cmd_sample/
+</code></pre></div></p>
+<h3 id="21-implementing-a-shell-command"><strong>2.1 Implementing a Shell Command</strong></h3>
 <p>In this tutorial, we will explore using shell commands, to toggle on and off the onboard led. This should give you a general idea of how commands should be implemented/used. For more information on the following see <a href="https://docs.zephyrproject.org/2.7.0/reference/shell/index.html">here</a>.</p>
 <p>Zephyr allows you to create commands that have sub-commands, these can be useful for instance, if you wanted a top level command (<code>root command - level 0</code>) for a particular sub-system/hardware, and then sub-commands (<code>static/dynamic sub-commands - level &gt; 0</code>) that perform unique a function for that system. It can be thought of as a tree of commands.</p>
 <p>Here, we will look at creating a <strong>root command</strong> (led) with <strong>two static commands</strong> (on/off). However, you can refer here [1] for the api guide for more information on other types of commands.</p>
 <p>First, </p>
-<pre><code class="language-shell">cd shell_cmd_sample/
-vim src/main.c
-</code></pre>
-<p>add the shell include</p>
-<pre><code>#include &lt;shell/shell.h&gt;
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span> shell_cmd_sample/
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>vim src/main.c
+</code></pre></div>
+add the shell include
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>#include &lt;shell/shell.h&gt;
+</code></pre></div></p>
 <p>Now we can specify what commands we are going to make, using the Shell API macros <code>SHELL_CMD_REGISTER()</code> and <code>SHELL_STATIC_SUBCMD_SET_CREATE()</code></p>
-<p>Let's first declare some prototype handlers for our commands</p>
-<pre><code class="language-C"> /* Declare command handler prototypes */
- static int cmd_led_ctrl_on(const struct shell *, size_t, char **);
- static int cmd_led_ctrl_off(const struct shell *, size_t, char **);
-</code></pre>
-<p>and let's use the macros to setup our commands.</p>
-<pre><code class="language-C">/* Specify Shell Commands for LED Toggling */
-/* Creating subcommands (level 1 command) array for command &quot;led&quot;. */ 
-SHELL_STATIC_SUBCMD_SET_CREATE(led_ctrl,
-        SHELL_CMD(on, NULL, &quot;Turn led on.&quot;, cmd_led_ctrl_on),
-        SHELL_CMD(off,   NULL, &quot;Turn led off.&quot;, cmd_led_ctrl_off),
-        SHELL_SUBCMD_SET_END
-); 
-
-/* Creating root (level 0) command &quot;led&quot; */
-SHELL_CMD_REGISTER(led, &amp;led_ctrl, &quot;Led Control (On/Off)&quot;, NULL);
-</code></pre>
-<p><code>SHELL_CMD_REGISTER()</code> creates out root level command for <code>led</code>, and <code>SHELL_STATIC_SUBCMD_SET_CREATE()</code>
+<p>Let's first declare some prototype handlers for our commands
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w"> </span><span class="cm">/* Declare command handler prototypes */</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">cmd_led_ctrl_on</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">shell</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">cmd_led_ctrl_off</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">shell</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+and let's use the macros to setup our commands.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cm">/* Specify Shell Commands for LED Toggling */</span><span class="w"></span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cm">/* Creating subcommands (level 1 command) array for command &quot;led&quot;. */</span><span class="w"> </span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">SHELL_STATIC_SUBCMD_SET_CREATE</span><span class="p">(</span><span class="n">led_ctrl</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="n">SHELL_CMD</span><span class="p">(</span><span class="n">on</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Turn led on.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cmd_led_ctrl_on</span><span class="p">),</span><span class="w"></span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="n">SHELL_CMD</span><span class="p">(</span><span class="n">off</span><span class="p">,</span><span class="w">   </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Turn led off.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cmd_led_ctrl_off</span><span class="p">),</span><span class="w"></span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="n">SHELL_SUBCMD_SET_END</span><span class="w"></span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="cm">/* Creating root (level 0) command &quot;led&quot; */</span><span class="w"></span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">SHELL_CMD_REGISTER</span><span class="p">(</span><span class="n">led</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">led_ctrl</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Led Control (On/Off)&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<code>SHELL_CMD_REGISTER()</code> creates out root level command for <code>led</code>, and <code>SHELL_STATIC_SUBCMD_SET_CREATE()</code>
 create the level 1 subcommands for <code>on</code> and <code>off</code>, which are linked to their respective command handlers <code>cmd_led_ctrl_on</code> and <code>cmd_led_ctrl_off</code>. That is, when a user types <code>led off</code>, the <code>cmd_led_ctrl_off</code> is triggered.</p>
 <p>Finally, we can implement the actual handlers. Note, that these don't check if the <code>led-gpio pin</code> has been initialized and assumes it has been pre-configured in <code>main()</code> (if not, <code>gpio_pin_set()</code> will fail). </p>
-<pre><code class="language-C">/* Command Handler for toggling led0 on, note that it assumes
- * the pin has been preconfigured */
-static int cmd_led_ctrl_on(const struct shell *shell, size_t argc,
-                        char **argv)
-{
-        ARG_UNUSED(argc);
-        ARG_UNUSED(argv);
-
-        const struct device *dev = device_get_binding(LED0);
-
-        if (dev == NULL) {
-                return ENODEV;
-        }
-        /* Pin default is Active low (as per FLAGS) */
-        return gpio_pin_set(dev, PIN, (int)0);
-}
-
-/* Command Handler for toggling led0 off, note that it assumes
- * the pin has been preconfigured */
-static int cmd_led_ctrl_off(const struct shell *shell, size_t argc,
-                        char **argv)
-{
-        ARG_UNUSED(argc);
-        ARG_UNUSED(argv);
-
-        const struct device *dev = device_get_binding(LED0);
-
-        if (dev == NULL) {
-                return ENODEV;
-        }
-        /* Pin default is active low */
-        return gpio_pin_set(dev, PIN, (int)1);
-}
-</code></pre>
-<p>Since we copied the boilerplate from <code>CN-4 Shell</code>, make sure to cleanup the <code>while()</code> loop in <code>main()</code> that toggles the gpio, but leave the code that initializes the <code>led-gpio pin</code>. Alternatively, you could make two other subcommands to init/deinit the pin.</p>
-<h2 id="22-testing"><strong>2.2 Testing</strong><a class="headerlink" href="#22-testing" title="Permanent link">#</a></h2>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cm">/* Command Handler for toggling led0 on, note that it assumes</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="cm"> * the pin has been preconfigured */</span><span class="w"></span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">cmd_led_ctrl_on</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">shell</span><span class="w"> </span><span class="o">*</span><span class="n">shell</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">                        </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="n">ARG_UNUSED</span><span class="p">(</span><span class="n">argc</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">        </span><span class="n">ARG_UNUSED</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">device_get_binding</span><span class="p">(</span><span class="n">LED0</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dev</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ENODEV</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">        </span><span class="cm">/* Pin default is Active low (as per FLAGS) */</span><span class="w"></span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">gpio_pin_set</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">PIN</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="cm">/* Command Handler for toggling led0 off, note that it assumes</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="cm"> * the pin has been preconfigured */</span><span class="w"></span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">cmd_led_ctrl_off</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">shell</span><span class="w"> </span><span class="o">*</span><span class="n">shell</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">                        </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">        </span><span class="n">ARG_UNUSED</span><span class="p">(</span><span class="n">argc</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">        </span><span class="n">ARG_UNUSED</span><span class="p">(</span><span class="n">argv</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">device_get_binding</span><span class="p">(</span><span class="n">LED0</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dev</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ENODEV</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="w">        </span><span class="cm">/* Pin default is active low */</span><span class="w"></span>
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">gpio_pin_set</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">PIN</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+Since we copied the boilerplate from <code>CN-4 Shell</code>, make sure to cleanup the <code>while()</code> loop in <code>main()</code> that toggles the gpio, but leave the code that initializes the <code>led-gpio pin</code>. Alternatively, you could make two other subcommands to init/deinit the pin.</p>
+<h2 id="22-testing"><strong>2.2 Testing</strong></h2>
 <p>Once you have built and flashed the application, attach <code>screen</code> to the device. In the shell, you can press <code>tab</code> to show available commands. You should be able to see one that says <code>led</code> now. Try <code>led --help</code> to see what it can do, then, <code>led on</code>, this should turn the led on.</p>
-<pre><code>[00:00:00.234,588] &lt;inf&gt; usb_cdc_acm: Device resumed
-[00:00:00.429,962] &lt;inf&gt; usb_cdc_acm: Device configured
-CSSE4011:~$
-  clear              device             devmem             help
-  history            hwinfo             kernel             led
-  log                nrf_clock_control  resize             shell
-CSSE4011:~$led --help
-led - Led Control (On/Off)
-Subcommands:
-  on   :Turn led on.
-  off  :Turn led off.
-CSSE4011:~$
-CSSE4011:~$led on
-CSSE4011:~$led off
-</code></pre>
-<h2 id="30-sample-application"><strong>3.0 Sample Application</strong><a class="headerlink" href="#30-sample-application" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>[00:00:00.234,588] &lt;inf&gt; usb_cdc_acm: Device resumed
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>[00:00:00.429,962] &lt;inf&gt; usb_cdc_acm: Device configured
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>CSSE4011:~$
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  clear              device             devmem             help
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  history            hwinfo             kernel             led
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  log                nrf_clock_control  resize             shell
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>CSSE4011:~$led --help
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>led - Led Control (On/Off)
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>Subcommands:
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  on   :Turn led on.
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  off  :Turn led off.
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>CSSE4011:~$
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>CSSE4011:~$led on
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>CSSE4011:~$led off
+</code></pre></div>
+<h2 id="30-sample-application"><strong>3.0 Sample Application</strong></h2>
 <p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell commands to toggle the onboard led by flashing it to the Arduino Sense Board.</p>
 <p>Sample is located in <strong>REPO_TOP/tute_solutions/shell_cmd_sample/</strong></p>
 
-  <br>
+  <hr>
+<div class="md-source-file">
+  <small>
     
+      Last update:
+      2022-02-17
+    
+  </small>
+</div>
 
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../CN.4-Shell/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 4.0 Shell" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              4.0 Shell
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../CN.5-Logging/" class="md-footer__link md-footer__link--next" aria-label="Next: 5.0 Logging" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              5.0 Logging
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
     
     
       
+      
     
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../CN.5-Logging/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../CN.5-Logging/" class="btn btn-xs btn-link">
-        Logging
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../CN.4-Shell/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../CN.4-Shell/" class="btn btn-xs btn-link">
-        Shell
-      </a>
-    </div>
-    
-  </div>
-
-    <br>
+    <a href="https://github.com/thulithwilfred" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
 </div>
-
-<footer class="container-fluid wm-page-content">
-  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+      
+    </div>
+  </div>
 </footer>
-
-</body>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "content.code.annotate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js", "version": 1.0}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      
+    
+  </body>
 </html>
