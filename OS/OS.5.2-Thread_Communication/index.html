@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.5.2-Thread_Communication/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Thread Communication - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Tute 5.2 - Thread Communication", url: "#_top", children: [
+              {title: "1.0 Motivation", url: "#10-motivation" },
+              {title: "2.0 Thread Communication in Zephyr", url: "#20-thread-communication-in-zephyr" },
+              {title: "2.3 Implementing Message Queues", url: "#23-implementing-message-queues" },
+              {title: "3.0 Sample Solution", url: "#30-sample-solution" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../Connectivity/about/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../Connectivity/about/" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-link">
+        Thread Synchronization
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-tute-52-thread-communication">CSSE4011: Tute 5.2 - Thread Communication<a class="headerlink" href="#csse4011-tute-52-thread-communication" title="Permanent link">#</a></h1>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<p>The following tutorial aims to introduce inter-thread communication (ITC) and useful communication primitives within Zephyr RTOS. </p>
+<h3 id="11-inter-thread-communication-itc"><strong>1.1 Inter-Thread Communication (ITC)</strong><a class="headerlink" href="#11-inter-thread-communication-itc" title="Permanent link">#</a></h3>
+<p>Similar to inter-process-communications (IPC) in typical operating systems, ITC allows one thead to share data between another thread(s). Where mutexs and semaphores are typically used for mutual exclusion and signalling, data passing/ITC allows for threads to communicate beyond primitive signaling. </p>
+<h3 id="12-prerequisites"><strong>1.2. Prerequisites</strong><a class="headerlink" href="#12-prerequisites" title="Permanent link">#</a></h3>
+<p>Ensure that you have completed/understand the following tutorials. </p>
+<blockquote>
+<p>OS.1, OS.2, OS.2.1, BRD.1 and CN.3-Serial_Console or CN.5-Shell (for printk() usage)</p>
+</blockquote>
+<h2 id="20-thread-communication-in-zephyr"><strong>2.0 Thread Communication in Zephyr</strong><a class="headerlink" href="#20-thread-communication-in-zephyr" title="Permanent link">#</a></h2>
+<h3 id="21-data-passing-in-zephyr"><strong>2.1 Data Passing in Zephyr</strong><a class="headerlink" href="#21-data-passing-in-zephyr" title="Permanent link">#</a></h3>
+<p>Zephyr RTOS (as of V2.7.XX) offers a few different options for ITC. To name a few,
+* First in first out buffers (FIFO)
+* Last in first out buffer (LIFO)
+* Stacks
+*  Message queues, Mailboxes and Pipes</p>
+<p>Some of these are ideal for particular use cases, to determine which ITC protocol might best fit an application, refer to the <em>Data Passing</em> <a href="https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing">guidelines table</a>. More information on the implementation of each primitive can be found in the api guides (links below the <a href="https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing">table</a>).</p>
+<h3 id="22-general-message-queues"><strong>2.2 General Message Queues</strong><a class="headerlink" href="#22-general-message-queues" title="Permanent link">#</a></h3>
+<p>In this tutorial, we will focus on implementing a message queues between threads. As they can be typically be used for a wide range of applications, it is a good starting point for learning ITC in Zephyr. The api guide can be found <a href="https://docs.zephyrproject.org/latest/reference/kernel/data_passing/message_queues.html">here</a>.</p>
+<p>What is a message queue?</p>
+<ul>
+<li>"<em>A message queue is a kernel object that implements a simple message queue, allowing threads and ISRs to </em><em>asynchronously</em><em> send and receive fixed-size data items</em>."</li>
+</ul>
+<h2 id="23-implementing-message-queues"><strong>2.3 Implementing Message Queues</strong><a class="headerlink" href="#23-implementing-message-queues" title="Permanent link">#</a></h2>
+<p>Start by making a basic Zephyr application, you may use a copy of the sample solution provided in CN.4-Shell (<em>shell_example</em>) and use this as a boilerplate. The provided solution has USB-Shell and USB-Printk enabled. </p>
+<p>Start by editing the source file.</p>
+<pre><code class="language-shell">vim src/main.c
+</code></pre>
+<p>The following macro allows for the definition of a message queue in Zephyr, add this to your source file. </p>
+<pre><code class="language-C">K_MSGQ_DEFINE(my_msgq, sizeof(struct data_packet), 10, 4);
+</code></pre>
+<p>Where, a message queue named <em>my_msgq</em> is initialized, that queues <em>10</em> struct <em>data_packet</em> items, where the structure is aligned to an address that is divisible by 4 (4-byte aligned). </p>
+<p>To make this work, we must also define a struct <em>data_packet</em> globally (before macro usage).</p>
+<pre><code class="language-C">struct data_packet {
+        uint16_t preamble;
+        char string[32];
+};
+</code></pre>
+<p>In our main(), we can add some data to our struct</p>
+<pre><code class="language-C">/* MSGQ Packet */
+struct data_packet packet;
+packet.preamble = 0xAA;
+snprintk(packet.string, sizeof(packet.string), &quot;Colonels Recipe.exe\n&quot;);
+</code></pre>
+<p>and lets put this packet on our queue, (add this to the while loop in main())</p>
+<pre><code class="language-C">/* Send Messages to consumers */
+if (k_msgq_put(&amp;my_msgq, &amp;packet, K_NO_WAIT) != 0) {
+        /* Queue is full, we could purge it, a loop can be
+        * implemented here to keep trying after a purge.
+        */
+        k_msgq_purge(&amp;my_msgq);
+     }
+</code></pre>
+<p>Now, we will add another thread (alongside main), so we can test the ITC between two threads using the message queue. Note: Make sure to give this thread sufficient stack size as <strong>message queues are passed by copy</strong>. </p>
+<pre><code class="language-C">/* Define Consumer Thread */
+void consumer_thread(void);
+#define STACK_SIZE 1024
+#define THREAD_PRIOR 3
+#define THREAD_DELAY 0
+#define OPTIONS 0
+K_THREAD_DEFINE(consumer_thread_tid, STACK_SIZE, consumer_thread, NULL, NULL, NULL, THREAD_PRIOR, OPTIONS, THREAD_DELAY);
+
+/*
+ * Consumer thread for testing message queue
+ */
+void
+consumer_thread(void)
+{
+        struct data_packet data;
+
+        while(1) {
+                if (k_msgq_get(&amp;my_msgq, &amp;data, K_FOREVER) == 0) {
+                        if (data.preamble == 0xAA)
+                                printk(&quot;MSG Received: %s\n&quot;, data.string);
+                        memset(&amp;data, 0, sizeof(struct data_packet));
+                }
+        }
+}
+</code></pre>
+<h3 id="24-testing"><strong>2.4 Testing</strong><a class="headerlink" href="#24-testing" title="Permanent link">#</a></h3>
+<p>This application can now be built and flashed using:</p>
+<pre><code class="language-shell">west  build -p auto -b arduino_nano_33_ble
+west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
+</code></pre>
+<p>As per previous guides on Shell and Console implementation, attach a session to screen. </p>
+<pre><code class="language-shell">sudo screen /dev/ttyACM0
+</code></pre>
+<pre><code>[00:00:00.005,340] &lt;inf&gt; usb_cdc_acm: Device suspended
+[00:00:00.165,863] &lt;inf&gt; usb_cdc_acm: Device resumed
+[00:00:00.432,922] &lt;inf&gt; usb_cdc_acm: Device configured
+MSG Received: Colonels Recipe.exe
+
+MSG Received: Colonels Recipe.exe
+
+MSG Received: Colonels Recipe.exe
+
+MSG Received: Colonels Recipe.exe
+
+MSG Received: Colonels Recipe.exe
+
+CSSE4011:~$
+</code></pre>
+<h3 id="25-additional-notes"><strong>2.5 Additional Notes</strong><a class="headerlink" href="#25-additional-notes" title="Permanent link">#</a></h3>
+<p>This tutorial is a guide for implementing basic message queues in Zephyr RTOS, it is <strong>strongly suggested</strong> that you refer to the Zephyr API guides <a href="https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing">here</a> and <a href="https://docs.zephyrproject.org/latest/reference/kernel/data_passing/message_queues.html">here</a> for additional information.</p>
+<h2 id="30-sample-solution"><strong>3.0 Sample Solution</strong><a class="headerlink" href="#30-sample-solution" title="Permanent link">#</a></h2>
+<p>A sample solution is provided under, </p>
+<p><strong>REPO_TOP/tute_soltions/OS-5.2_tute/</strong></p>
+<p>this solution implements the above functionality into a Zephyr application. Feel free to use it and modify it.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../Connectivity/about/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../Connectivity/about/" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-link">
+        Thread Synchronization
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

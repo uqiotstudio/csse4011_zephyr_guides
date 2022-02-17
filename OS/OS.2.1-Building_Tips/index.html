@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.2.1-Building_Tips/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Building Tips - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Tute 2.2 - Application Building Tips", url: "#_top", children: [
+              {title: "1.0 Motivation", url: "#10-motivation" },
+              {title: "2.0 Setting Build Options", url: "#20-setting-build-options" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.2.2-Implementing_Libraries/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.2.2-Implementing_Libraries/" class="btn btn-xs btn-link">
+        Implementing Libraries
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.2-First_Program/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.2-First_Program/" class="btn btn-xs btn-link">
+        First Program
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-tute-22-application-building-tips">CSSE4011: Tute 2.2 - Application Building Tips<a class="headerlink" href="#csse4011-tute-22-application-building-tips" title="Permanent link">#</a></h1>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<p>This tutorial will focus on modifications to the CMakeLists file to streamline the application development process. </p>
+<h2 id="20-setting-build-options"><strong>2.0 Setting Build Options</strong><a class="headerlink" href="#20-setting-build-options" title="Permanent link">#</a></h2>
+<p>Note that these should be added to the top of the CMakeLists file. Additionally, there are other ways to include config files and devicetree overlays. Refer to a <a href="https://docs.zephyrproject.org/latest/application/index.html">application development</a> and <a href="https://docs.zephyrproject.org/latest/guides/dts/howtos.html#set-devicetree-overlays">device tree</a> guides for more.</p>
+<h3 id="21-boards"><strong>2.1 Boards</strong><a class="headerlink" href="#21-boards" title="Permanent link">#</a></h3>
+<p>A board to develop can be specified within the top level CMakeLists file as below, the particular name for the board can be found under <em>Zephyr Supported Boards -&gt; boardname</em> or <a href="https://docs.zephyrproject.org/latest/boards/index.html">here</a>.</p>
+<p>```
+ set(BOARD board_name)</p>
+<p>set(BOARD particle_argon)
+ ```</p>
+<p>With this set, west build can now omit the '-b board_name' option. By just using </p>
+<pre><code>west build 
+</code></pre>
+<p>an application can be created for the particle_argon.</p>
+<h3 id="22-runners"><strong>2.2 Runners</strong><a class="headerlink" href="#22-runners" title="Permanent link">#</a></h3>
+<p>The flash runner for the board can be set using the below, within the CMakeLists file.</p>
+<pre><code>set(BOARD_FLASH_RUNNER runner)
+
+set(BOARD_FLASH_RUNNER jlink)
+</code></pre>
+<p>This allows for west flash to be ran with about specifying the '-r runner' when invoked. </p>
+<pre><code>west flash
+</code></pre>
+<h3 id="23-config-files"><strong>2.3 Config Files</strong><a class="headerlink" href="#23-config-files" title="Permanent link">#</a></h3>
+<p>Config option files (ending with .conf), can be added to the CMakeLists file using,</p>
+<pre><code>set(CONF_FILE files.conf)
+
+set(CONF_FILE general_config.conf usb_config.conf uart_shell_config.conf)
+</code></pre>
+<h3 id="24-devicetree-overlays"><strong>2.4 Devicetree overlays</strong><a class="headerlink" href="#24-devicetree-overlays" title="Permanent link">#</a></h3>
+<p>Devicetree overlay files can be added to the build system using,</p>
+<pre><code>set(DTC_OVERLAY_FILE overlay.dtsi)
+
+set(DTC_OVERLAY_FILE dts/spi3.dtsi)
+</code></pre>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.2.2-Implementing_Libraries/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.2.2-Implementing_Libraries/" class="btn btn-xs btn-link">
+        Implementing Libraries
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.2-First_Program/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.2-First_Program/" class="btn btn-xs btn-link">
+        First Program
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

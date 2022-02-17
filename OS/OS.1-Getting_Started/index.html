@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.1-Getting_Started/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Getting Started - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Tute 1 - Getting Started with Zephyr RTOS", url: "#_top", children: [
+              {title: "1.0 Zephyr RTOS: Overview", url: "#10-zephyr-rtos-overview" },
+              {title: "1.1 Zephyr Kernel Overview", url: "#11-zephyr-kernel-overview" },
+              {title: "1.2 Zephyr West Meta-Tool", url: "#12-zephyr-west-meta-tool" },
+              {title: "1.3 Zephyr Documentation", url: "#13-zephyr-documentation" },
+              {title: "2.0 Installing Zephyr RTOS", url: "#20-installing-zephyr-rtos" },
+              {title: "3.0 Get Zephyr and Install Python dependencies", url: "#30-get-zephyr-and-install-python-dependencies" },
+              {title: "4.0 Installing the toolchains", url: "#40-installing-the-toolchains" },
+              {title: "5.0 Build a Sample Program (Blinky)", url: "#50-build-a-sample-program-blinky" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.2-First_Program/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.2-First_Program/" class="btn btn-xs btn-link">
+        First Program
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../about/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../about/" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-tute-1-getting-started-with-zephyr-rtos">CSSE4011: Tute 1 - Getting Started with Zephyr RTOS<a class="headerlink" href="#csse4011-tute-1-getting-started-with-zephyr-rtos" title="Permanent link">#</a></h1>
+<h2 id="10-zephyr-rtos-overview"><strong>1.0 Zephyr RTOS: Overview</strong><a class="headerlink" href="#10-zephyr-rtos-overview" title="Permanent link">#</a></h2>
+<p>Zephyr Real-Time Operating System (RTOS) managed by the Linux foundation, is designed for connected and resource constrained embedded devices. Unlike many other real-time operating systems (like free-RTOS), Zephyr is more than just a kernel, it is a software eco-system. Zephyr integrates a broad range of functionality such as:</p>
+<ol>
+<li>Bluetooth</li>
+<li>LoRaWan</li>
+<li>USB / Serial Console / Shell(CLI)</li>
+<li>SPI/I2C/UART</li>
+<li>Flash Drivers</li>
+<li>Filesystems</li>
+</ol>
+<p>and more... Depending on what particular feature your application might require, Zephyr allows you to build a program using only the necessary functionality (i.e BLE), this can optimize the overall footprint of binary. This is done using config file(s) that we will cover in the coming tutorials. </p>
+<h2 id="11-zephyr-kernel-overview"><strong>1.1 Zephyr Kernel Overview</strong><a class="headerlink" href="#11-zephyr-kernel-overview" title="Permanent link">#</a></h2>
+<p>The Zephyr kernel is similar to that of free-RTOS at a high level, in that it is primarily concerned with task-scheduling, inter-task communication and synchronization. </p>
+<ol>
+<li>Zephyr offers a pre-emptive scheduler, that is, the code context can change at anytime. </li>
+<li>Thread based, where 'threads' mean the same thing as a 'task' in free-RTOS. </li>
+<li>It is <strong>'Soft'</strong> real-time provided by system ticks</li>
+</ol>
+<h2 id="12-zephyr-west-meta-tool"><strong>1.2 Zephyr West Meta-Tool</strong><a class="headerlink" href="#12-zephyr-west-meta-tool" title="Permanent link">#</a></h2>
+<p>Zephyr includes a command line tool named west. This tool provides a multiple repository management system, and Zephyr uses west to provide conveniences for building, flashing, debugging and cleaning applications. For example, to build a program you could use, </p>
+<pre><code class="language-shell">west build
+</code></pre>
+<p>This will look at predefined build configuration settings and build an application as specified. The west meta-tool can be used to perform many other functions, see <a href="https://docs.zephyrproject.org/latest/guides/west/index.html">here</a> for a detailed breakdown of it's features. In this course, you will be using west to build, flash and maintain your workspaces. </p>
+<h2 id="13-zephyr-documentation"><strong>1.3 Zephyr Documentation</strong><a class="headerlink" href="#13-zephyr-documentation" title="Permanent link">#</a></h2>
+<p>The Zephyr documentation is well written and contains all the intricate details about Zephyr and it's features. Throughout this course and application development, you will need to refer back to these documentation to understand;</p>
+<ol>
+<li><a href="https://docs.zephyrproject.org/latest/guides/build/index.html">The Build and Configuration Systems</a>                            </li>
+<li><a href="https://docs.zephyrproject.org/latest/guides/dts/intro.html">Device Tree (A way of describing hardware config to the OS)</a>      </li>
+<li><a href="https://docs.zephyrproject.org/latest/application/index.html">Application Development (App config options/Kernel config)</a></li>
+<li><a href="https://docs.zephyrproject.org/latest/application/index.html#">API Usage</a>                                                        </li>
+<li><a href="https://docs.zephyrproject.org/latest/guides/build/kconfig/menuconfig.html">Using an Interactive Kconfig interfaces (Optional)</a>               </li>
+</ol>
+<p>Take some time to read through these documents to get an idea of how Zephyr is implemented. This will be useful later when you are required to implement advanced features using Zephyr. </p>
+<h2 id="20-installing-zephyr-rtos"><strong>2.0 Installing Zephyr RTOS</strong><a class="headerlink" href="#20-installing-zephyr-rtos" title="Permanent link">#</a></h2>
+<p>The following guide is made in reference to the <a href="https://docs.zephyrproject.org/latest/getting_started/index.html">Zephyr "Getting Started Guide" documentation</a>, and is intended to be used on a Debian based linux distribution with the <strong>"apt"</strong> (package manager installed). </p>
+<p>First update the system and any installed packages on your VM</p>
+<pre><code class="language-shell">sudo apt update 
+sudo apt full-upgrade
+</code></pre>
+<p>Reboot (If this was a fresh OS install, typically kernel is upgraded)</p>
+<pre><code class="language-shell">sudo reboot
+</code></pre>
+<p>Update sources list by adding the Kitware APT repo (contains cmake etc...)</p>
+<pre><code class="language-shell">cd ~  
+
+wget https://apt.kitware.com/kitware-archive.sh
+sudo bash kitware-archive.sh
+sudo rm bash kitware-archive.sh                                   - Remove script
+</code></pre>
+<p>Install cmake, python3 and dtc (device tree compiler)</p>
+<pre><code class="language-shell">sudo apt install --no-install-recommends git cmake ninja-build gperf \
+        ccache dfu-util device-tree-compiler wget \
+        python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
+        make gcc gcc-multilib g++-multilib libsdl2-dev
+</code></pre>
+<p>Verify dependencies are installed before continuing</p>
+<pre><code class="language-shell">cmake --version
+python3 --version
+dtc --version
+</code></pre>
+<h2 id="30-get-zephyr-and-install-python-dependencies"><strong>3.0 Get Zephyr and Install Python dependencies</strong><a class="headerlink" href="#30-get-zephyr-and-install-python-dependencies" title="Permanent link">#</a></h2>
+<p>Install West (Zephyr Meta-tool)</p>
+<pre><code class="language-shell">pip3 install --user -U west
+
+echo 'export PATH=~/.local/bin:&quot;$PATH&quot;' &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<p>Setup Zephyr Folder</p>
+<pre><code class="language-shell">cd /home/user
+mkdir csse4011/
+cd csse4011/
+
+west init -m https://github.com/zephyrproject-rtos/zephyr --mr v2.7.0 zephyrproject 
+</code></pre>
+<p>or </p>
+<pre><code class="language-shell">west init zephyrproject/               - Latest version of Zephyr (the development tree, might be unstable)
+</code></pre>
+<p>Get Zephyr Source Code (Gets ALL of the source)</p>
+<pre><code class="language-shell">cd ~/zephyrproject
+west update                                 - Might take awhile 
+</code></pre>
+<p>Export a Zephyr CMake package. This allows CMake to automatically load boilerplate code required for building Zephyr applications.</p>
+<pre><code class="language-shell">west zephyr-export
+</code></pre>
+<p>Zephyr’s scripts/requirements.txt file declares additional Python dependencies. Install them with pip3.</p>
+<pre><code class="language-shell">pip3 install --user -r ~/csse4011/zephyrproject/zephyr/scripts/requirements.txt
+</code></pre>
+<h2 id="40-installing-the-toolchains"><strong>4.0 Installing the toolchains</strong><a class="headerlink" href="#40-installing-the-toolchains" title="Permanent link">#</a></h2>
+<p>This tutorial will focus on installing the Zephyr SDK. You may also use 3rd party toolchains, however, for this course, the SDK will be sufficient. Note that Zephyr SDK is not available of Windows or MacOs. You will need to install a 3rd party toolchain, see <a href="https://docs.zephyrproject.org/latest/getting_started/toolchain_3rd_party_x_compilers.html">here</a>.</p>
+<p>Download the Zephyr SDK installer</p>
+<pre><code class="language-shell">cd ~
+
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.13.2/zephyr-sdk-0.13.2-linux-x86_64-setup.run
+</code></pre>
+<p>Install the SDK to /opt/ , see <a href="https://docs.zephyrproject.org/latest/getting_started/index.html">here</a> for other potential installation locations</p>
+<pre><code class="language-shell">chmod +x zephyr-sdk-0.13.2-linux-x86_64-setup.run
+
+sudo ./zephyr-sdk-0.13.2-linux-x86_64-setup.run -- -d /opt/zephyr-sdk-0.13.2
+</code></pre>
+<p>Remove SDK Installer (Optional)</p>
+<pre><code class="language-shell">cd ~
+rm zephyr-sdk-0.13.2-linux-x86_64-setup.run
+</code></pre>
+<p>Set udev rules, which allow you to flash most Zephyr boards as a regular user</p>
+<pre><code class="language-shell">sudo cp /opt/zephyr-sdk-0.13.2/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d
+
+sudo udevadm control --reload
+</code></pre>
+<h2 id="50-build-a-sample-program-blinky"><strong>5.0 Build a Sample Program (Blinky)</strong><a class="headerlink" href="#50-build-a-sample-program-blinky" title="Permanent link">#</a></h2>
+<p>If the installation was successful, we should now be able to build a basic blinky program. In the following command, the '-p auto' option automatically cleans byproducts from a previous build if necessary, which is useful if you try building another sample.</p>
+<p>The '-b' option specifies a board to build for, in this case the particle_boron, followed by the path to source.</p>
+<pre><code class="language-shell">cd ~/zephyrproject/zephyr
+
+west build -p auto -b particle_argon samples/basic/blinky
+</code></pre>
+<p>Flash the sample program. Make a sure a 'runner' is connected. You will be given a Segger J-Link device to be used with the Particle Argon.</p>
+<pre><code class="language-shell">west flash -r jlink
+</code></pre>
+<p>Option '-r' specifies to flash using JLink, west is capable of tapping into different runners for flashing your devices, later we will explore how to specify runners in the CMakeLists file. </p>
+<p>If flashing fails, a runner may need to be installed. When using a Segger J-Link Device. Download and install the following <a href="https://www.segger.com/downloads/jlink/">JLink Software</a>. Under 'J-Link Software and Documentation Pack', download the 'Linux - 64-bit DEB Installer'. Run the installer and install JLink software.</p>
+<p>Installation can be verified by running the following command from a terminal</p>
+<pre><code class="language-shell">JLinkExe
+exit 
+</code></pre>
+<p>Additional information for setting up other runners can be found <a href="https://docs.zephyrproject.org/latest/guides/west/build-flash-debug.html">here</a></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.2-First_Program/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.2-First_Program/" class="btn btn-xs btn-link">
+        First Program
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../about/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../about/" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

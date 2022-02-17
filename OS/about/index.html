@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/about/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Overview - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Zephyr RTOS - Guides", url: "#_top", children: [
+              {title: "Summary", url: "#summary" },
+              {title: "Topic Brief", url: "#topic-brief" },
+              {title: "Notes:", url: "#notes" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.1-Getting_Started/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.1-Getting_Started/" class="btn btn-xs btn-link">
+        Getting Started
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../about/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../about/" class="btn btn-xs btn-link">
+        Contents
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="zephyr-rtos-guides">Zephyr RTOS - Guides<a class="headerlink" href="#zephyr-rtos-guides" title="Permanent link">#</a></h1>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">#</a></h2>
+<p>The following set of tutorials are intended to help students get setup with Zephyr RTOS on their newly setup virtual machines (Debian based), and to get a basic application to compile. </p>
+<p>These tutorials are intended to be <strong>attempted in order</strong>, particularly the first few.</p>
+<h2 id="topic-brief">Topic Brief<a class="headerlink" href="#topic-brief" title="Permanent link">#</a></h2>
+<ul>
+<li>OS.1 - Getting Started <ul>
+<li>Cloning and setting up Zephyr RTOS (installing toolchains and other required packages), on Debian/Ubuntu.</li>
+<li>Building and flashing sample blinky app</li>
+</ul>
+</li>
+<li>OS.2 - First Program<ul>
+<li>Setting up and building a Zephyr application (outside Zephyr source directory)</li>
+<li>Setting up app working directories</li>
+</ul>
+</li>
+<li>OS.2.1 - Building Tips<ul>
+<li>Basics of the build system</li>
+<li>Tips to customize build system</li>
+<li>Including config files</li>
+</ul>
+</li>
+<li>OS.2.2 - Implementing Libraries<ul>
+<li>Library directory structures</li>
+<li>Adding library to app build system</li>
+</ul>
+</li>
+<li>OS.4 - Threading<ul>
+<li>Introduction to threads</li>
+<li>Thread implementation in Zephyr RTOS</li>
+</ul>
+</li>
+<li>OS.5.1 - Thread Synchronization<ul>
+<li>Introduction to thread synchronization</li>
+<li>Semphore, Mutex and Condition Variables implementation</li>
+</ul>
+</li>
+<li>OS.5.2 - Thread Communication (ITC)<ul>
+<li>Introduction to inter-thread-communication (ITC)</li>
+<li>Basic communication primitives</li>
+<li>Implementation of Zephyr message queues.</li>
+</ul>
+</li>
+</ul>
+<h2 id="notes">Notes:<a class="headerlink" href="#notes" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>The following tutorials were created with <strong>reference to Zephyr RTOS V2.7.XX</strong>. </p>
+</li>
+<li>
+<p>Through these guide, the reference to the environment variable <strong><code>(REPO_TOP)</code></strong> refers to the top level directory of within tutedocs. </p>
+</li>
+</ul>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.1-Getting_Started/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.1-Getting_Started/" class="btn btn-xs btn-link">
+        Getting Started
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../about/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../about/" class="btn btn-xs btn-link">
+        Contents
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

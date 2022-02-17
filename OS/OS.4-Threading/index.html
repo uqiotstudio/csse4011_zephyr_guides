@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.4-Threading/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Threading - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Tute 4 - Threading in Zephyr", url: "#_top", children: [
+              {title: "1.0 Motivation", url: "#10-motivation" },
+              {title: "1.1 Summary of threads", url: "#11-summary-of-threads" },
+              {title: "2.0 Threads in Zephyr", url: "#20-threads-in-zephyr" },
+              {title: "2.1 Using threads in Zephyr RTOS", url: "#21-using-threads-in-zephyr-rtos" },
+              {title: "2.2 Thread Creation in Zephyr RTOS", url: "#22-thread-creation-in-zephyr-rtos" },
+              {title: "3.0 Tutorial Question:", url: "#30-tutorial-question" },
+              {title: "3.1 Sample Solution", url: "#31-sample-solution" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-link">
+        Thread Synchronization
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.2.2-Implementing_Libraries/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.2.2-Implementing_Libraries/" class="btn btn-xs btn-link">
+        Implementing Libraries
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-tute-4-threading-in-zephyr">CSSE4011: Tute 4 - Threading in Zephyr<a class="headerlink" href="#csse4011-tute-4-threading-in-zephyr" title="Permanent link">#</a></h1>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<p>In this tutorial, we focus on learning the use of threads in Zephyr RTOS. The use of threads is to implement an application that can 'multi-task'.</p>
+<h2 id="11-summary-of-threads"><strong>1.1 Summary of threads</strong><a class="headerlink" href="#11-summary-of-threads" title="Permanent link">#</a></h2>
+<p>Threads are typically created with an appropriate level of priority based on their task within the application, and also an appropriate stack size. When a thread is interrupted and switched out for another thread (code context changed), this is know as a context switch. Typically, based on thread synchronization implementation/priorities, the kernel will perform a context switch between threads, allowing for other threads to perform their duties. On a micro-controller unit (MCU), this mimics 'multi-tasking' within a program.</p>
+<p>Example, in an IoT based application, where an application may need to maintain a network, communicate and collect data from hardware sensors, maintain a device power profile. Threads allow an application to maintain multiple 'threads' of execution with different contexts.</p>
+<h2 id="20-threads-in-zephyr"><strong>2.0 Threads in Zephyr</strong><a class="headerlink" href="#20-threads-in-zephyr" title="Permanent link">#</a></h2>
+<p>In Zephyr [1], a thread is a kernel object that is used for application processing that is too lengthy or too complex to be performed by an interrupt service routine (ISR). Any number of threads can be defined by an application (limited only by available RAM). Each thread is referenced by a thread id that is assigned when the thread is spawned. Additionally, each thread is allocated a specific priority and a stack size at creation (see <a href="https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html">here</a> for more details).</p>
+<h2 id="21-using-threads-in-zephyr-rtos"><strong>2.1 Using threads in Zephyr RTOS</strong><a class="headerlink" href="#21-using-threads-in-zephyr-rtos" title="Permanent link">#</a></h2>
+<p>There are two ways in which a threads can be created in Zephyr, compile-time and at run-time. An application that has fixed functionality, can be solely implemented with compile-time threads. When compile-time thread is defined, it starts immediately as the program begins. Note, that there is not inherent diffrence between compile-time and run-time threads, other than the way in which they are created.</p>
+<p>If an application requires a thread to be created at run-time, a run-time thread can be created, this process is similar to how threads are created in freeRTOS. </p>
+<h2 id="22-thread-creation-in-zephyr-rtos"><strong>2.2 Thread Creation in Zephyr RTOS</strong><a class="headerlink" href="#22-thread-creation-in-zephyr-rtos" title="Permanent link">#</a></h2>
+<p>NOTE: It is strongly recommended that you read the <a href="https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html">Zephyr thread API</a>, as it shows you the intricate details and correct usage of the API for additional features.</p>
+<h3 id="221-compile-time-threads"><strong>2.2.1 Compile-Time Threads</strong><a class="headerlink" href="#221-compile-time-threads" title="Permanent link">#</a></h3>
+<p>A compile-time thread in Zephyr is created by the following macro.</p>
+<pre><code>K_THREAD_DEFINE(name, stack_size, entry, p1, p2, p3, prio, options, delay)
+</code></pre>
+<p>The below snippet shows how a compile-time thread can be setup. Refer to <a href="https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html">Zephyr Thread API</a> for more details.</p>
+<pre><code class="language-C">#define MY_STACK_SIZE 500
+#define MY_PRIORITY 5
+
+void my_entry_point(void *, void *, void *);
+
+K_THREAD_DEFINE(my_tid, MY_STACK_SIZE,
+                my_entry_point, NULL, NULL, NULL,
+                MY_PRIORITY, 0, 0);
+
+
+/* A thread, that does some work */
+void
+my_entry_point(void *a, void *b, void *c)
+{
+    while(1) {
+        /*
+         * do some work
+         */
+        k_msleep(1000);
+    }
+}
+</code></pre>
+<h3 id="222-run-time-threads"><strong>2.2.2 Run-Time Threads</strong><a class="headerlink" href="#222-run-time-threads" title="Permanent link">#</a></h3>
+<p>Run-time threads in Zephyr can be created as seen below. This code performs the same fundamental actions as compile-time thread. However, it is created at run-time. </p>
+<pre><code class="language-C">#define MY_STACK_SIZE 500
+#define MY_PRIORITY 5
+
+void my_entry_point(void *, void *, void *);
+
+K_THREAD_STACK_DEFINE(my_stack_area, MY_STACK_SIZE);
+struct k_thread my_thread_data;
+
+/* Application entry point */
+int
+main(void) {
+
+    /* Spawn new thread at run-time */
+    k_tid_t my_tid = k_thread_create(&amp;my_thread_data, my_stack_area,
+                                 K_THREAD_STACK_SIZEOF(my_stack_area),
+                                 my_entry_point,
+                                 NULL, NULL, NULL,
+                                 MY_PRIORITY, 0, K_NO_WAIT);
+
+    return 0;
+}
+
+
+/* A thread, that does some work */
+void
+my_entry_point(void *a, void *b, void *c)
+{
+    while(1) {
+        /*
+         * do some work
+         */
+        k_msleep(1000);
+    }
+}
+</code></pre>
+<h3 id="223-thread-priorities"><strong>2.2.3 Thread Priorities</strong><a class="headerlink" href="#223-thread-priorities" title="Permanent link">#</a></h3>
+<p>In Zephyr RTOS, a thread’s priority is an integer value, and can be either negative or non-negative. Numerically lower priorities takes precedence over numerically higher values. For example, the scheduler gives thread A of priority 4 higher priority over thread B of priority 7; likewise thread C of priority -2 has higher priority than both thread A and thread B <a href="https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html">see here</a>.</p>
+<p>Priorities for threads should be chosen carefully based on the application. You may notice issues with thread starvation (not getting enough time to run), if priorities are chosen inappropriately. A threads priority can also be changed after it has been created. </p>
+<h3 id="224-thread-scheduling"><strong>2.2.4 Thread Scheduling</strong><a class="headerlink" href="#224-thread-scheduling" title="Permanent link">#</a></h3>
+<p>The kernel’s priority-based scheduler allows an application’s thread to share the CPU. There are two different 'types' of threads in Zephyr with respect to the scheduler. These are 'Pre-emptive' and 'Cooperative' threads. In summary, once a cooperative thread becomes the current thread, it remains the current thread until it performs an action that makes it unready. Whereas, a preemptive thread becomes the current thread, it remains the current thread until a higher priority thread becomes ready, or until the thread performs an action that makes it unready <a href="https://docs.zephyrproject.org/latest/reference/kernel/scheduling/index.html">see here</a>.</p>
+<blockquote>
+<p>A cooperative thread has a negative priority value. </p>
+<p>A preemptible thread has a non-negative priority value. </p>
+</blockquote>
+<p>In application <a href="https://docs.zephyrproject.org/latest/reference/kernel/scheduling/index.html">as per</a>, </p>
+<blockquote>
+<p>Use cooperative threads for device drivers and other performance-critical work.</p>
+<p>Use cooperative threads to implement mutually exclusion without the need for a kernel object, such as a mutex.</p>
+<p>Use preemptive threads to give priority to time-sensitive processing over less time-sensitive processing.</p>
+</blockquote>
+<h2 id="30-tutorial-question"><strong>3.0 Tutorial Question:</strong><a class="headerlink" href="#30-tutorial-question" title="Permanent link">#</a></h2>
+<p>Copy the zephyr/sample/blinky program to a working application directory, then, implement two threads, where one thread will turn on the led, and the other thread will turn off the led. Use either the thingy52 or the Arduino Sense to test your code.</p>
+<blockquote>
+<p>Question: What is wrong with an implementation like this? Why is this not ideal, what type of issues might you run into?</p>
+</blockquote>
+<h2 id="31-sample-solution"><strong>3.1 Sample Solution</strong><a class="headerlink" href="#31-sample-solution" title="Permanent link">#</a></h2>
+<p>A sample solution is uploaded in the docs repository. Find located within,</p>
+<blockquote>
+<p>tute_solutions/OS4_tute/src/</p>
+</blockquote>
+<p>This code can be built with:</p>
+<blockquote>
+<p>west build -p -b <board_name></p>
+</blockquote>
+<p>and flashed with</p>
+<blockquote>
+<p>west flash -r 'runner'</p>
+</blockquote>
+<p>Refer to the board flashing tutorials for additional build/flash guides.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.5.1-Thread_Sync/" class="btn btn-xs btn-link">
+        Thread Synchronization
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.2.2-Implementing_Libraries/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.2.2-Implementing_Libraries/" class="btn btn-xs btn-link">
+        Implementing Libraries
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

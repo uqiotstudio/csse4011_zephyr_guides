@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.2.2-Implementing_Libraries/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Implementing Libraries - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Tute 2.2 - Implementing a Simple Library", url: "#_top", children: [
+              {title: "1.0 Motivation", url: "#10-motivation" },
+              {title: "2.0 Implementing A Basic Library", url: "#20-implementing-a-basic-library" },
+              {title: "2.1 Including library files", url: "#21-including-library-files" },
+              {title: "2.2 Library Files", url: "#22-library-files" },
+              {title: "2.3 Adding Sources and Header files to CMakeLists", url: "#23-adding-sources-and-header-files-to-cmakelists" },
+              {title: "2.4 Using Library Code in Target Application", url: "#24-using-library-code-in-target-application" },
+              {title: "3.0 Tutorial Question", url: "#30-tutorial-question" },
+              {title: "4.0 Sample Solution", url: "#40-sample-solution" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.4-Threading/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.4-Threading/" class="btn btn-xs btn-link">
+        Threading
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.2.1-Building_Tips/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.2.1-Building_Tips/" class="btn btn-xs btn-link">
+        Building Tips
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-tute-22-implementing-a-simple-library">CSSE4011: Tute 2.2 - Implementing a Simple Library<a class="headerlink" href="#csse4011-tute-22-implementing-a-simple-library" title="Permanent link">#</a></h1>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<p>The following tutorial looks at implementing a simple library and adding library files to the build system. </p>
+<h2 id="20-implementing-a-basic-library"><strong>2.0 Implementing A Basic Library</strong><a class="headerlink" href="#20-implementing-a-basic-library" title="Permanent link">#</a></h2>
+<h2 id="21-including-library-files"><strong>2.1 Including library files</strong><a class="headerlink" href="#21-including-library-files" title="Permanent link">#</a></h2>
+<p>We will build on the blinky sample that was created in <em>OS.2-First_Program</em>. We will start by creating a library file to implement functions that will:</p>
+<blockquote>
+<p>Initialize GPIO for led</p>
+<p>Provide a wrapper functions for turning led on and off.</p>
+</blockquote>
+<p>The following directory structure will be implemented for this basic library application. Where, <em>blinky_tute_ext</em> is a copy of the application made in <em>OS.2-First_Program</em>. </p>
+<pre><code class="language-shell">.
+├── blinky_tute
+│   ├── CMakeLists.txt
+│   ├── prj.conf
+│   └── src
+│       └── main.c
+├── blinky_tute_ext
+│   ├── CMakeLists.txt
+│   ├── prj.conf
+│   └── src
+│       └── main.c
+├── lib
+│   └── led_driver
+│       ├── led_driver.c
+│       └── led_driver.h
+</code></pre>
+<h2 id="22-library-files"><strong>2.2 Library Files</strong><a class="headerlink" href="#22-library-files" title="Permanent link">#</a></h2>
+<p>In this example, the library files are in <em>lib/led_driver/</em>, where:</p>
+<blockquote>
+<p>led_driver.c - provides simple led wrapper functions to demonstrate a library implementation.</p>
+<p>led_driver.h - provides the respective header file to be included by any shared targets. </p>
+</blockquote>
+<h3 id="221-creating-a-library-source-file-led_driverc"><strong>2.2.1 Creating a library source file (led_driver.c)</strong><a class="headerlink" href="#221-creating-a-library-source-file-led_driverc" title="Permanent link">#</a></h3>
+<p>First include necessary Zephyr headers files required by the application, in this case, for an led to toggle, we use. </p>
+<pre><code>#include &lt;zephyr.h&gt;
+#include &lt;device.h&gt;
+#include &lt;devicetree.h&gt;
+#include &lt;drivers/gpio.h&gt;
+
+/* Local Library Include */
+#include &quot;led_driver.h&quot;
+</code></pre>
+<p>This can be followed by any source code required to implement the application/driver logic. </p>
+<h3 id="222-creating-a-library-header-file-led_driverh"><strong>2.2.2 Creating a library header file (led_driver.h)</strong><a class="headerlink" href="#222-creating-a-library-header-file-led_driverh" title="Permanent link">#</a></h3>
+<p>The header file can be made as per usual using typical syntax. There are no particular restrictions on the way this is implemented. </p>
+<pre><code>#ifdef LED_DRIVER_H
+#define LED_DRIVER_H
+
+/* Device Tree Macros */
+#define LED0_NODE DT_ALIAS(led0)
+
+/* Function Prototypes..*/
+int led0_init(void);
+
+
+#endif
+</code></pre>
+<h2 id="23-adding-sources-and-header-files-to-cmakelists"><strong>2.3 Adding Sources and Header files to CMakeLists</strong><a class="headerlink" href="#23-adding-sources-and-header-files-to-cmakelists" title="Permanent link">#</a></h2>
+<p>With this, you can now created a basic library to implement re-usable code. However, to add this to the build system of this intended application. You must add these files to the CMakeLists file of the target application. In this case the following file  <em>blinky_tute_ext/CMakeLists.txt</em></p>
+<pre><code>Append the following to the CMakeLists.txt file
+
+
+#Add Include Directories
+include_directories(
+                        ../lib/led_driver/
+                        )
+
+#Add Target Sources
+target_sources(app PRIVATE
+                        src/main.c
+                        ../lib/led_driver/led_driver.c
+                        )
+)
+</code></pre>
+<p><strong>Note:</strong> That relative paths are interpreted as relative to the current source directory. </p>
+<p><strong>Note:</strong> That <em>include_directories(x/y)</em> applies the include directories to all targets, if you want to specify which targets use with includes, use <em>target_include_directories(t x/y)</em>, see <a href="https://cmake.org/cmake/help/v3.20/manual/cmake-buildsystem.7.html#include-directories-and-usage-requirements">here</a></p>
+<p><strong>CMakeLists documentation states that:</strong> The include directories are added to the directory property INCLUDE_DIRECTORIES for the current CMakeLists file. They are also added to the target property INCLUDE_DIRECTORIES for each target in the current CMakeLists file. The target property values are the ones used by the generators.</p>
+<p>You can also use a seperate CMakeLists files to compile your libraries using a hierarchical cmake build system if desired. Refer to cmake build system <a href="https://cmake.org/cmake/help/v3.22/manual/cmake-buildsystem.7.html">documentation</a> for more.</p>
+<h2 id="24-using-library-code-in-target-application"><strong>2.4 Using Library Code in Target Application</strong><a class="headerlink" href="#24-using-library-code-in-target-application" title="Permanent link">#</a></h2>
+<p>Finally, we can now use the library code within our target application. To do this, include the respective header files. In this case, include the following in <em>src/main.c</em></p>
+<pre><code>/* Include file from our library */
+#include &quot;led_driver.h&quot;
+</code></pre>
+<p>Now you can call the library functions as desired. </p>
+<h2 id="30-tutorial-question"><strong>3.0 Tutorial Question</strong><a class="headerlink" href="#30-tutorial-question" title="Permanent link">#</a></h2>
+<p>Using the above, extend the blinky program by implementing simple wrapper functions to:
+* Init led gpio pin</p>
+<ul>
+<li>
+<p>Power on/off led0 pin</p>
+</li>
+<li>
+<p>Deinit led gpio pin</p>
+</li>
+</ul>
+<p>Refer to the <a href="https://docs.zephyrproject.org/latest/reference/peripherals/gpio.html">Zephyr GPIO API</a></p>
+<h2 id="40-sample-solution"><strong>4.0 Sample Solution</strong><a class="headerlink" href="#40-sample-solution" title="Permanent link">#</a></h2>
+<p>A sample solution is uploaded in the docs repository. Find located within,</p>
+<blockquote>
+<p>tute_solutions/blinky_tute_ext/src/</p>
+<p>tute_solutions/lib/led_driver/</p>
+</blockquote>
+<p>This code can be built with:</p>
+<blockquote>
+<p>west build -p -b <board_name></p>
+</blockquote>
+<p>and flashed with</p>
+<blockquote>
+<p>west flash -r 'runner'</p>
+</blockquote>
+<p>Refer to the board flashing tutorials for additional build/flash guides.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.4-Threading/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.4-Threading/" class="btn btn-xs btn-link">
+        Threading
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.2.1-Building_Tips/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.2.1-Building_Tips/" class="btn btn-xs btn-link">
+        Building Tips
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

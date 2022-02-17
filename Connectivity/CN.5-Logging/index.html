@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.5-Logging/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Logging - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Connectivity - Loggging", url: "#_top", children: [
+              {title: "1.0 Motivation", url: "#10-motivation" },
+              {title: "1.1 Test Hardware", url: "#11-test-hardware" },
+              {title: "1.2. Prerequisites", url: "#12-prerequisites" },
+              {title: "2.0 Zephyr Logging Implementation", url: "#20-zephyr-logging-implementation" },
+              {title: "3.0 Using the Logging API", url: "#30-using-the-logging-api" },
+              {title: "4.0 Testing", url: "#40-testing" },
+              {title: "4.1 Sample Application", url: "#41-sample-application" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../CN.6-Segger_RTT/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../CN.6-Segger_RTT/" class="btn btn-xs btn-link">
+        Segger RTT
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../CN.4.1-Shell_Commands/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../CN.4.1-Shell_Commands/" class="btn btn-xs btn-link">
+        Shell Commands
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-connectivity-loggging">CSSE4011: Connectivity - Loggging<a class="headerlink" href="#csse4011-connectivity-loggging" title="Permanent link">#</a></h1>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<p>The aim of this tutorial is to introduce the Zephyr Logging Api. Logging in an application can be used for for implementing debugging, providing status updates and other general information. </p>
+<p>In complex systems, logging is often implemented and is a fundamental part of providing a robust application. Using the Zephyr logging api, this tutorial will introduce how to implement logging in an application. </p>
+<p>Typically, logging is coupled with a command line interface. In addition to the previous tutorial <em>CN.4-Shell</em>, we will append the logging subsystem on to our shell.</p>
+<h2 id="11-test-hardware">1.1 Test Hardware<a class="headerlink" href="#11-test-hardware" title="Permanent link">#</a></h2>
+<blockquote>
+<p>Arduino Sense Board</p>
+<p>mUSB Cable</p>
+</blockquote>
+<p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
+<h2 id="12-prerequisites">1.2. Prerequisites<a class="headerlink" href="#12-prerequisites" title="Permanent link">#</a></h2>
+<p>Ensure that you have completed/understand the following tutorials. </p>
+<blockquote>
+<p>OS.1, OS.2, OS.2.1 , BRD.1 and CN.4-Shell. </p>
+</blockquote>
+<h2 id="20-zephyr-logging-implementation"><strong>2.0 Zephyr Logging Implementation</strong><a class="headerlink" href="#20-zephyr-logging-implementation" title="Permanent link">#</a></h2>
+<h3 id="21-boilerplate"><strong>2.1 Boilerplate</strong><a class="headerlink" href="#21-boilerplate" title="Permanent link">#</a></h3>
+<p><em>The following commands assume that you have setup your files/directories following the respective tutorial(s).</em></p>
+<p>Create a new application directory for a sample shell application. </p>
+<pre><code class="language-shell">cd ~/csse4011/csse4011_repo/
+mkdir -p apps/logging_sample/
+</code></pre>
+<p>Here we will a copy of the previous shell sample and add to it. You may also use the provided shell solution.</p>
+<pre><code class="language-shell">cd shell_example/
+cp -R * ../shell_sample/
+cd ~/csse4011/csse4011_repo/apps/shell_sample/
+</code></pre>
+<h3 id="22-driver-and-config-setup"><strong>2.2 Driver and Config Setup</strong><a class="headerlink" href="#22-driver-and-config-setup" title="Permanent link">#</a></h3>
+<p>Since we are appending to our existing solution of the shell sample, we do need additional overlays or config options here. It is worth noting that in <code>shell.conf</code> the following lines enable logging. Here, <strong>the shell is set default as the backend for logging</strong> (preset in Kconfig options: <code>CONFIG_SHELL_LOG_BACKEND</code> [1]).</p>
+<pre><code class="language-CONF">#-----------------------------SHELL_LOGGING-----------------------------------
+CONFIG_LOG=y
+CONFIG_LOG_PRINTK=y
+#-----------------------------------------------------------------------------
+</code></pre>
+<p>This also shows the simplicity of Zephyr, once an application is setup, using Zephyr features is as simple as adding config options (for the most part anyway...)!</p>
+<h2 id="30-using-the-logging-api"><strong>3.0 Using the Logging API</strong><a class="headerlink" href="#30-using-the-logging-api" title="Permanent link">#</a></h2>
+<p>The API guide for logging can be found <a href="https://docs.zephyrproject.org/latest/reference/logging/index.html">here</a>, it is suggested that you read through it and understand the implementation options that logging can provide.</p>
+<h3 id="31-register-a-module"><strong>3.1 Register a Module</strong><a class="headerlink" href="#31-register-a-module" title="Permanent link">#</a></h3>
+<p>A <code>log module</code> must be declared prior to using logging in an application. These modules may represent a device driver or a particular sub-system. For instance, you may define a module for a particular temperature sensor driver -- any logged output from this driver will now contain a signature referring to the name of the respective module. </p>
+<p>Since we only have the one source file, we will define only one module. The <a href="https://docs.zephyrproject.org/latest/reference/logging/index.html">API guide</a> has more information on how to use this across multiple files using different macros. It is simple to setup and highly suggested for your projects. </p>
+<p>Start by editing our source file. </p>
+<pre><code class="language-shell">vim src/main.c
+</code></pre>
+<p>append the following.</p>
+<pre><code class="language-C">#include &lt;logging/log.h&gt;
+
+/* Define logging module */
+LOG_MODULE_REGISTER(sample_module);
+
+//OR
+
+LOG_MODULE_REGISTER(sample_module, LOG_LEVEL_DBG);
+</code></pre>
+<p>This registers a module names <code>sample_module</code> with a log filter level of <code>DEBUG</code> (this is optional). </p>
+<h3 id="32-using-a-module"><strong>3.2 Using a Module</strong><a class="headerlink" href="#32-using-a-module" title="Permanent link">#</a></h3>
+<p>Once a module as been registered as above, we can use the following macros to implement the logging. Keep in mind that if you have set a <code>LOG_LEVEL_X</code> some of these may be filtered out.</p>
+<pre><code class="language-C">LOG_ERR(&quot;Some error message: %d&quot;, errno);
+
+LOG_WRN(&quot;It's getting hot in here...&quot;);
+
+LOG_INF(&quot;The table is made out of...table&quot;);
+
+LOG_DBG(&quot;Read 0x8F register value: %ld&quot;, rVal);
+</code></pre>
+<p>Refer to the <a href="https://docs.zephyrproject.org/latest/reference/logging/index.html">API guide</a>, for more useful logging macros. </p>
+<p>In our <code>main.c</code> file, we can add in some logging options. </p>
+<pre><code class="language-C">...
+...
+while (1) {
+        gpio_pin_set(dev, PIN, (int)led_is_on);
+        led_is_on = !led_is_on;
+        LOG_INF(&quot;Led is currently: %s&quot;, led_is_on ? &quot;On&quot; : &quot;Off&quot;);
+        k_sleep(K_SECONDS(5));
+}
+
+</code></pre>
+<h2 id="40-testing"><strong>4.0 Testing</strong><a class="headerlink" href="#40-testing" title="Permanent link">#</a></h2>
+<p>This application can now be built and flashed using:</p>
+<pre><code class="language-shell">west  build -p auto -b arduino_nano_33_ble
+west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
+</code></pre>
+<p>Once flashed,</p>
+<pre><code class="language-shell">sudo screen /dev/ttyACM0
+</code></pre>
+<pre><code>...
+...
+[00:00:03.203,369] &lt;dbg&gt; sample_module.main: DTR OK
+[00:00:03.203,369] &lt;inf&gt; sample_module: Led is currently: Off
+[00:00:08.203,430] &lt;inf&gt; sample_module: Led is currently: On
+</code></pre>
+<h2 id="41-sample-application"><strong>4.1 Sample Application</strong><a class="headerlink" href="#41-sample-application" title="Permanent link">#</a></h2>
+<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Arduino Sense Board.</p>
+<p>Sample is located in <strong>REPO_TOP/tute_solutions/logging_example/</strong></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../CN.6-Segger_RTT/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../CN.6-Segger_RTT/" class="btn btn-xs btn-link">
+        Segger RTT
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../CN.4.1-Shell_Commands/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../CN.4.1-Shell_Commands/" class="btn btn-xs btn-link">
+        Shell Commands
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

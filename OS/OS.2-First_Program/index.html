@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.2-First_Program/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>First Program - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Tute 2 - First Program", url: "#_top", children: [
+              {title: "1.0 Motivation", url: "#10-motivation" },
+              {title: "1.1 Hardware Required", url: "#11-hardware-required" },
+              {title: "2.0 Directory Overview", url: "#20-directory-overview" },
+              {title: "3.0 Making A Zephyr Application", url: "#30-making-a-zephyr-application" },
+              {title: "4.0 Sample", url: "#40-sample" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.2.1-Building_Tips/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.2.1-Building_Tips/" class="btn btn-xs btn-link">
+        Building Tips
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.1-Getting_Started/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.1-Getting_Started/" class="btn btn-xs btn-link">
+        Getting Started
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-tute-2-first-program">CSSE4011: Tute 2 - First Program<a class="headerlink" href="#csse4011-tute-2-first-program" title="Permanent link">#</a></h1>
+<h2 id="10-motivation">1.0 Motivation<a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<p>The following tutorial will focus on developing your own very first Zephyr application. This involves, setting up an appropriate directory structure and necessary configuration files.</p>
+<h2 id="11-hardware-required">1.1 Hardware Required<a class="headerlink" href="#11-hardware-required" title="Permanent link">#</a></h2>
+<blockquote>
+<p>Segger JLink EDU Mini</p>
+<p>Particle Argon</p>
+<p>2xMicro USB Cables</p>
+</blockquote>
+<p><strong>Connection guide:</strong>
+1. Connect the Particle Argon using the micro-usb cable to your computer
+2. Connect JLink ribbon cable to the JTAG header on the Particle Argon, and the opposing end to the J-Link EDU-mini. The lip of the header should be facing away from the edu mini.
+3. Connect the JLink edu mini to your computer, and make sure that USB passthrough for this device is enabled in your virtual machine settings. </p>
+<h2 id="20-directory-overview">2.0 Directory Overview<a class="headerlink" href="#20-directory-overview" title="Permanent link">#</a></h2>
+<p>A typical Zephyr application is <a href="https://docs.zephyrproject.org/latest/application/index.html">organized</a> in the following format.</p>
+<pre><code>&lt;home&gt;/apps
+├── CMakeLists.txt
+├── prj.conf
+└── src
+    └── main.c
+</code></pre>
+<p>In this course, you will be required to modify and re-use code to implement new features/applications. To allow for this, code that is not specific to an application is placed in a 'myoslib' directory. Where code within 'myoslib' could be drivers for a particular module, for example, an ultrasonic sensor.  The structure below is an example representation.</p>
+<pre><code>.
+├── csse4011_repo/apps/
+│   ├── prac1/
+│   │   ├── CMakeLists.txt
+│   │   ├── prj.conf
+│   │   └── src/
+│   │       └── main.c 
+│   └── prac2/
+│       ├── CMakeLists.txt
+│       ├── prj.conf
+│       └── src/
+│           └── main.c
+|
+└── csse4011_repo/myoslib/
+    ├── hal/
+    │   ├── status_leds/
+    │   │   ├── hal_status_leds.c 
+    │   │   └── hal_status_leds.h 
+    │   └── ultrasonic/
+    │       ├── hal_ultrasonic.c
+    │       └── hal_ultrasonic.h
+    └── cli/
+        ├── cli_kernel_time_cmd.c
+        └── cli_status_leds_cmd.c
+</code></pre>
+<h2 id="30-making-a-zephyr-application"><strong>3.0 Making A Zephyr Application</strong><a class="headerlink" href="#30-making-a-zephyr-application" title="Permanent link">#</a></h2>
+<p>Within the 'csse4011_repo', make the following modifications to setup a sample directory</p>
+<pre><code class="language-shell">cd ~/csse4011/csse4011_repo/
+mkdir -p apps/sample
+</code></pre>
+<p>For the purposes of this tutorial, we will use the existing blinky sample provided in the Zephyr source code.</p>
+<p>Start by navigating to the Zephyr source we attained in Tute 1.</p>
+<pre><code class="language-shell">cd ~/csse4011/zephyrproject/zephyr/samples/basic/blinky
+</code></pre>
+<p>Copy blinky files into our sample application directory, then navigate to sample directory.</p>
+<pre><code class="language-shell">cp -R * ~/csse4011/csse4011_repo/apps/sample/
+cd ~/csse4011/csse4011_repo/apps/sample/
+</code></pre>
+<p>Verify that the following exist within your sample dir</p>
+<pre><code>.
+└── csse4011/csse4011_repo/apps/
+    └── sample/
+        ├── CMakeLists.txt
+        ├── prj.conf
+        ├── README.rst
+        ├── sample.yaml
+        └── src/
+            └── main.c
+</code></pre>
+<p>Add ZEPHYR_BASE to path (Lets you build from outside the Zephyr Source Dir). Append the following line to the end of 'bashrc'.</p>
+<pre><code>vim ~/.bashrc                               or use any text editor
+
+#Add Zephyr Base to PATH
+export ZEPHYR_BASE=~/csse4011/zephyrproject/zephyr   
+</code></pre>
+<p>save and exit.</p>
+<p>Read and execute bashrc (Loads ZEPHYR_BASE for current shell instance)</p>
+<pre><code class="language-shell">source ~/.bashrc
+echo $ZEPHYR_BASE
+</code></pre>
+<p>Should now display the path to zephyr base. </p>
+<p>Build the sample application within our directory</p>
+<pre><code class="language-shell">cd ~/csse4011/csse4011_repo/apps/sample/
+west build -p auto -b particle_argon
+</code></pre>
+<p>Flash and Verify that Blinky works. </p>
+<pre><code class="language-shell">west flash -r jlink
+</code></pre>
+<p>The option '-r' lets you specify a runner, in this case we are using JLink to flash the Particle Argon. Make sure that the cables are connected properly.</p>
+<p>If flashing fails, refer to the end of <code>OS.1-Getting Started</code> and follow instructions for installing runners / additional runners. </p>
+<h2 id="40-sample"><strong>4.0 Sample</strong><a class="headerlink" href="#40-sample" title="Permanent link">#</a></h2>
+<p>A sample of this is located within</p>
+<blockquote>
+<p>tute_solutions/blinky_tute/</p>
+</blockquote>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OS.2.1-Building_Tips/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OS.2.1-Building_Tips/" class="btn btn-xs btn-link">
+        Building Tips
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../OS.1-Getting_Started/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../OS.1-Getting_Started/" class="btn btn-xs btn-link">
+        Getting Started
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

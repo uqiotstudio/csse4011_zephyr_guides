@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.4.1-Shell_Commands/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Shell Commands - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Connectivity - Shell Commands", url: "#_top", children: [
+              {title: "1.0 Motivation", url: "#10-motivation" },
+              {title: "1.1 Test Hardware", url: "#11-test-hardware" },
+              {title: "1.2. Prerequisites", url: "#12-prerequisites" },
+              {title: "1.3 Setup", url: "#13-setup" },
+              {title: "2.0 Zephyr Shell Command Implementation", url: "#20-zephyr-shell-command-implementation" },
+              {title: "2.2 Testing", url: "#22-testing" },
+              {title: "3.0 Sample Application", url: "#30-sample-application" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../CN.5-Logging/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../CN.5-Logging/" class="btn btn-xs btn-link">
+        Logging
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../CN.4-Shell/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../CN.4-Shell/" class="btn btn-xs btn-link">
+        Shell
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-connectivity-shell-commands">CSSE4011: Connectivity - Shell Commands<a class="headerlink" href="#csse4011-connectivity-shell-commands" title="Permanent link">#</a></h1>
+<p>This tutorial aims to introduce adding shell commands to the Zephyr shell that we explored in  <code>CN.4-Shell</code>.</p>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<p>To get the most out of an application that implement a shell, it is often useful to add specific functionality. By adding application specific shell commands, specific features of an application can be exposed to a user/developer. </p>
+<p>Typically, a command will <code>hook</code> into a <code>piece of code</code> or a <code>callback function</code> and execute some functionality for that command. For instance, in a embedded application, if the user aims to turn some hardware off, you could issue a shell command to the device to carry this out, or if you wanted to get a reading from a sensor and print it to the shell, you could issue a command to do this. Similar to how in a unix based shell you would issue commands to interact/request services from the OS.</p>
+<h2 id="11-test-hardware">1.1 Test Hardware<a class="headerlink" href="#11-test-hardware" title="Permanent link">#</a></h2>
+<blockquote>
+<p>Arduino Sense Board</p>
+<p>mUSB Cable</p>
+</blockquote>
+<p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
+<h2 id="12-prerequisites">1.2. Prerequisites<a class="headerlink" href="#12-prerequisites" title="Permanent link">#</a></h2>
+<p>Ensure that you have completed/understand the following tutorials. </p>
+<blockquote>
+<p>OS.1, OS.2, OS.2.1, BRD.1 and <strong>CN.4-Shell</strong></p>
+</blockquote>
+<h2 id="13-setup">1.3 Setup<a class="headerlink" href="#13-setup" title="Permanent link">#</a></h2>
+<p>Connect the Arduino sense board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine). </p>
+<h2 id="20-zephyr-shell-command-implementation"><strong>2.0 Zephyr Shell Command Implementation</strong><a class="headerlink" href="#20-zephyr-shell-command-implementation" title="Permanent link">#</a></h2>
+<h3 id="21-boilerplate"><strong>2.1 Boilerplate</strong><a class="headerlink" href="#21-boilerplate" title="Permanent link">#</a></h3>
+<p>In the previous tutorial <code>(CN.4 - Shell)</code> we set up the Zephyr Shell through USB. We will use that as our boilerplate for this tutorial and add to it the functionality required to implement shell commands.</p>
+<p><em>The following commands assume that you have setup your files/directories following the respective tutorial(s).</em></p>
+<pre><code class="language-shell">cd ~/csse4011/csse4011_repo/apps
+mkdir shell_cmd_sample/
+</code></pre>
+<p>Copy shell sample files (from <code>CN.4 - Shell</code>) into new directory for shell commands</p>
+<pre><code class="language-Shell">cd -R shell_sample/* shell_cmd_sample/
+</code></pre>
+<h3 id="21-implementing-a-shell-command"><strong>2.1 Implementing a Shell Command</strong><a class="headerlink" href="#21-implementing-a-shell-command" title="Permanent link">#</a></h3>
+<p>In this tutorial, we will explore using shell commands, to toggle on and off the onboard led. This should give you a general idea of how commands should be implemented/used. For more information on the following see <a href="https://docs.zephyrproject.org/2.7.0/reference/shell/index.html">here</a>.</p>
+<p>Zephyr allows you to create commands that have sub-commands, these can be useful for instance, if you wanted a top level command (<code>root command - level 0</code>) for a particular sub-system/hardware, and then sub-commands (<code>static/dynamic sub-commands - level &gt; 0</code>) that perform unique a function for that system. It can be thought of as a tree of commands.</p>
+<p>Here, we will look at creating a <strong>root command</strong> (led) with <strong>two static commands</strong> (on/off). However, you can refer here [1] for the api guide for more information on other types of commands.</p>
+<p>First, </p>
+<pre><code class="language-shell">cd shell_cmd_sample/
+vim src/main.c
+</code></pre>
+<p>add the shell include</p>
+<pre><code>#include &lt;shell/shell.h&gt;
+</code></pre>
+<p>Now we can specify what commands we are going to make, using the Shell API macros <code>SHELL_CMD_REGISTER()</code> and <code>SHELL_STATIC_SUBCMD_SET_CREATE()</code></p>
+<p>Let's first declare some prototype handlers for our commands</p>
+<pre><code class="language-C"> /* Declare command handler prototypes */
+ static int cmd_led_ctrl_on(const struct shell *, size_t, char **);
+ static int cmd_led_ctrl_off(const struct shell *, size_t, char **);
+</code></pre>
+<p>and let's use the macros to setup our commands.</p>
+<pre><code class="language-C">/* Specify Shell Commands for LED Toggling */
+/* Creating subcommands (level 1 command) array for command &quot;led&quot;. */ 
+SHELL_STATIC_SUBCMD_SET_CREATE(led_ctrl,
+        SHELL_CMD(on, NULL, &quot;Turn led on.&quot;, cmd_led_ctrl_on),
+        SHELL_CMD(off,   NULL, &quot;Turn led off.&quot;, cmd_led_ctrl_off),
+        SHELL_SUBCMD_SET_END
+); 
+
+/* Creating root (level 0) command &quot;led&quot; */
+SHELL_CMD_REGISTER(led, &amp;led_ctrl, &quot;Led Control (On/Off)&quot;, NULL);
+</code></pre>
+<p><code>SHELL_CMD_REGISTER()</code> creates out root level command for <code>led</code>, and <code>SHELL_STATIC_SUBCMD_SET_CREATE()</code>
+create the level 1 subcommands for <code>on</code> and <code>off</code>, which are linked to their respective command handlers <code>cmd_led_ctrl_on</code> and <code>cmd_led_ctrl_off</code>. That is, when a user types <code>led off</code>, the <code>cmd_led_ctrl_off</code> is triggered.</p>
+<p>Finally, we can implement the actual handlers. Note, that these don't check if the <code>led-gpio pin</code> has been initialized and assumes it has been pre-configured in <code>main()</code> (if not, <code>gpio_pin_set()</code> will fail). </p>
+<pre><code class="language-C">/* Command Handler for toggling led0 on, note that it assumes
+ * the pin has been preconfigured */
+static int cmd_led_ctrl_on(const struct shell *shell, size_t argc,
+                        char **argv)
+{
+        ARG_UNUSED(argc);
+        ARG_UNUSED(argv);
+
+        const struct device *dev = device_get_binding(LED0);
+
+        if (dev == NULL) {
+                return ENODEV;
+        }
+        /* Pin default is Active low (as per FLAGS) */
+        return gpio_pin_set(dev, PIN, (int)0);
+}
+
+/* Command Handler for toggling led0 off, note that it assumes
+ * the pin has been preconfigured */
+static int cmd_led_ctrl_off(const struct shell *shell, size_t argc,
+                        char **argv)
+{
+        ARG_UNUSED(argc);
+        ARG_UNUSED(argv);
+
+        const struct device *dev = device_get_binding(LED0);
+
+        if (dev == NULL) {
+                return ENODEV;
+        }
+        /* Pin default is active low */
+        return gpio_pin_set(dev, PIN, (int)1);
+}
+</code></pre>
+<p>Since we copied the boilerplate from <code>CN-4 Shell</code>, make sure to cleanup the <code>while()</code> loop in <code>main()</code> that toggles the gpio, but leave the code that initializes the <code>led-gpio pin</code>. Alternatively, you could make two other subcommands to init/deinit the pin.</p>
+<h2 id="22-testing"><strong>2.2 Testing</strong><a class="headerlink" href="#22-testing" title="Permanent link">#</a></h2>
+<p>Once you have built and flashed the application, attach <code>screen</code> to the device. In the shell, you can press <code>tab</code> to show available commands. You should be able to see one that says <code>led</code> now. Try <code>led --help</code> to see what it can do, then, <code>led on</code>, this should turn the led on.</p>
+<pre><code>[00:00:00.234,588] &lt;inf&gt; usb_cdc_acm: Device resumed
+[00:00:00.429,962] &lt;inf&gt; usb_cdc_acm: Device configured
+CSSE4011:~$
+  clear              device             devmem             help
+  history            hwinfo             kernel             led
+  log                nrf_clock_control  resize             shell
+CSSE4011:~$led --help
+led - Led Control (On/Off)
+Subcommands:
+  on   :Turn led on.
+  off  :Turn led off.
+CSSE4011:~$
+CSSE4011:~$led on
+CSSE4011:~$led off
+</code></pre>
+<h2 id="30-sample-application"><strong>3.0 Sample Application</strong><a class="headerlink" href="#30-sample-application" title="Permanent link">#</a></h2>
+<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell commands to toggle the onboard led by flashing it to the Arduino Sense Board.</p>
+<p>Sample is located in <strong>REPO_TOP/tute_solutions/shell_cmd_sample/</strong></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../CN.5-Logging/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../CN.5-Logging/" class="btn btn-xs btn-link">
+        Logging
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../CN.4-Shell/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../CN.4-Shell/" class="btn btn-xs btn-link">
+        Shell
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

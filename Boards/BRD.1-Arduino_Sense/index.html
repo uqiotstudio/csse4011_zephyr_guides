@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Boards/BRD.1-Arduino_Sense/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Arduino Sense BLE - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Arduino-Sense: Zephyr Board Guide", url: "#_top", children: [
+              {title: "1.0 Prerequisites", url: "#10-prerequisites" },
+              {title: "2.0 Arduino Sense - Zephyr", url: "#20-arduino-sense-zephyr" },
+          ]},
+          {title: "2.1 Getting the BOSSAC", url: "#21-getting-the-bossac", children: [
+          ]},
+          {title: "2.2 TTY Permissions for Flashing", url: "#22-tty-permissions-for-flashing", children: [
+          ]},
+          {title: "2.3 Building and Flashing", url: "#23-building-and-flashing", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../BRD.2-Thingy52/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../BRD.2-Thingy52/" class="btn btn-xs btn-link">
+        Thingy52
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../about/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../about/" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-arduino-sense-zephyr-board-guide">CSSE4011: Arduino-Sense: Zephyr Board Guide<a class="headerlink" href="#csse4011-arduino-sense-zephyr-board-guide" title="Permanent link">#</a></h1>
+<h2 id="10-prerequisites">1.0 Prerequisites<a class="headerlink" href="#10-prerequisites" title="Permanent link">#</a></h2>
+<p>Complete follwing OS tutes</p>
+<ol>
+<li>Getting Started</li>
+<li>First Program</li>
+</ol>
+<h2 id="20-arduino-sense-zephyr">2.0 Arduino Sense - Zephyr<a class="headerlink" href="#20-arduino-sense-zephyr" title="Permanent link">#</a></h2>
+<p>This Arduino board requires an extra step compared to building and flashing a most other boards. This particular board requires "the Arduino variant of bossac". Where, BOSSA - "Basic Open Source Sam-ba Application" and "SAM-BA" is the "SAM Boot Assistant". BOSSAC is a command-line implementation of BOSSA.</p>
+<h1 id="21-getting-the-bossac">2.1 Getting the BOSSAC<a class="headerlink" href="#21-getting-the-bossac" title="Permanent link">#</a></h1>
+<p>The <a href="https://docs.zephyrproject.org/latest/boards/arm/arduino_nano_33_ble/doc/index.html">bossac</a> can be setup in a few different ways, the easiest is to clone the appropriate repository and compile the program. </p>
+<p>In the csse4011-vm, after completing the getting started guide, perform the following.</p>
+<p>Step 1: Install Dependencies</p>
+<pre><code class="language-shell">sudo apt-get install libreadline-dev libwxgtk3.0-gtk3-dev
+</code></pre>
+<p>Step 2: Clone BOSSA</p>
+<pre><code class="language-shell">cd csse4011/
+git clone https://github.com/arduino/BOSSA.git
+</code></pre>
+<p>Step 3: Make Bossa</p>
+<pre><code class="language-shell">cd BOSSA/
+make
+</code></pre>
+<p>Step 4: Verify that bin/ has been successfully created with a binary named 'bossac'. </p>
+<h1 id="22-tty-permissions-for-flashing">2.2 TTY Permissions for Flashing<a class="headerlink" href="#22-tty-permissions-for-flashing" title="Permanent link">#</a></h1>
+<p>To allow for west to load binary into bootloader, tty permissions must be given to the user. An easy way to do this is to add the current user to the 'dialout' group.</p>
+<pre><code class="language-shell">sudo usermod -a -G dialout $USER
+</code></pre>
+<p>You will <strong>typically need to log out and log in or reboot to see this effect</strong>. </p>
+<h1 id="23-building-and-flashing">2.3 Building and Flashing<a class="headerlink" href="#23-building-and-flashing" title="Permanent link">#</a></h1>
+<p>Ensure that the USB is connected to the Arduino Sense board, and that <strong>it is passed through by the host machine into the virtual machine.</strong></p>
+<p>An application for this board can be built with, (from within Zephyr Application directory - see OS.1)</p>
+<pre><code class="language-shell">west  build -p auto -b arduino_nano_33_ble
+</code></pre>
+<p>and flashed with</p>
+<pre><code class="language-shell">west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac
+</code></pre>
+<p>where $HOME is typically, <em>/home/user</em>, so ensure that the path to 'bossac' is correct.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../BRD.2-Thingy52/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../BRD.2-Thingy52/" class="btn btn-xs btn-link">
+        Thingy52
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../about/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../about/" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

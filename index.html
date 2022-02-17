@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="None">
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/">
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>CSSE4011 Tutorial Docs</title>
+    <link href="./css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="./css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/bootstrap-3.3.7.min.js"></script>
+    <script src="./js/highlight.pack.js"></script>
+    
+      <script src="./js/elasticlunr.min.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '.';
+      var is_top_frame = (window === window.parent);
+        
+        var pageToc = [
+          {title: "Welcome to CSSE4011", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="./js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<nav class="navbar wm-page-top-frame">
+  <div class="container-fluid wm-top-container">
+    
+    <div class="wm-top-tool pull-right wm-vcenter">
+      <form class="dropdown wm-vcentered" id="wm-search-form" action="./search.html">
+        
+        <button id="wm-search-show" class="btn btn-sm btn-default" type="submit"
+          ><i class="fa fa-search" aria-hidden="true"></i></button>
+
+        <div class="input-group input-group-sm wm-top-search">
+          <input type="text" name="q" class="form-control" id="mkdocs-search-query" placeholder="Search" autocomplete="off">
+          <span class="input-group-btn" role="search">
+            
+            <button class="btn btn-default dropdown-toggle collapse" data-toggle="dropdown" type="button"><span class="caret"></span></button>
+            <ul id="mkdocs-search-results" class="dropdown-menu dropdown-menu-right"></ul>
+            <button id="wm-search-go" class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="wm-top-tool wm-vcenter pull-right wm-small-left">
+      <button id="wm-toc-button" type="button" class="btn btn-sm btn-default wm-vcentered"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+    </div>
+
+    
+    
+
+    
+    <a href="" class="wm-top-brand wm-top-link wm-vcenter">
+      
+      <div class="wm-top-title">
+        CSSE4011 Tutorial Docs<br>
+        
+          <span class="wm-top-version">0.6.5</span>
+        
+      </div>
+    </a>
+  </div>
+</nav>
+
+  <div id="main-content" class="wm-page-top-frame">
+    
+<nav class="wm-toc-pane">
+  
+  <ul class="wm-toctree">
+        <li class="wm-toc-li wm-toc-lev1 "><a href="about/" class="wm-article-link wm-toc-text">Contents</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Operating System</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev2 "><a href="OS/about/" class="wm-article-link wm-toc-text">Overview</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="OS/OS.1-Getting_Started/" class="wm-article-link wm-toc-text">Getting Started</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="OS/OS.2-First_Program/" class="wm-article-link wm-toc-text">First Program</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="OS/OS.2.1-Building_Tips/" class="wm-article-link wm-toc-text">Building Tips</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="OS/OS.2.2-Implementing_Libraries/" class="wm-article-link wm-toc-text">Implementing Libraries</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="OS/OS.4-Threading/" class="wm-article-link wm-toc-text">Threading</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="OS/OS.5.1-Thread_Sync/" class="wm-article-link wm-toc-text">Thread Synchronization</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="OS/OS.5.2-Thread_Communication/" class="wm-article-link wm-toc-text">Thread Communication</a>
+</li>
+  </ul>
+</li>
+
+        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Connectivity</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Connectivity/about/" class="wm-article-link wm-toc-text">Overview</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Connectivity/CN.1-GPIO/" class="wm-article-link wm-toc-text">GPIO</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Connectivity/CN.2-Sensors/" class="wm-article-link wm-toc-text">Sensors</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Connectivity/CN.3-Serial_Console/" class="wm-article-link wm-toc-text">Serial Console</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Connectivity/CN.4-Shell/" class="wm-article-link wm-toc-text">Shell</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Connectivity/CN.4.1-Shell_Commands/" class="wm-article-link wm-toc-text">Shell Commands</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Connectivity/CN.5-Logging/" class="wm-article-link wm-toc-text">Logging</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Connectivity/CN.6-Segger_RTT/" class="wm-article-link wm-toc-text">Segger RTT</a>
+</li>
+  </ul>
+</li>
+
+        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Boards</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Boards/about/" class="wm-article-link wm-toc-text">Overview</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Boards/BRD.1-Arduino_Sense/" class="wm-article-link wm-toc-text">Arduino Sense BLE</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Boards/BRD.2-Thingy52/" class="wm-article-link wm-toc-text">Thingy52</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="Boards/BRD.3-Dongle_NRF52840/" class="wm-article-link wm-toc-text">nRF Dongle</a>
+</li>
+  </ul>
+</li>
+
+  </ul>
+</nav>
+
+    <div class="wm-content-pane">
+      <iframe class="wm-article" name="article"></iframe>
+    </div>
+  </div>
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+
+    <h1 id="welcome-to-csse4011">Welcome to CSSE4011<a class="headerlink" href="#welcome-to-csse4011" title="Permanent link">#</a></h1>
+<p>Hey everyone, Welcome to <code>CSSE4011</code>!.</p>
+<p>The following set of documentation are meant to help you get upto speed with Zephyr RTOS. There are 3 sections:</p>
+<ul>
+<li>OS               - OS Basics</li>
+<li>Connectivity     - I/O with Zephyr</li>
+<li>Boards           - Board setup guides</li>
+</ul>
+<p>The tutorials in each of these sections are meant to help you prepare for upcoming practicals. You should attempt them/read through them to understand the basics. </p>
+<p>If you have any questions/issues, feel free to ask us on Ed or to come along to the pracs!</p>
+
+  <br>
+    
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
+<!--
+MkDocs version : 1.2.3
+Build Date UTC : 2022-02-17 12:07:53.667906+00:00
+-->

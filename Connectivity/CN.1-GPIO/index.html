@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.1-GPIO/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>GPIO - CSSE4011 Tutorial Docs</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "CSSE4011: Connectivity - GPIO", url: "#_top", children: [
+              {title: "1.0 Motivation", url: "#10-motivation" },
+              {title: "1.1 Test Hardware", url: "#11-test-hardware" },
+              {title: "1.2. Prerequisites", url: "#12-prerequisites" },
+              {title: "1.3 Setup", url: "#13-setup" },
+              {title: "2.0 Zephyr GPIO Implementation", url: "#20-zephyr-gpio-implementation" },
+              {title: "4.0 Testing", url: "#40-testing" },
+              {title: "4.1 Sample Application", url: "#41-sample-application" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../CN.2-Sensors/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../CN.2-Sensors/" class="btn btn-xs btn-link">
+        Sensors
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../about/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../about/" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="csse4011-connectivity-gpio">CSSE4011: Connectivity - GPIO<a class="headerlink" href="#csse4011-connectivity-gpio" title="Permanent link">#</a></h1>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong><a class="headerlink" href="#10-motivation" title="Permanent link">#</a></h2>
+<p>The following tutorial explores exposing the board GPIO (General Purpose Input/Output) to userspace (an app) within Zephyr. Zephyr does things a little differently when it comes to interacting with hardware. In this tutorial, we will use the GPIO API to interact with GPIO pins. </p>
+<h2 id="11-test-hardware"><strong>1.1 Test Hardware</strong><a class="headerlink" href="#11-test-hardware" title="Permanent link">#</a></h2>
+<blockquote>
+<p>Arduino Sense Board</p>
+<p>mUSB Cable</p>
+</blockquote>
+<p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
+<h2 id="12-prerequisites"><strong>1.2. Prerequisites</strong><a class="headerlink" href="#12-prerequisites" title="Permanent link">#</a></h2>
+<p>Ensure that you have completed/understand the following tutorials. </p>
+<blockquote>
+<p>OS.1, OS.2, OS.2.1 and BRD.1</p>
+</blockquote>
+<h2 id="13-setup"><strong>1.3 Setup</strong><a class="headerlink" href="#13-setup" title="Permanent link">#</a></h2>
+<p>Connect the Arduino sense board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine).</p>
+<h2 id="20-zephyr-gpio-implementation"><strong>2.0 Zephyr GPIO Implementation</strong><a class="headerlink" href="#20-zephyr-gpio-implementation" title="Permanent link">#</a></h2>
+<h3 id="21-boilerplate"><strong>2.1 Boilerplate</strong><a class="headerlink" href="#21-boilerplate" title="Permanent link">#</a></h3>
+<p><em>The following commands assume that you have setup your files/directories following the respective tutorial(s).</em></p>
+<p>Create a new application directory for a sample gpio application. </p>
+<pre><code class="language-shell">cd ~/csse4011/csse4011_repo/
+mkdir -p apps/gpio_sample/
+</code></pre>
+<p>For setting up a basic boilerplate for our application, we will use the provided blinky sample in Zephyr. </p>
+<pre><code class="language-shell">cd ~/csse4011/zephyrproject/zephyr/samples/basic/blinky
+cp -R * ~/csse4011/csse4011_repo/apps/gpio_sample/
+cd ~/csse4011/csse4011_repo/apps/gpio_sample/
+</code></pre>
+<p><strong>Alternatively, you may create your own application if desired.</strong></p>
+<h3 id="22-devicetree-summary"><strong>2.2 DeviceTree Summary</strong><a class="headerlink" href="#22-devicetree-summary" title="Permanent link">#</a></h3>
+<pre><code>&quot;A devicetree is a hierarchical data structure that describes hardware...Zephyr uses devicetree to describe the hardware available on its Supported Boards, as well as that hardware’s initial configuration.&quot;
+</code></pre>
+<p>An extensive guide to DeviceTree Source (DTS) implementation can be found <a href="https://docs.zephyrproject.org/2.7.0/guides/dts/intro.html">here</a> &amp; <a href="https://docs.zephyrproject.org/2.7.0/guides/dts/howtos.html#dt-howtos">here</a>. Later in this course, you might need to describe hardware in a DTS overlay file and add it to the build system for Zephyr to access particular hardware that you may need to use. Adding DTS overlays has been covered in <code>OS.2.1-Building_Tips</code>. </p>
+<p>When an application is built for a particular board, Zephyr creates a final <code>zephyr.dts</code> file in the build directory. This file concatenates all selected hardware into this "final devicetree". Typically, it's a good idea to start here to see what the hardware description looks like for the current configuration of your build.</p>
+<p>For instance, lets try building this boilerplate blinky app for the <code>Arduino_Nano_Sense</code>.</p>
+<pre><code class="language-shell">cd ~/csse4011/csse4011_repo/apps/gpio_sample/
+west  build -p auto -b arduino_nano_33_ble
+</code></pre>
+<p>Once the build is complete, you can open up the "final DTS" at:</p>
+<pre><code class="language-shell">cd build/zephyr
+vim zephyr.dts
+</code></pre>
+<p>Here we can see the <strong>hardware description</strong> for the <code>Arduino_Nano_Sense</code>. This information is exposed to userland/application in Zephyr, using a set of <code>macros</code> <a href="https://docs.zephyrproject.org/2.7.0/reference/devicetree/api.html#generic-apis">see here</a>.</p>
+<p>In this tutorial, we are interested in GPIO, so we will look at how to toggle a particular GPIO pin from looking at the <code>zephyr.dts</code> file.</p>
+<h3 id="22-gpio-interaction"><strong>2.2 GPIO Interaction</strong><a class="headerlink" href="#22-gpio-interaction" title="Permanent link">#</a></h3>
+<p>Typically, when you interact with new hardware, you must first enable the kernel driver for it, this is usually done using a kernel configuration file (KConfig). In our case for GPIO, it is enabled in the <code>prj.conf</code> file in the application directory with <code>CONFIG_GPIO=y</code>. Most boards will typically have basic hardware functionality like gpio, uart and i2c enabled by default in the board definitions (in the Zephyr source). You can refer to <code>OS.2.1-Building_Tips</code> for a guide on adding segmented KConf files to the build system. </p>
+<p>If you have already read through the blinky sample that we use as boilerplate, you may have already noticed that to toggle the led, it uses the <code>device-tree macros</code> from within the <code>main.c</code> file. </p>
+<p>For example,</p>
+<pre><code class="language-C">/* The devicetree node identifier for the &quot;led0&quot; alias. */
+#define LED0_NODE DT_ALIAS(led0)
+
+#if DT_NODE_HAS_STATUS(LED0_NODE, okay)
+#define LED0    DT_GPIO_LABEL(LED0_NODE, gpios)
+#define PIN     DT_GPIO_PIN(LED0_NODE, gpios)
+#define FLAGS   DT_GPIO_FLAGS(LED0_NODE, gpios)
+</code></pre>
+<p>Here, <code>DT_ALIAS()</code> is used to find the reference <code>led0</code> within the DTS. This is a special case of using an alias. If we look in the <code>zephyr.dts</code> file, you will notice that <code>led0</code> is specified as <code>aliases{}</code>. So this macro "returns a node identifier for the node which is aliased".</p>
+<p>When you follow the <code>led0</code> alias in <code>zephyr.dts</code>, you will notice that it simply maps to a GPIO pin. Aliases can help abstract the hardware within the devicetree and make them easy to access. </p>
+<h3 id="24-devicetree-gpio-access"><strong>2.4 DeviceTree GPIO Access</strong><a class="headerlink" href="#24-devicetree-gpio-access" title="Permanent link">#</a></h3>
+<p>Lets investigate toggling a particular GPIO that is not aliased. We will use the <code>Arduino_Nano_Sense</code> for this tute. You can find the board pinout <a href="https://content.arduino.cc/assets/Pinout-NANOsense_latest.pdf">here</a>. We will use the GPIO pin <code>P0.13</code> (internally connected to the top left led) for this. This pin maps on <code>P0</code>, in the <code>zephyr.dts</code> this is <code>gpio0</code>. For instance, pin <code>D6</code>, will be in <code>gpio1</code>. </p>
+<p>Start by editing the source file and append the following</p>
+<pre><code class="language-shell">vim src/main.c
+</code></pre>
+<p>Use <code>DT_NODELABEL</code> to get the respective node_id for for <code>gpio0</code> from DTS.</p>
+<pre><code class="language-C">/* DeviceTree get node ID from label */
+#define GPIO0 DT_NODELABEL(gpio0)
+#define GPIO_A0 0x0D                //PIN PO.13
+</code></pre>
+<p>In our main function, let's init the GPIO PIN.</p>
+<pre><code class="language-C">const struct device *dev_gpio0;
+dev_gpio0 = device_get_binding(DT_LABEL(GPIO0));
+
+/* Configure PIN_A0 as an Output with that is Active Low */
+ret = gpio_pin_configure(dev_gpio0, GPIO0_13, GPIO_OUTPUT_ACTIVE | GPIO_ACTIVE_LOW);
+</code></pre>
+<p>Notice here, that <code>device_get_binding()</code> will not except a <code>NODE_ID</code>, but it does accept a <code>NODE_LABEL</code>, hence why <code>DT_LABEL</code> is used. <code>DT_LABEL</code> is a helper macro that does the same as <code>DT_PROP(GPIO0, label)</code>. The <code>struct device</code> <a href="https://docs.zephyrproject.org/2.7.0/reference/drivers/index.html#c.device">see here</a> returned by this function call describes the particular hardware and is used by the API to interface to that particular device/hardware. </p>
+<p>and finally in our while loop, we can toggle this pin.</p>
+<pre><code class="language-C">while (1) {
+    gpio_pin_set(dev, PIN, (int)led_is_on);
+    /* Toggle the PIN */
+    gpio_pin_set(dev_gpio0, GPIO0_13, (int)led_is_on);
+    led_is_on = !led_is_on;
+    k_msleep(SLEEP_TIME_MS);
+}   
+</code></pre>
+<h2 id="40-testing"><strong>4.0 Testing</strong><a class="headerlink" href="#40-testing" title="Permanent link">#</a></h2>
+<p>This application can now be built and flashed using:</p>
+<pre><code class="language-shell">west  build -p auto -b arduino_nano_33_ble
+west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
+</code></pre>
+<p>You should see that the <strong>top-led led is now flashing orange</strong> alongside the red led (led0) from the boilerplate code. </p>
+<h2 id="41-sample-application"><strong>4.1 Sample Application</strong><a class="headerlink" href="#41-sample-application" title="Permanent link">#</a></h2>
+<p>A sample application has been provided, this application includes all the steps mentioned above.</p>
+<p>Sample is located in <strong>REPO_TOP/tute_solutions/gpio_sample/</strong></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../CN.2-Sensors/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../CN.2-Sensors/" class="btn btn-xs btn-link">
+        Sensors
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../about/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../about/" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
