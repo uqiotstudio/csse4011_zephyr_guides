@@ -1,0 +1,38 @@
+csse4011/apps
+  prac1
+    CMakeLists.txt
+    prj.conf
+    src
+      main.c 
+  prac2
+    CMakeLists.txt
+    prj.conf
+    src
+      main.c
+csse4011/myoslib
+  hal
+    status_leds
+        hal_status_leds.c 
+        hal_status_leds.h 
+    ultrasonic
+      hal_ultrasonic.c
+      hal_ultrasonic.h
+  cli
+    cli_kernel_time_cmd.c
+    cli_status_leds_cmd.c
+
+
+
+
+
+
+
+csse4011/csse4011_repo/apps
+  sample
+    CMakeLists.txt
+    prj.conf
+    README.rst
+    sample.yaml
+    src
+      main.c
+  

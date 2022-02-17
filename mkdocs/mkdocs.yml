@@ -1,0 +1,44 @@
+site_name: CSSE4011 Tutorial Docs
+site_url: https://github.com/thulithwilfred/csse4011_documentation
+nav:
+  - Contents: about.md
+  - Operating System: 
+      - 'Overview' : OS/about.md
+      - 'Getting Started': OS/OS.1-Getting_Started.md
+      - 'First Program': OS/OS.2-First_Program.md
+      - 'Building Tips': OS/OS.2.1-Building_Tips.md
+      - 'Implementing Libraries': OS/OS.2.2-Implementing_Libraries.md
+      - 'Threading': OS/OS.4-Threading.md
+      - 'Thread Synchronization': OS/OS.5.1-Thread_Sync.md
+      - 'Thread Communication': OS/OS.5.2-Thread_Communication.md
+  - Connectivity: 
+      - 'Overview': Connectivity/about.md
+      - 'GPIO' : Connectivity/CN.1-GPIO.md
+      - 'Sensors': Connectivity/CN.2-Sensors.md
+      - 'Serial Console': Connectivity/CN.3-Serial_Console.md
+      - 'Shell': Connectivity/CN.4-Shell.md
+      - 'Shell Commands': Connectivity/CN.4.1-Shell_Commands.md
+      - 'Logging': Connectivity/CN.5-Logging.md
+      - 'Segger RTT': Connectivity/CN.6-Segger_RTT.md
+
+  - Boards: 
+      - 'Overview' : Boards/about.md
+      - 'Arduino Sense BLE': Boards/BRD.1-Arduino_Sense.md
+      - 'Thingy52': Boards/BRD.2-Thingy52.md
+      - 'nRF Dongle': Boards/BRD.3-Dongle_NRF52840.md
+
+
+theme: 
+    name: windmill-dark
+    include_search_page: true
+    search_index_only: true
+    history_buttons: true
+    article_nav_top: true
+    article_nav_bottom: true
+
+markdown_extensions:
+    - toc:
+        permalink: '#'
+
+extra:
+    version: 0.5.2
