@@ -14,7 +14,7 @@ Example, in an IoT based application, where an application may need to maintain 
 
 ## **2.0 Threads in Zephyr**
 
-In Zephyr [1], a thread is a kernel object that is used for application processing that is too lengthy or too complex to be performed by an interrupt service routine (ISR). Any number of threads can be defined by an application (limited only by available RAM). Each thread is referenced by a thread id that is assigned when the thread is spawned. Additionally, each thread is allocated a specific priority and a stack size at creation (see [1] for more details).
+In Zephyr [1], a thread is a kernel object that is used for application processing that is too lengthy or too complex to be performed by an interrupt service routine (ISR). Any number of threads can be defined by an application (limited only by available RAM). Each thread is referenced by a thread id that is assigned when the thread is spawned. Additionally, each thread is allocated a specific priority and a stack size at creation (see [here](https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html) for more details).
 
 ## **2.1 Using threads in Zephyr RTOS**
 
@@ -24,7 +24,7 @@ If an application requires a thread to be created at run-time, a run-time thread
 
 ## **2.2 Thread Creation in Zephyr RTOS**
 
-NOTE: It is strongly recommended that you read the Zephyr thread API[1], as it shows you the intricate details and correct usage of the API for additional features.
+NOTE: It is strongly recommended that you read the [Zephyr thread API](https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html), as it shows you the intricate details and correct usage of the API for additional features.
 
 ### **2.2.1 Compile-Time Threads**
 
@@ -33,7 +33,7 @@ A compile-time thread in Zephyr is created by the following macro.
 K_THREAD_DEFINE(name, stack_size, entry, p1, p2, p3, prio, options, delay)
 ```
 
-The below snippet shows how a compile-time thread can be setup. Refer to Zephyr Thread API for more details[1].
+The below snippet shows how a compile-time thread can be setup. Refer to [Zephyr Thread API](https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html) for more details.
 
 ```
 #define MY_STACK_SIZE 500
@@ -102,14 +102,14 @@ my_entry_point(void *a, void *b, void *c)
 
 ### **2.2.3 Thread Priorities**
 
-In Zephyr RTOS, a thread’s priority is an integer value, and can be either negative or non-negative. Numerically lower priorities takes precedence over numerically higher values. For example, the scheduler gives thread A of priority 4 higher priority over thread B of priority 7; likewise thread C of priority -2 has higher priority than both thread A and thread B [1].
+In Zephyr RTOS, a thread’s priority is an integer value, and can be either negative or non-negative. Numerically lower priorities takes precedence over numerically higher values. For example, the scheduler gives thread A of priority 4 higher priority over thread B of priority 7; likewise thread C of priority -2 has higher priority than both thread A and thread B [see here](https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html).
 
 Priorities for threads should be chosen carefully based on the application. You may notice issues with thread starvation (not getting enough time to run), if priorities are chosen inappropriately. A threads priority can also be changed after it has been created. 
 
 
 ### **2.2.4 Thread Scheduling**
 
-The kernel’s priority-based scheduler allows an application’s thread to share the CPU. There are two different 'types' of threads in Zephyr with respect to the scheduler. These are 'Pre-emptive' and 'Cooperative' threads. In summary, once a cooperative thread becomes the current thread, it remains the current thread until it performs an action that makes it unready. Whereas, a preemptive thread becomes the current thread, it remains the current thread until a higher priority thread becomes ready, or until the thread performs an action that makes it unready [2].
+The kernel’s priority-based scheduler allows an application’s thread to share the CPU. There are two different 'types' of threads in Zephyr with respect to the scheduler. These are 'Pre-emptive' and 'Cooperative' threads. In summary, once a cooperative thread becomes the current thread, it remains the current thread until it performs an action that makes it unready. Whereas, a preemptive thread becomes the current thread, it remains the current thread until a higher priority thread becomes ready, or until the thread performs an action that makes it unready [see here](https://docs.zephyrproject.org/latest/reference/kernel/scheduling/index.html).
 
 
 
@@ -120,7 +120,7 @@ The kernel’s priority-based scheduler allows an application’s thread to shar
 
 
 
-In application [2], 
+In application [as per](https://docs.zephyrproject.org/latest/reference/kernel/scheduling/index.html), 
 
 >Use cooperative threads for device drivers and other performance-critical work.
 
@@ -151,11 +151,3 @@ and flashed with
 > west flash -r 'runner'
 
 Refer to the board flashing tutorials for additional build/flash guides.
-
-
-
-## Links
-
-[1]https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html
-
-[2]https://docs.zephyrproject.org/latest/reference/kernel/scheduling/index.html

@@ -24,11 +24,11 @@ Zephyr RTOS (as of V2.7.XX) offers a few different options for ITC. To name a fe
 * Stacks
 *  Message queues, Mailboxes and Pipes
 
-Some of these are ideal for particular use cases, to determine which ITC protocol might best fit an application, refer to the *Data Passing* guidelines table in [1]. More information on the implementation of each primitive can be found in the api guides (links below the table [1]).
+Some of these are ideal for particular use cases, to determine which ITC protocol might best fit an application, refer to the *Data Passing* [guidelines table](https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing). More information on the implementation of each primitive can be found in the api guides (links below the [table](https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing)).
 
 ### **2.2 General Message Queues** 
 
-In this tutorial, we will focus on implementing a message queues between threads. As they can be typically be used for a wide range of applications, it is a good starting point for learning ITC in Zephyr. The api guide can be found here [2].
+In this tutorial, we will focus on implementing a message queues between threads. As they can be typically be used for a wide range of applications, it is a good starting point for learning ITC in Zephyr. The api guide can be found [here](https://docs.zephyrproject.org/latest/reference/kernel/data_passing/message_queues.html).
 
 What is a message queue?
   
@@ -131,7 +131,7 @@ CSSE4011:~$
 ```
 ### **2.5 Additional Notes**
 
-This tutorial is a guide for implementing basic message queues in Zephyr RTOS, it is **strongly suggested** that you refer to the Zephyr API guides [1] and [2] for additional information.
+This tutorial is a guide for implementing basic message queues in Zephyr RTOS, it is **strongly suggested** that you refer to the Zephyr API guides [here](https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing) and [here](https://docs.zephyrproject.org/latest/reference/kernel/data_passing/message_queues.html) for additional information.
 
 ## **3.0 Sample Solution**
 
@@ -141,9 +141,3 @@ A sample solution is provided under,
 
 this solution implements the above functionality into a Zephyr application. Feel free to use it and modify it.
 
-
-# Links
-
-[1] https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing
-
-[2] https://docs.zephyrproject.org/latest/reference/kernel/data_passing/message_queues.html

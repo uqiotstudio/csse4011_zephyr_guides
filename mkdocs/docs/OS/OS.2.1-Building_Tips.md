@@ -6,11 +6,11 @@ This tutorial will focus on modifications to the CMakeLists file to streamline t
 
 ## **2.0 Setting Build Options**
 
-Note that these should be added to the top of the CMakeLists file. Additionally, there are other ways to include config files and devicetree overlays. Refer to a application development [2] and device tree guides [3] for more.
+Note that these should be added to the top of the CMakeLists file. Additionally, there are other ways to include config files and devicetree overlays. Refer to a [application development](https://docs.zephyrproject.org/latest/application/index.html) and [device tree](https://docs.zephyrproject.org/latest/guides/dts/howtos.html#set-devicetree-overlays) guides for more.
 
 ### **2.1 Boards**
 
- A board to develop can be specified within the top level CMakeLists file as below, the particular name for the board can be found under *Zephyr Supported Boards -> boardname* [1].
+ A board to develop can be specified within the top level CMakeLists file as below, the particular name for the board can be found under *Zephyr Supported Boards -> boardname* or [here](https://docs.zephyrproject.org/latest/boards/index.html).
 
  ```
  set(BOARD board_name)
@@ -61,11 +61,3 @@ set(DTC_OVERLAY_FILE overlay.dtsi)
 
 set(DTC_OVERLAY_FILE dts/spi3.dtsi)
 ```
-
-
-
-
-# Links
-[1]https://docs.zephyrproject.org/latest/boards/index.html
-[2]https://docs.zephyrproject.org/latest/application/index.html
-[3]https://docs.zephyrproject.org/latest/guides/dts/howtos.html#set-devicetree-overlays

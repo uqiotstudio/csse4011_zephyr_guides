@@ -29,23 +29,23 @@ Zephyr includes a command line tool named west. This tool provides a multiple re
 ```shell
 west build
 ```
-This will look at predefined build configuration settings and build an application as specified. The west meta-tool can be used to perform many other functions, see [3] for a detailed breakdown of it's features. In this course, you will be using west to build, flash and maintain your workspaces. 
+This will look at predefined build configuration settings and build an application as specified. The west meta-tool can be used to perform many other functions, see [here](https://docs.zephyrproject.org/latest/guides/west/index.html) for a detailed breakdown of it's features. In this course, you will be using west to build, flash and maintain your workspaces. 
 
 
 ## **1.3 Zephyr Documentation**
 The Zephyr documentation is well written and contains all the intricate details about Zephyr and it's features. Throughout this course and application development, you will need to refer back to these documentation to understand;
 
-1. The Build and Configuration Systems                              [4]
-2. Device Tree (A way of describing hardware config to the OS)      [7]
-3. Application Development (App config options/Kernel config)       [6]
-4. API Usage                                                        [8]
-5. Using an Interactive Kconfig interfaces (Optional)               [5]
+1. [The Build and Configuration Systems](https://docs.zephyrproject.org/latest/guides/build/index.html)                            
+2. [Device Tree (A way of describing hardware config to the OS)](https://docs.zephyrproject.org/latest/guides/dts/intro.html)      
+3. [Application Development (App config options/Kernel config)](https://docs.zephyrproject.org/latest/application/index.html)
+4. [API Usage](https://docs.zephyrproject.org/latest/application/index.html#)                                                        
+5. [Using an Interactive Kconfig interfaces (Optional)](https://docs.zephyrproject.org/latest/guides/build/kconfig/menuconfig.html)               
 
 Take some time to read through these documents to get an idea of how Zephyr is implemented. This will be useful later when you are required to implement advanced features using Zephyr. 
 
 ## **2.0 Installing Zephyr RTOS**
 
-The following guide is made in reference to the Zephyr "Getting Started Guide" documentation [1], and is intended to be used on a Debian based linux distribution with the **"apt"** (package manager installed). 
+The following guide is made in reference to the [Zephyr "Getting Started Guide" documentation](https://docs.zephyrproject.org/latest/getting_started/index.html), and is intended to be used on a Debian based linux distribution with the **"apt"** (package manager installed). 
 
 First update the system and any installed packages on your VM
 ```shell
@@ -101,20 +101,20 @@ west init zephyrproject/               - Latest version of Zephyr (the developme
 ```
 Get Zephyr Source Code (Gets ALL of the source)
 ```shell
-    cd ~/zephyrproject
-    west update                                 - Might take awhile 
+cd ~/zephyrproject
+west update                                 - Might take awhile 
 ```
 Export a Zephyr CMake package. This allows CMake to automatically load boilerplate code required for building Zephyr applications.
 ```shell
-    west zephyr-export
+west zephyr-export
 ```
 Zephyr’s scripts/requirements.txt file declares additional Python dependencies. Install them with pip3.
 ```shell
-    pip3 install --user -r ~/csse4011/zephyrproject/zephyr/scripts/requirements.txt
+pip3 install --user -r ~/csse4011/zephyrproject/zephyr/scripts/requirements.txt
 ```
 ## **4.0 Installing the toolchains**
 
-This tutorial will focus on installing the Zephyr SDK. You may also use 3rd party toolchains, however, for this course, the SDK will be sufficient. Note that Zephyr SDK is not available of Windows or MacOs. You will need to install a 3rd party toolchain, see here [2].
+This tutorial will focus on installing the Zephyr SDK. You may also use 3rd party toolchains, however, for this course, the SDK will be sufficient. Note that Zephyr SDK is not available of Windows or MacOs. You will need to install a 3rd party toolchain, see [here](https://docs.zephyrproject.org/latest/getting_started/toolchain_3rd_party_x_compilers.html).
 
 Download the Zephyr SDK installer
 ```shell
@@ -122,7 +122,7 @@ cd ~
 
 wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.13.2/zephyr-sdk-0.13.2-linux-x86_64-setup.run
 ```
-Install the SDK to /opt/ , see [1] for other potential installation locations
+Install the SDK to /opt/ , see [here](https://docs.zephyrproject.org/latest/getting_started/index.html) for other potential installation locations
 ```shell
 chmod +x zephyr-sdk-0.13.2-linux-x86_64-setup.run
 
@@ -157,7 +157,7 @@ west flash -r jlink
 
 Option '-r' specifies to flash using JLink, west is capable of tapping into different runners for flashing your devices, later we will explore how to specify runners in the CMakeLists file. 
 
-If flashing fails, a runner may need to be installed. When using a Segger J-Link Device. Download and install the following JLink Software [9]. Under 'J-Link Software and Documentation Pack', download the 'Linux - 64-bit DEB Installer'. Run the installer and install JLink software.
+If flashing fails, a runner may need to be installed. When using a Segger J-Link Device. Download and install the following [JLink Software](https://www.segger.com/downloads/jlink/). Under 'J-Link Software and Documentation Pack', download the 'Linux - 64-bit DEB Installer'. Run the installer and install JLink software.
 
 Installation can be verified by running the following command from a terminal
 ```shell
@@ -165,26 +165,4 @@ JLinkExe
 exit 
 ```
 
-Additional information for setting up other runners can be found here [10]
-
-## Links
-
-[1]https://docs.zephyrproject.org/latest/getting_started/index.html
-
-[2]https://docs.zephyrproject.org/latest/getting_started/toolchain_3rd_party_x_compilers.html
-
-[3]https://docs.zephyrproject.org/latest/guides/west/index.html
-
-[4]https://docs.zephyrproject.org/latest/guides/build/index.html
-
-[5]https://docs.zephyrproject.org/latest/guides/build/kconfig/menuconfig.html
-
-[6]https://docs.zephyrproject.org/latest/application/index.html
-
-[7]https://docs.zephyrproject.org/latest/guides/dts/intro.html
-
-[8]https://docs.zephyrproject.org/latest/application/index.html#
-
-[9]https://www.segger.com/downloads/jlink/
-
-[10]https://docs.zephyrproject.org/latest/guides/west/build-flash-debug.html
+Additional information for setting up other runners can be found [here](https://docs.zephyrproject.org/latest/guides/west/build-flash-debug.html)

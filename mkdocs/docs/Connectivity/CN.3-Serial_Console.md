@@ -45,10 +45,10 @@ For setting up a basic boilerplate for our application, we will use the provided
 
 ### **2.2 Enable USB Drivers [prj.conf]**
 
-To enable the existing USB drivers, a few config options need to be added to our project. A detailed guide for the USB API is found [1], which you may need to refer to for additional information. 
+To enable the existing USB drivers, a few config options need to be added to our project. A detailed guide for the USB API is found [here](https://docs.zephyrproject.org/latest/reference/usb/uds_cdc_acm.html ), which you may need to refer to for additional information. 
 
 
-Start by editing the **prj.conf** file. Append the following config options. These options can be found here [4], for different subsystems. 
+Start by editing the **prj.conf** file. Append the following config options. These options can be found [here](https://docs.zephyrproject.org/latest/reference/devicetree/api.html ), for different subsystems. 
 ```
 CONFIG_GPIO=y
 
@@ -77,16 +77,16 @@ CONFIG_USB_DEVICE_PID=0x4011
 
 Zephyr v2.7 require an overlay file to be added to specify Communication Device Class - Abstract Control Model (CDC-ACM). The CDC ACM can be used as backends for Zephyr Subsystems, such as console and shell. 
 
-There is detailed information about how an overlay is implemented and it's purpose in this sub-system which can be found here [1]. 
+There is detailed information about how an overlay is implemented and it's purpose in this sub-system which can be found [here](https://docs.zephyrproject.org/latest/reference/usb/uds_cdc_acm.html). 
 
-For this particular example, start by making an **app.overlay**. If there exists a file named **app.overlay** in the app directory, it get added to the build system by default (See [3], for device tree overlays). 
+For this particular example, start by making an **app.overlay**. If there exists a file named **app.overlay** in the app directory, it get added to the build system by default (See [here](https://docs.zephyrproject.org/latest/guides/dts/howtos.html), for device tree overlays). 
 
 ```shell
 cd ~/csse4011/csse4011_repo/apps/console_sample/        #App Directory
 vim app.overlay                                         #Use any text editor
 ```
 
-Copy the following overlay details into the newly created file. This is adding a devicetree overlay to the build system [2]. Here we specify the console should be routed to cdc_acm_uart0.
+Copy the following overlay details into the newly created file. This is adding a devicetree overlay to the build system, see [here](https://docs.zephyrproject.org/latest/reference/devicetree/api.html ) for more. Here we specify the console should be routed to cdc_acm_uart0.
 
 ```
 / {
@@ -182,12 +182,3 @@ Hello World
 A sample application has been provided, this application includes all the steps mentioned above. You can test the console by flashing it to the Arduino Sense Board.
 
 Sample is located in **REPO_TOP/tute_solutions/console_example/**
-
-# Links 
-[1] https://docs.zephyrproject.org/latest/reference/usb/uds_cdc_acm.html 
-
-[2] https://docs.zephyrproject.org/latest/reference/devicetree/api.html 
-
-[3] https://docs.zephyrproject.org/latest/guides/dts/howtos.html 
-
-[4] https://docs.zephyrproject.org/latest/reference/kconfig/index.html

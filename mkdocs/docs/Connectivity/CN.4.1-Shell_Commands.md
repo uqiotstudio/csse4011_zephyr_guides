@@ -45,7 +45,7 @@ Copy shell sample files (from `CN.4 - Shell`) into new directory for shell comma
 
 ### **2.1 Implementing a Shell Command**
 
-In this tutorial, we will explore using shell commands, to toggle on and off the onboard led. This should give you a general idea of how commands should be implemented/used. For more information on the following see here [1].
+In this tutorial, we will explore using shell commands, to toggle on and off the onboard led. This should give you a general idea of how commands should be implemented/used. For more information on the following see [here](https://docs.zephyrproject.org/2.7.0/reference/shell/index.html).
 
 Zephyr allows you to create commands that have sub-commands, these can be useful for instance, if you wanted a top level command (`root command - level 0`) for a particular sub-system/hardware, and then sub-commands (`static/dynamic sub-commands - level > 0`) that perform unique a function for that system. It can be thought of as a tree of commands.
 
@@ -152,7 +152,3 @@ CSSE4011:~$led off
 A sample application has been provided, this application includes all the steps mentioned above. You can test the shell commands to toggle the onboard led by flashing it to the Arduino Sense Board.
 
 Sample is located in **REPO_TOP/tute_solutions/shell_cmd_sample/**
-
-# Links
-
-[1] https://docs.zephyrproject.org/2.7.0/reference/shell/index.html

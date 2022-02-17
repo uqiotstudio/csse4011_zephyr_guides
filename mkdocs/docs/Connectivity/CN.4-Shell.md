@@ -54,7 +54,7 @@ To show a more structure approach to setting configs in Zephyr, in this tutorial
 
 First, we will enable the USB subsystem as before, 
 
-*These options can be found here [4], for diffrent subsystems.*
+*These options can be found [here](https://docs.zephyrproject.org/latest/guides/dts/howtos.html#set-devicetree-overlays), for diffrent subsystems.*
 
 ```shell
 vim usb.conf  #create a new .conf file for the USB subsystem
@@ -106,7 +106,7 @@ Save the file and exit the editor.
 
 
 ### **2.3 Shell USB Overlay**
-As with the console, we must inform Zephyr that the **shell-uart is to be routed through the USB subsystem using CDC_ACM**. This can be done by creating and adding an overlay file to the build-system. An '*app.overlay'* file can be created similarly to the console tutorial, and this will automatically be picked up by the build-system [4]. However, here we will explore manually adding it to the build system. 
+As with the console, we must inform Zephyr that the **shell-uart is to be routed through the USB subsystem using CDC_ACM**. This can be done by creating and adding an overlay file to the build-system. An '*app.overlay'* file can be created similarly to the console tutorial, and this will automatically be picked up by the [build-system](https://docs.zephyrproject.org/latest/guides/dts/howtos.html#set-devicetree-overlays). However, here we will explore manually adding it to the build system. 
 
 ```shell 
 vim dtc_shell.overlay #create new file for shell overlay
@@ -130,7 +130,7 @@ Save and exit the editor.
 
 ### **2.4 Adding files to CMakeLists**
 
-At this point, we have created our config/overlay files. We must add these to our build system for any of them to take effect (if a file is named app.conf, it is picked up by the build system by default, as seen in *CN.3-Serial_Console*). More details on this can be found here [3].
+At this point, we have created our config/overlay files. We must add these to our build system for any of them to take effect (if a file is named app.conf, it is picked up by the build system by default, as seen in *CN.3-Serial_Console*). More details on this can be found [here](https://docs.zephyrproject.org/latest/application/index.html).
 
 ```shell
 vim CMakeLists.txt
@@ -235,14 +235,3 @@ Threads:
 A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Arduino Sense Board.
 
 Sample is located in **REPO_TOP/tute_solutions/shell_example/**
-
-
-# Links 
-
-[1] https://docs.zephyrproject.org/latest/reference/usb/uds_cdc_acm.html 
-
-[2] https://docs.zephyrproject.org/latest/reference/kconfig/index.html
-
-[3] https://docs.zephyrproject.org/latest/application/index.html
-
-[4] https://docs.zephyrproject.org/latest/guides/dts/howtos.html#set-devicetree-overlays

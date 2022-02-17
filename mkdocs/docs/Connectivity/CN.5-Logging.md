@@ -57,14 +57,14 @@ This also shows the simplicity of Zephyr, once an application is setup, using Ze
 
 ## **3.0 Using the Logging API**
 
-The API guide for logging can be found here [2], it is suggested that you read through it and understand the implementation options that logging can provide.
+The API guide for logging can be found [here](https://docs.zephyrproject.org/latest/reference/logging/index.html), it is suggested that you read through it and understand the implementation options that logging can provide.
 
 
 ### **3.1 Register a Module**
 
 A `log module` must be declared prior to using logging in an application. These modules may represent a device driver or a particular sub-system. For instance, you may define a module for a particular temperature sensor driver -- any logged output from this driver will now contain a signature referring to the name of the respective module. 
 
-Since we only have the one source file, we will define only one module. The API guide [2] has more information on how to use this across multiple files using different macros. It is simple to setup and highly suggested for your projects. 
+Since we only have the one source file, we will define only one module. The [API guide](https://docs.zephyrproject.org/latest/reference/logging/index.html) has more information on how to use this across multiple files using different macros. It is simple to setup and highly suggested for your projects. 
 
 Start by editing our source file. 
 ```shell
@@ -98,7 +98,7 @@ LOG_INF("The table is made out of...table");
 LOG_DBG("Read 0x8F register value: %ld", rVal);
 ```
 
-Refer to API [2], for more useful logging macros. 
+Refer to the [API guide](https://docs.zephyrproject.org/latest/reference/logging/index.html), for more useful logging macros. 
 
 In our `main.c` file, we can add in some logging options. 
 
@@ -140,10 +140,3 @@ sudo screen /dev/ttyACM0
 A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Arduino Sense Board.
 
 Sample is located in **REPO_TOP/tute_solutions/logging_example/**
-
-
-
-# Links
-[1] https://docs.zephyrproject.org/latest/reference/kconfig/CONFIG_SHELL_LOG_BACKEND.html#std-kconfig-CONFIG_SHELL_LOG_BACKEND
-
-[2] https://docs.zephyrproject.org/latest/reference/logging/index.html

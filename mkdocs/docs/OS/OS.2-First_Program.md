@@ -19,7 +19,7 @@ The following tutorial will focus on developing your own very first Zephyr appli
 
 ## 2.0 Directory Overview
 
-A typical Zephyr application is organized in the following format [1].
+A typical Zephyr application is [organized](https://docs.zephyrproject.org/latest/application/index.html) in the following format.
 
 ```
 <home>/apps
@@ -124,8 +124,3 @@ If flashing fails, refer to the end of `OS.1-Getting Started` and follow instruc
 A sample of this is located within
 
 > tute_solutions/blinky_tute/
-
-
-## Links
-
-[1]https://docs.zephyrproject.org/latest/application/index.html

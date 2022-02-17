@@ -29,7 +29,7 @@ nav:
 
 
 theme: 
-    name: windmill-dark
+    name: windmill
     include_search_page: true
     search_index_only: true
     history_buttons: true
@@ -41,4 +41,4 @@ markdown_extensions:
         permalink: '#'
 
 extra:
-    version: 0.5.2
+    version: 0.6.0

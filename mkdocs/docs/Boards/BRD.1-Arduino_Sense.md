@@ -14,7 +14,7 @@ This Arduino board requires an extra step compared to building and flashing a mo
 
 # 2.1 Getting the BOSSAC
 
-The bossac can be setup in a few different ways, the easiest is to clone the appropriate repository and compile the program. 
+The [bossac](https://docs.zephyrproject.org/latest/boards/arm/arduino_nano_33_ble/doc/index.html) can be setup in a few different ways, the easiest is to clone the appropriate repository and compile the program. 
 
 
 In the csse4011-vm, after completing the getting started guide, perform the following.
@@ -33,7 +33,7 @@ Step 3: Make Bossa
 cd BOSSA/
 make
 ```
-Step 4: Verify that bin/ has been succefully created with a binary named 'bossac'. 
+Step 4: Verify that bin/ has been successfully created with a binary named 'bossac'. 
 
 
 # 2.2 TTY Permissions for Flashing
@@ -62,6 +62,3 @@ west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac
 ```
 
 where $HOME is typically, */home/user*, so ensure that the path to 'bossac' is correct.
-
-# Links
-[1]https://docs.zephyrproject.org/latest/boards/arm/arduino_nano_33_ble/doc/index.html

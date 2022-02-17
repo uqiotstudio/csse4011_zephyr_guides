@@ -96,11 +96,11 @@ target_sources(app PRIVATE
 
 **Note:** That relative paths are interpreted as relative to the current source directory. 
 
-**Note:** That *include_directories(x/y)* applies the include directories to all targets, if you want to specify which targets use with includes, use *target_include_directories(t x/y)* [2]
+**Note:** That *include_directories(x/y)* applies the include directories to all targets, if you want to specify which targets use with includes, use *target_include_directories(t x/y)*, see [here](https://cmake.org/cmake/help/v3.20/manual/cmake-buildsystem.7.html#include-directories-and-usage-requirements)
 
 **CMakeLists documentation states that:** The include directories are added to the directory property INCLUDE_DIRECTORIES for the current CMakeLists file. They are also added to the target property INCLUDE_DIRECTORIES for each target in the current CMakeLists file. The target property values are the ones used by the generators.
 
-You can also use a seperate CMakeLists files to compile your libraries using a hierarchical cmake build system if desired. Refer to cmake build system documentation for more [3].
+You can also use a seperate CMakeLists files to compile your libraries using a hierarchical cmake build system if desired. Refer to cmake build system [documentation](https://cmake.org/cmake/help/v3.22/manual/cmake-buildsystem.7.html) for more.
 
 ## **2.4 Using Library Code in Target Application**
 
@@ -121,7 +121,7 @@ Using the above, extend the blinky program by implementing simple wrapper functi
 
 * Deinit led gpio pin
 
-Refer to the Zephyr GPIO API [4]
+Refer to the [Zephyr GPIO API](https://docs.zephyrproject.org/latest/reference/peripherals/gpio.html)
 
 ## **4.0 Sample Solution**
 
@@ -141,13 +141,3 @@ and flashed with
 > west flash -r 'runner'
 
 Refer to the board flashing tutorials for additional build/flash guides.
-
-
-# Links
-[1]https://cmake.org/cmake/help/v2.8.12/cmake.html#command:include_directories
-
-[2]https://cmake.org/cmake/help/v3.20/manual/cmake-buildsystem.7.html#include-directories-and-usage-requirements
-
-[3]https://cmake.org/cmake/help/v3.22/manual/cmake-buildsystem.7.html
-
-[4]https://docs.zephyrproject.org/latest/reference/peripherals/gpio.html
