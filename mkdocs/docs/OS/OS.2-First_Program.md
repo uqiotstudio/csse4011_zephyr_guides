@@ -6,11 +6,11 @@ The following tutorial will focus on developing your own very first Zephyr appli
 
 ## 1.1 Hardware Required
 
->Segger JLink EDU Mini
+* Segger JLink EDU Mini
 
->Particle Argon
+* Particle Argon
 
->2xMicro USB Cables
+* 2xMicro USB Cables
 
 **Connection guide:**
 1. Connect the Particle Argon using the micro-usb cable to your computer

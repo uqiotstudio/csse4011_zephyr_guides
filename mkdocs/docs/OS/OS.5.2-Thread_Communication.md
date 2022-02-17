@@ -12,7 +12,8 @@ Similar to inter-process-communications (IPC) in typical operating systems, ITC 
 ### **1.2. Prerequisites**
 
 Ensure that you have completed/understand the following tutorials. 
-> OS.1, OS.2, OS.2.1, BRD.1 and CN.3-Serial_Console or CN.5-Shell (for printk() usage)
+
+* OS.1, OS.2, OS.2.1, BRD.1 and CN.3-Serial_Console or CN.5-Shell (for printk() usage)
 
 ## **2.0 Thread Communication in Zephyr**
 

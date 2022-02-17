@@ -10,16 +10,17 @@ Typically, logging is coupled with a command line interface. In addition to the 
 
 ## 1.1 Test Hardware
 
-> Arduino Sense Board
+* Arduino Sense Board
 
-> mUSB Cable
+* mUSB Cable
 
 **This implementation is valid for Zephyr RTOS Version 2.7.XX**
 
 ## 1.2. Prerequisites
 
 Ensure that you have completed/understand the following tutorials. 
-> OS.1, OS.2, OS.2.1 , BRD.1 and CN.4-Shell. 
+
+* OS.1, OS.2, OS.2.1 , BRD.1 and CN.4-Shell. 
 
 ## **2.0 Zephyr Logging Implementation**
 

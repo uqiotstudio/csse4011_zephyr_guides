@@ -11,16 +11,17 @@ Zephyr also allows for Shell to be used as a backend for the Zephyr Logging API.
 
 ## 1.1 Test Hardware
 
-> Arduino Sense Board
+*  Arduino Sense Board
 
-> mUSB Cable
+* mUSB Cable
 
 **This implementation is valid for Zephyr RTOS Version 2.7.XX**
 
 ## 1.2. Prerequisites
 
 Ensure that you have completed/understand the following tutorials. 
-> OS.1, OS.2, OS.2.1 and BRD.1
+
+* OS.1, OS.2, OS.2.1 and BRD.1
 
 ## 1.3 Setup
 

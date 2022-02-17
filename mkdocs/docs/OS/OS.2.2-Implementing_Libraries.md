@@ -9,9 +9,9 @@ The following tutorial looks at implementing a simple library and adding library
 ## **2.1 Including library files**
 
 We will build on the blinky sample that was created in *OS.2-First_Program*. We will start by creating a library file to implement functions that will:
-> Initialize GPIO for led
 
-> Provide a wrapper functions for turning led on and off.
+* Initialize GPIO for led
+* Provide a wrapper functions for turning led on and off.
 
 The following directory structure will be implemented for this basic library application. Where, *blinky_tute_ext* is a copy of the application made in *OS.2-First_Program*. 
 
@@ -115,6 +115,7 @@ Now you can call the library functions as desired.
 
 ## **3.0 Tutorial Question**
 Using the above, extend the blinky program by implementing simple wrapper functions to:
+
 * Init led gpio pin
 
 * Power on/off led0 pin

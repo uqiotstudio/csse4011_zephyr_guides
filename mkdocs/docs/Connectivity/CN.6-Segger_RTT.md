@@ -6,17 +6,18 @@ Aim of this tutorial is to use Segger RTT for serial access on devices where USB
 
 ## **1.1 Test Hardware**
 
-> Thingy52 or Particle Argon 
+* Thingy52 or Particle Argon 
 
-> 2x mUSB Cable
+* 2x mUSB Cable
 
-> Segger JLinkEDUMini
+* Segger JLinkEDUMini
 
 
 ## **1.2. Prerequisites**
 
 Ensure that you have completed/understand the following tutorials. 
-> OS.1, OS.2, OS.2.1 and BRD.2
+
+* OS.1, OS.2, OS.2.1 and BRD.2
 
 ## **1.3 Setup**
 

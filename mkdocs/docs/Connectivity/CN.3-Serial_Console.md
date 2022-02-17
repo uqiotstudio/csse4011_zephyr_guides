@@ -11,16 +11,17 @@ Once USB console is setup, it can be used for printk() debugging, and/or to exam
 
 This implementation will explore setting up the console on the Arduino Sense board.
 
-> Arduino Sense Board
+* Arduino Sense Board
 
-> mUSB Cable
+* mUSB Cable
 
 **This implementation is valid for Zephyr RTOS Version 2.7.XX**
 
 ## 1.2. Prerequisites
 
 Ensure that you have completed/understand the following tutorials. 
-> OS.1, OS.2, OS.2.1 and BRD.1
+
+* OS.1, OS.2, OS.2.1 and BRD.1
 
 ## **2.0 Setting up Console**
 
