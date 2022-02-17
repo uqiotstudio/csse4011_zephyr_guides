@@ -1,5 +1,5 @@
 site_name: CSSE4011 Tutorial Docs
-site_url: https://github.com/thulithwilfred/csse4011_documentation
+site_url: https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides
 nav:
   - Contents: about.md
   - Operating System: 
@@ -41,4 +41,4 @@ markdown_extensions:
         permalink: '#'
 
 extra:
-    version: 0.6.0
+    version: 0.6.5
