@@ -31,13 +31,13 @@ Refer to the API guides (links section) for detailed information on implementing
 
 Within Zephyr, a semaphore can be defined by the use of the following macro
 
-```
+```C
 K_SEM_DEFINE(sem_name, 0, 1);
 ```
 
 or, using the function  *k_sem_init()*
 
-```
+```C
 struct k_sem sem_name;
 
 void
@@ -49,7 +49,7 @@ main(void)
 
 The typical application of a semaphore can be as seen below:
 
-```
+```C
 void
 interrupt_handler(void *arg)
 {
@@ -94,7 +94,7 @@ Zephyr allows for 'Condition Variables' to be used as a synchronization primitiv
 
 [Zephyr Condition Variable API](https://docs.zephyrproject.org/latest/reference/kernel/synchronization/condvar.html) shows the following example to be  a typical conditional variable implementation with two threads. In the ***main*** thread, 
 
-```
+```C
 K_MUTEX_DEFINE(mutex);
 K_CONDVAR_DEFINE(condvar)
 
@@ -113,7 +113,7 @@ void main(void)
 ```
 and in the ***worker*** thread,
 
-```
+```C
 void worker_thread(void)
 {
     k_mutex_lock(&mutex, K_FOREVER);

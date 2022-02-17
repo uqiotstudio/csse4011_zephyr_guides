@@ -44,27 +44,27 @@ Start by editing the source file.
 vim src/main.c
 ```
 The following macro allows for the definition of a message queue in Zephyr, add this to your source file. 
-```
+```C
 K_MSGQ_DEFINE(my_msgq, sizeof(struct data_packet), 10, 4);
 ```
 Where, a message queue named *my_msgq* is initialized, that queues *10* struct *data_packet* items, where the structure is aligned to an address that is divisible by 4 (4-byte aligned). 
 
 To make this work, we must also define a struct *data_packet* globally (before macro usage).
-```
+```C
 struct data_packet {
         uint16_t preamble;
         char string[32];
 };
 ```
 In our main(), we can add some data to our struct
-```
+```C
 /* MSGQ Packet */
 struct data_packet packet;
 packet.preamble = 0xAA;
 snprintk(packet.string, sizeof(packet.string), "Colonels Recipe.exe\n");
 ```
 and lets put this packet on our queue, (add this to the while loop in main())
-```
+```C
 /* Send Messages to consumers */
 if (k_msgq_put(&my_msgq, &packet, K_NO_WAIT) != 0) {
         /* Queue is full, we could purge it, a loop can be
@@ -75,7 +75,7 @@ if (k_msgq_put(&my_msgq, &packet, K_NO_WAIT) != 0) {
 ```
 Now, we will add another thread (alongside main), so we can test the ITC between two threads using the message queue. Note: Make sure to give this thread sufficient stack size as **message queues are passed by copy**. 
 
-```
+```C
 /* Define Consumer Thread */
 void consumer_thread(void);
 #define STACK_SIZE 1024

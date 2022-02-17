@@ -30,23 +30,23 @@ Ensure that you have completed/understand the following tutorials.
 Create a new application directory for a sample shell application. 
 
 ```shell
-    cd ~/csse4011/csse4011_repo/
-    mkdir -p apps/logging_sample/
+cd ~/csse4011/csse4011_repo/
+mkdir -p apps/logging_sample/
 ```
 
 Here we will a copy of the previous shell sample and add to it. You may also use the provided shell solution.
 
 ```shell
-    cd shell_example/
-    cp -R * ../shell_sample/
-    cd ~/csse4011/csse4011_repo/apps/shell_sample/
+cd shell_example/
+cp -R * ../shell_sample/
+cd ~/csse4011/csse4011_repo/apps/shell_sample/
 ```
 
 ### **2.2 Driver and Config Setup**
 
 Since we are appending to our existing solution of the shell sample, we do need additional overlays or config options here. It is worth noting that in `shell.conf` the following lines enable logging. Here, **the shell is set default as the backend for logging** (preset in Kconfig options: `CONFIG_SHELL_LOG_BACKEND` [1]).
 
-```
+```CONF
 #-----------------------------SHELL_LOGGING-----------------------------------
 CONFIG_LOG=y
 CONFIG_LOG_PRINTK=y
@@ -71,7 +71,7 @@ Start by editing our source file.
 vim src/main.c
 ```
 append the following.
-```
+```C
 #include <logging/log.h>
 
 /* Define logging module */
@@ -88,7 +88,7 @@ This registers a module names `sample_module` with a log filter level of `DEBUG`
 
 Once a module as been registered as above, we can use the following macros to implement the logging. Keep in mind that if you have set a `LOG_LEVEL_X` some of these may be filtered out.
 
-```
+```C
 LOG_ERR("Some error message: %d", errno);
 
 LOG_WRN("It's getting hot in here...");
@@ -102,7 +102,7 @@ Refer to the [API guide](https://docs.zephyrproject.org/latest/reference/logging
 
 In our `main.c` file, we can add in some logging options. 
 
-```
+```C
 ...
 ...
 while (1) {

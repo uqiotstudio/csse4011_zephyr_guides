@@ -49,7 +49,7 @@ We'll create a new config file.
 vim segger_rtt_console.conf
 ```
 and add in:
-```
+```CONF
 #-----------------------------RTT_CONFIG--------------------------------------
 CONFIG_USE_SEGGER_RTT=y
 
@@ -67,7 +67,7 @@ set(CONF_FILE segger_rtt.conf)
 ```
 Now you can compile and flash this application. See below **`4.0 Testing`** for more. Be sure to add a `printk()`, so you can see some output in the console.
 
-```
+```C
 while(1) {
     printk("Out like a light\n");
     k_msleep(500);
@@ -101,7 +101,7 @@ We'll create a new config file.
 vim segger_rtt_shell.conf
 ```
 And add these options into tell the kernel we want to use these features.
-```
+```CONF
 #-----------------------------RTT_CONFIG--------------------------------------
 CONFIG_USE_SEGGER_RTT=y
 CONFIG_SHELL_BACKEND_RTT=y
@@ -112,7 +112,7 @@ Since we are using the shell, we will also need to configure it (same config as 
 vim shell.conf
 ```
 and add the following
-```
+```CONF
 #-----------------------------SHELL_CONF--------------------------------------
 CONFIG_SHELL_BACKEND_SERIAL_CHECK_DTR=y
 CONFIG_UART_LINE_CTRL=y

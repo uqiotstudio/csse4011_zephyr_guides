@@ -72,7 +72,7 @@ Typically, when you interact with new hardware, you must first enable the kernel
 If you have already read through the blinky sample that we use as boilerplate, you may have already noticed that to toggle the led, it uses the `device-tree macros` from within the `main.c` file. 
 
 For example,
-```
+```C
 /* The devicetree node identifier for the "led0" alias. */
 #define LED0_NODE DT_ALIAS(led0)
 
@@ -94,13 +94,13 @@ Start by editing the source file and append the following
 vim src/main.c
 ```
 Use `DT_NODELABEL` to get the respective node_id for for `gpio0` from DTS.
-```
+```C
 /* DeviceTree get node ID from label */
 #define GPIO0 DT_NODELABEL(gpio0)
 #define GPIO_A0 0x0D                //PIN PO.13
 ```
 In our main function, let's init the GPIO PIN.
-```
+```C
 const struct device *dev_gpio0;
 dev_gpio0 = device_get_binding(DT_LABEL(GPIO0));
 
@@ -111,7 +111,7 @@ Notice here, that `device_get_binding()` will not except a `NODE_ID`, but it doe
 
 and finally in our while loop, we can toggle this pin.
 
-```
+```C
 while (1) {
     gpio_pin_set(dev, PIN, (int)led_is_on);
     /* Toggle the PIN */

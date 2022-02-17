@@ -35,7 +35,7 @@ K_THREAD_DEFINE(name, stack_size, entry, p1, p2, p3, prio, options, delay)
 
 The below snippet shows how a compile-time thread can be setup. Refer to [Zephyr Thread API](https://docs.zephyrproject.org/latest/reference/kernel/threads/index.html) for more details.
 
-```
+```C
 #define MY_STACK_SIZE 500
 #define MY_PRIORITY 5
 
@@ -63,7 +63,7 @@ my_entry_point(void *a, void *b, void *c)
 
 Run-time threads in Zephyr can be created as seen below. This code performs the same fundamental actions as compile-time thread. However, it is created at run-time. 
 
-```
+```C
 #define MY_STACK_SIZE 500
 #define MY_PRIORITY 5
 

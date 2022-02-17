@@ -35,12 +35,12 @@ In the previous tutorial `(CN.4 - Shell)` we set up the Zephyr Shell through USB
 
 
 ```shell
-    cd ~/csse4011/csse4011_repo/apps
-    mkdir shell_cmd_sample/
+cd ~/csse4011/csse4011_repo/apps
+mkdir shell_cmd_sample/
 ```
 Copy shell sample files (from `CN.4 - Shell`) into new directory for shell commands
 ```Shell
-    cd -R shell_sample/* shell_cmd_sample/
+cd -R shell_sample/* shell_cmd_sample/
 ```
 
 ### **2.1 Implementing a Shell Command**
@@ -65,13 +65,13 @@ add the shell include
 Now we can specify what commands we are going to make, using the Shell API macros `SHELL_CMD_REGISTER()` and `SHELL_STATIC_SUBCMD_SET_CREATE()`
 
 Let's first declare some prototype handlers for our commands
-```
+```C
  /* Declare command handler prototypes */
  static int cmd_led_ctrl_on(const struct shell *, size_t, char **);
  static int cmd_led_ctrl_off(const struct shell *, size_t, char **);
 ```
 and let's use the macros to setup our commands.
-```
+```C
 /* Specify Shell Commands for LED Toggling */
 /* Creating subcommands (level 1 command) array for command "led". */ 
 SHELL_STATIC_SUBCMD_SET_CREATE(led_ctrl,
@@ -89,7 +89,7 @@ create the level 1 subcommands for `on` and `off`, which are linked to their res
 
 Finally, we can implement the actual handlers. Note, that these don't check if the `led-gpio pin` has been initialized and assumes it has been pre-configured in `main()` (if not, `gpio_pin_set()` will fail). 
 
-```
+```C
 /* Command Handler for toggling led0 on, note that it assumes
  * the pin has been preconfigured */
 static int cmd_led_ctrl_on(const struct shell *shell, size_t argc,

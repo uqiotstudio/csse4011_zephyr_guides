@@ -60,7 +60,7 @@ First, we will enable the USB subsystem as before,
 vim usb.conf  #create a new .conf file for the USB subsystem
 ```
 Append the following, then save and exit the editor.
-```shell
+```CONF
 #----------------------------------USB SETUP----------------------------------
 CONFIG_USB_DEVICE_STACK=y
 CONFIG_USB_DEVICE_PRODUCT="Zephyr USB shell sample"
@@ -79,7 +79,7 @@ Next, we will enable Zephyr Shell,
 vim shell.conf #create a new .conf file for shell options
 ```
 append the following config settings.
-```
+```CONF
 #-----------------------------SHELL_CONF--------------------------------------
 CONFIG_SHELL_BACKEND_SERIAL_CHECK_DTR=y
 CONFIG_UART_LINE_CTRL=y
@@ -112,7 +112,7 @@ As with the console, we must inform Zephyr that the **shell-uart is to be routed
 vim dtc_shell.overlay #create new file for shell overlay
 ```
 append the following to the file.
-```
+```DTS
 / {
         chosen {
                 zephyr,shell-uart = &cdc_acm_uart0;
@@ -153,7 +153,7 @@ and now we tell our application to initialize the USB stack.
 ```shell
 vim src/main.c
 ```
-```
+```C
 #include <usb/usb_device.h>
 #include <drivers/uart.h>       //Include these libraries
 

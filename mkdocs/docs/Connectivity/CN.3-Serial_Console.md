@@ -49,7 +49,7 @@ To enable the existing USB drivers, a few config options need to be added to our
 
 
 Start by editing the **prj.conf** file. Append the following config options. These options can be found [here](https://docs.zephyrproject.org/latest/reference/devicetree/api.html ), for different subsystems. 
-```
+```CONF
 CONFIG_GPIO=y
 
 #------------------------------ENABLE USB---------------------------------------
@@ -65,7 +65,7 @@ CONFIG_UART_LINE_CTRL=y
 ```
 Optionally, you can add the following config statements to add some flavour to the USB Stack... These commands let you set USB device ID parameters. 
 
-```
+```CONF
 #--------------------------------USB OPTIONS----------------------------------
 CONFIG_USB_DEVICE_PRODUCT="Arduino Nano BLE - Zephyr"
 CONFIG_USB_DEVICE_MANUFACTURER="Wilfred MK"
@@ -88,7 +88,7 @@ vim app.overlay                                         #Use any text editor
 
 Copy the following overlay details into the newly created file. This is adding a devicetree overlay to the build system, see [here](https://docs.zephyrproject.org/latest/reference/devicetree/api.html ) for more. Here we specify the console should be routed to cdc_acm_uart0.
 
-```
+```DTS
 / {
         chosen {
                 zephyr,console = &cdc_acm_uart0;
@@ -114,7 +114,7 @@ and now we tell our application to initialize the USB and print some data.
 ```shell
 vim src/main.c
 ```
-```
+```C
 #include <usb/usb_device.h>
 #include <drivers/uart.h>       //Include these libraries
 
