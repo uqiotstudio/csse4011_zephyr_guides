@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#csse4011-thingy52-zephyr-board-guide" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -599,10 +604,70 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          2.0 Thingy52
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         2.0 Thingy52
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-prerequisites" class="md-nav__link">
+    1.0 Prerequisites
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-test-hardware" class="md-nav__link">
+    1.1 Test Hardware
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-installing-segger-tools" class="md-nav__link">
+    2.0 Installing SEGGER Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-thingy52-zephyr" class="md-nav__link">
+    3.0 Thingy52 - Zephyr
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -636,6 +701,66 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-prerequisites" class="md-nav__link">
+    1.0 Prerequisites
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-test-hardware" class="md-nav__link">
+    1.1 Test Hardware
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-installing-segger-tools" class="md-nav__link">
+    2.0 Installing SEGGER Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-thingy52-zephyr" class="md-nav__link">
+    3.0 Thingy52 - Zephyr
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -646,16 +771,67 @@
 </a>
 
 
-  <h1>2.0 Thingy52</h1>
-
-
+<h1 id="csse4011-thingy52-zephyr-board-guide">CSSE4011: Thingy52: Zephyr Board Guide</h1>
+<h2 id="10-prerequisites"><strong>1.0 Prerequisites</strong></h2>
+<p>Complete following OS tutes</p>
+<ol>
+<li>Getting Started</li>
+<li>First Program</li>
+</ol>
+<h3 id="11-test-hardware"><strong>1.1 Test Hardware</strong></h3>
+<ul>
+<li>Thingy52</li>
+<li>2x mUSB Cable</li>
+<li>Segger J-Link EDU mini</li>
+</ul>
+<h2 id="20-installing-segger-tools"><strong>2.0 Installing SEGGER Tools</strong></h2>
+<p><strong>NOTE: For flashing to work, you must first install <a href="https://www.segger.com/downloads/jlink/">J-Link Software and Documentation pack</a> in your VM</strong>, use the <code>64-bit DEB</code> installer for <strong>Debian</strong>. </p>
+<p>To install this, open up a terminal and navigate to download location.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span> ~/Downloads
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">#Make sure the file name is right, versions change often</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>sudo dpkg -i JLink_Linux_V762_x86_64.deb
+</code></pre></div>
+<p>Make sure that the JLink device is connected up properly to the Thingy52 device, and ensure that the power switch is to the left (facing you - on position). It is a good idea to have the device connected via mUSB for charging during this procedure.</p>
+<p>Once this has been completed, you can test that it is functional with</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$ JLinkExe
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>SEGGER J-Link Commander V7.62 <span class="o">(</span>Compiled Feb <span class="m">16</span> <span class="m">2022</span> <span class="m">16</span>:09:54<span class="o">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>DLL version V7.62, compiled Feb <span class="m">16</span> <span class="m">2022</span> <span class="m">16</span>:09:39
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Connecting to J-Link via USB...O.K.
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Firmware: J-Link EDU Mini V1 compiled Dec  <span class="m">7</span> <span class="m">2021</span> <span class="m">08</span>:38:51
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>Hardware version: V1.00
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>S/N: <span class="m">801026632</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>License<span class="o">(</span>s<span class="o">)</span>: FlashBP, GDB
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>USB speed mode: Full speed <span class="o">(</span><span class="m">12</span> MBit/s<span class="o">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nv">VTref</span><span class="o">=</span><span class="m">3</span>.286V
+</code></pre></div>
+<p>at this point if you get</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Connecting to J-Link via USB...FAILED: Cannot connect to J-Link.
+</code></pre></div>
+<p>This means that either your connections are wrong or more likely that the VM has not been passed the USB from host. You can test this by running.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>lsusb
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Bus <span class="m">001</span> Device <span class="m">003</span>: ID <span class="m">1366</span>:0101 SEGGER J-Link PLUS
+</code></pre></div>
+If you do not see this device, check if the host can see this device, if so, you will need to configure the VM to allow passthrough for the SEGGER EDU Mini.</p>
+<h2 id="30-thingy52-zephyr"><strong>3.0 Thingy52 - Zephyr</strong></h2>
+<p>The thingy52 has a simple build and flash procedure. To build for the thingy52 simply:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">#Within the application directory</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>west build -p auto -b thingy52_nrf52832 
+</code></pre></div>
+<p>the thingy52 can now be flashed with</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">#Within the application directory</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>west flash -r jlink
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2022-02-17
+      2022-02-19
     
   </small>
 </div>

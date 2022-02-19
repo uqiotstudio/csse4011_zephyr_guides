@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#csse4011-nrf-dongle-zephyr-board-guide" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -613,10 +618,90 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          3.0 nRF Dongle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         3.0 nRF Dongle
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-prerequisites" class="md-nav__link">
+    1.0 Prerequisites
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-test-hardware" class="md-nav__link">
+    1.1 Test Hardware
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-tools" class="md-nav__link">
+    2.0 Tools
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-tty-permissions-for-flashing" class="md-nav__link">
+    2.1 TTY Permissions for Flashing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#30-nrf-dongle-nrf52840-zephyr" class="md-nav__link">
+    3.0 nRF Dongle (nRF52840) - Zephyr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#40-troubleshooting" class="md-nav__link">
+    4.0 Troubleshooting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -636,6 +721,86 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-prerequisites" class="md-nav__link">
+    1.0 Prerequisites
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-test-hardware" class="md-nav__link">
+    1.1 Test Hardware
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-tools" class="md-nav__link">
+    2.0 Tools
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-tty-permissions-for-flashing" class="md-nav__link">
+    2.1 TTY Permissions for Flashing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#30-nrf-dongle-nrf52840-zephyr" class="md-nav__link">
+    3.0 nRF Dongle (nRF52840) - Zephyr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#40-troubleshooting" class="md-nav__link">
+    4.0 Troubleshooting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -646,16 +811,65 @@
 </a>
 
 
-  <h1>3.0 nRF Dongle</h1>
-
-
+<h1 id="csse4011-nrf-dongle-zephyr-board-guide">CSSE4011: nRF Dongle: Zephyr Board Guide</h1>
+<h2 id="10-prerequisites"><strong>1.0 Prerequisites</strong></h2>
+<p>Complete following OS tutes</p>
+<ol>
+<li>Getting Started</li>
+<li>First Program</li>
+</ol>
+<h3 id="11-test-hardware"><strong>1.1 Test Hardware</strong></h3>
+<ul>
+<li>nRF Dongle</li>
+</ul>
+<h2 id="20-tools"><strong>2.0 Tools</strong></h2>
+<p>For flashing this board, we need to install <code>nrfutil</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip3 install nrfutil
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>nrfutil
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Usage: nrfutil <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Options:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  -v, --verbose            Increase verbosity of output. Can be specified
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                           more than once <span class="o">(</span>up to -v -v -v -v<span class="o">)</span>.
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  -o, --output &lt;filename&gt;  Log output to file
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  --help                   Show this message and exit.
+</code></pre></div>
+<h3 id="21-tty-permissions-for-flashing"><strong>2.1 TTY Permissions for Flashing</strong></h3>
+<p>TTY permissions are required to load the binary by <code>nrfutil</code> . An easy way to do this is to add the current user to the 'dialout' group.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo usermod -a -G dialout <span class="nv">$USER</span>
+</code></pre></div>
+<p>You will <strong>typically need to log out and log in or reboot to see this effect</strong>. </p>
+<h3 id="30-nrf-dongle-nrf52840-zephyr"><strong>3.0 nRF Dongle (nRF52840) - Zephyr</strong></h3>
+<p>To build an application, from within the application directory</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>west build -p auto -b nrf52840dongle_nrf52840
+</code></pre></div>
+<p>Package the application for the bootloader using <code>nrfutil</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nrfutil pkg generate --hw-version <span class="m">52</span> --sd-req<span class="o">=</span>0x00 <span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>        --application build/zephyr/zephyr.hex <span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        --application-version <span class="m">1</span> blinky.zip
+</code></pre></div>
+<p>Now, put the device into bootloader mode, by pressing the <strong>sideways</strong> push button (next to the white pushbutton). You should see the red led <strong>steadily</strong> blinky.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>nrfutil dfu usb-serial -pkg blinky.zip -p /dev/ttyACM0
+</code></pre></div>
+<h3 id="40-troubleshooting"><strong>4.0 Troubleshooting</strong></h3>
+<p>If you get a permissions error when flashing, it is likely because you did not log out/in after updating groups.</p>
+<p>If it fails to flash, it could be because the VM does not see the <code>DFU Bootloader</code>. 
+Run:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>lsusb
+</code></pre></div>
+and see if the following comes up</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Bus <span class="m">001</span> Device <span class="m">009</span>: ID <span class="m">1915</span>:521f Nordic Semiconductor ASA Open DFU Bootloader
+</code></pre></div>
+<p>If not, you will need to edit VM settings and passthrough this USB from the host to the VM.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2022-02-17
+      2022-02-19
     
   </small>
 </div>
