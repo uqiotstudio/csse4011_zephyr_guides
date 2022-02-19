@@ -935,7 +935,7 @@ Here, <code>DT_ALIAS()</code> is used to find the reference <code>led0</code> wi
 Use <code>DT_NODELABEL</code> to get the respective node_id for for <code>gpio0</code> from DTS.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cm">/* DeviceTree get node ID from label */</span><span class="w"></span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="cp">#define GPIO0 DT_NODELABEL(gpio0)</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">#define GPIO_A0 0x0D                </span><span class="c1">//PIN PO.13</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">#define GPIO0_13 0x0D                </span><span class="c1">//PIN PO.13</span>
 </code></pre></div>
 In our main function, let's init the GPIO PIN.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev_gpio0</span><span class="p">;</span><span class="w"></span>
@@ -962,14 +962,17 @@ Notice here, that <code>device_get_binding()</code> will not except a <code>NODE
 <p>You should see that the <strong>top-led led is now flashing orange</strong> alongside the red led (led0) from the boilerplate code. </p>
 <h2 id="41-sample-application"><strong>4.1 Sample Application</strong></h2>
 <p>A sample application has been provided, this application includes all the steps mentioned above.</p>
-<p>Sample is located in <strong>REPO_TOP/tute_solutions/gpio_sample/</strong></p>
+<p>Sample is located in:</p>
+<ul>
+<li>REPO_TOP/tute_solutions/gpio_sample/</li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2022-02-17
+      2022-02-19
     
   </small>
 </div>

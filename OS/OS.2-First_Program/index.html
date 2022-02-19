@@ -850,39 +850,42 @@ Verify that the following exist within your sample dir
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        └── src/
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>            └── main.c
 </code></pre></div>
-Add ZEPHYR_BASE to path (Lets you build from outside the Zephyr Source Dir). Append the following line to the end of 'bashrc'.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>vim ~/.bashrc                               or use any text editor
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>#Add Zephyr Base to PATH
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>export ZEPHYR_BASE=~/csse4011/zephyrproject/zephyr   
+Add ZEPHYR_BASE to path (Lets you build from outside the Zephyr Source Dir). Append the following line to the end of 'bashrc' (If you haven't already from <strong>OS.1</strong>). <strong>For text editing</strong> you can use <code>nano</code> instead of <code>vim</code> as it is usually installed by default. </p>
+<p><strong>To install vim.</strong> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo apt install vim
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>vim ~/.bashrc                               or use any text editor
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>#Add Zephyr Base to PATH
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>export ZEPHYR_BASE=~/csse4011/zephyrproject/zephyr   
 </code></pre></div>
 save and exit.</p>
 <p>Read and execute bashrc (Loads ZEPHYR_BASE for current shell instance)
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">source</span> ~/.bashrc
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">echo</span> <span class="nv">$ZEPHYR_BASE</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">source</span> ~/.bashrc
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">echo</span> <span class="nv">$ZEPHYR_BASE</span>
 </code></pre></div>
 Should now display the path to zephyr base. </p>
 <p>Build the sample application within our directory
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span> ~/csse4011/csse4011_repo/apps/sample/
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>west build -p auto -b particle_argon
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span> ~/csse4011/csse4011_repo/apps/sample/
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>west build -p auto -b particle_argon
 </code></pre></div>
 Flash and Verify that Blinky works. 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>west flash -r jlink
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>west flash -r jlink
 </code></pre></div></p>
 <p>The option '-r' lets you specify a runner, in this case we are using JLink to flash the Particle Argon. Make sure that the cables are connected properly.</p>
 <p>If flashing fails, refer to the end of <code>OS.1-Getting Started</code> and follow instructions for installing runners / additional runners. </p>
 <h2 id="40-sample"><strong>4.0 Sample</strong></h2>
 <p>A sample of this is located within</p>
-<blockquote>
-<p>tute_solutions/blinky_tute/</p>
-</blockquote>
+<ul>
+<li>tute_solutions/blinky_tute/</li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2022-02-17
+      2022-02-19
     
   </small>
 </div>

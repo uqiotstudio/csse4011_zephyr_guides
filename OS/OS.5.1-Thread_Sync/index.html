@@ -961,24 +961,20 @@ and in the <strong><em>worker</em></strong> thread,</p>
 <p><strong>Refer to the <a href="https://docs.zephyrproject.org/latest/reference/kernel/synchronization/condvar.html">implementation API</a> for more details.</strong></p>
 <h2 id="30-tutorial-question"><strong>3.0 Tutorial Question</strong></h2>
 <blockquote>
-<ol>
-<li>Use two semaphores to enforce synchronization between the two blinky threads created in tute OS.4-Threading.</li>
-</ol>
+<p><strong>1. Use two semaphores to enforce synchronization between the two blinky threads created in tute OS.4-Threading.</strong></p>
 </blockquote>
 <p>The implementation should only use delays to indicate that the led visibly blinks. </p>
 <h2 id="31-sample-solution"><strong>3.1 Sample Solution</strong></h2>
 <p>A sample solution is uploaded in the docs repository. Find located within,</p>
-<blockquote>
-<p>tute_solutions/OS-5.1_tute/src/</p>
-</blockquote>
+<ul>
+<li>tute_solutions/OS-5.1_tute/src/</li>
+</ul>
 <p>This code can be built with:</p>
-<blockquote>
-<p>west build -p -b <board_name></p>
-</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>west build -p -b &lt;board_name&gt;
+</code></pre></div>
 <p>and flashed with</p>
-<blockquote>
-<p>west flash -r 'runner'</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>west flash -r <span class="s1">&#39;runner&#39;</span>
+</code></pre></div>
 <p>Refer to the board flashing tutorials for additional build/flash guides.</p>
 
   <hr>
@@ -986,7 +982,7 @@ and in the <strong><em>worker</em></strong> thread,</p>
   <small>
     
       Last update:
-      2022-02-17
+      2022-02-19
     
   </small>
 </div>

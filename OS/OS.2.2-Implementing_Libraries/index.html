@@ -890,45 +890,44 @@
 </blockquote>
 <h3 id="221-creating-a-library-source-file-led_driverc"><strong>2.2.1 Creating a library source file (led_driver.c)</strong></h3>
 <p>First include necessary Zephyr headers files required by the application, in this case, for an led to toggle, we use. </p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>#include &lt;zephyr.h&gt;
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>#include &lt;device.h&gt;
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>#include &lt;devicetree.h&gt;
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>#include &lt;drivers/gpio.h&gt;
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr.h&gt;</span><span class="cp"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;device.h&gt;</span><span class="cp"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;devicetree.h&gt;</span><span class="cp"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;drivers/gpio.h&gt;</span><span class="cp"></span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/* Local Library Include */
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>#include &quot;led_driver.h&quot;
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="cm">/* Local Library Include */</span><span class="w"></span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;led_driver.h&quot;</span><span class="cp"></span>
 </code></pre></div>
 This can be followed by any source code required to implement the application/driver logic. </p>
 <h3 id="222-creating-a-library-header-file-led_driverh"><strong>2.2.2 Creating a library header file (led_driver.h)</strong></h3>
 <p>The header file can be made as per usual using typical syntax. There are no particular restrictions on the way this is implemented. </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>#ifdef LED_DRIVER_H
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>#define LED_DRIVER_H
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#ifdef LED_DRIVER_H</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#define LED_DRIVER_H</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/* Device Tree Macros */
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>#define LED0_NODE DT_ALIAS(led0)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cm">/* Device Tree Macros */</span><span class="w"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="cp">#define LED0_NODE DT_ALIAS(led0)</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>/* Function Prototypes..*/
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>int led0_init(void);
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="cm">/* Function Prototypes..*/</span><span class="w"></span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kt">int</span><span class="w"> </span><span class="nf">led0_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>#endif
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="cp">#endif</span>
 </code></pre></div>
 <h2 id="23-adding-sources-and-header-files-to-cmakelists"><strong>2.3 Adding Sources and Header files to CMakeLists</strong></h2>
 <p>With this, you can now created a basic library to implement re-usable code. However, to add this to the build system of this intended application. You must add these files to the CMakeLists file of the target application. In this case the following file  <em>blinky_tute_ext/CMakeLists.txt</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Append the following to the CMakeLists.txt file
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="err">Append</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">following</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">CMakeLists.txt</span><span class="w"> </span><span class="err">file</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>#Add Include Directories
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>include_directories(
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>                        ../lib/led_driver/
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>                        )
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c">#Add Include Directories</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">include_directories</span><span class="p">(</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">                        </span><span class="s">../lib/led_driver/</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">                        </span><span class="p">)</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>#Add Target Sources
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>target_sources(app PRIVATE
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>                        src/main.c
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>                        ../lib/led_driver/led_driver.c
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>                        )
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>)
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c">#Add Target Sources</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nb">target_sources</span><span class="p">(</span><span class="s">app</span><span class="w"> </span><span class="s">PRIVATE</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">                        </span><span class="s">src/main.c</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">                        </span><span class="s">../lib/led_driver/led_driver.c</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">                        </span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Note:</strong> That relative paths are interpreted as relative to the current source directory. </p>
 <p><strong>Note:</strong> That <em>include_directories(x/y)</em> applies the include directories to all targets, if you want to specify which targets use with includes, use <em>target_include_directories(t x/y)</em>, see <a href="https://cmake.org/cmake/help/v3.20/manual/cmake-buildsystem.7.html#include-directories-and-usage-requirements">here</a></p>
@@ -936,8 +935,8 @@ This can be followed by any source code required to implement the application/dr
 <p>You can also use a seperate CMakeLists files to compile your libraries using a hierarchical cmake build system if desired. Refer to cmake build system <a href="https://cmake.org/cmake/help/v3.22/manual/cmake-buildsystem.7.html">documentation</a> for more.</p>
 <h2 id="24-using-library-code-in-target-application"><strong>2.4 Using Library Code in Target Application</strong></h2>
 <p>Finally, we can now use the library code within our target application. To do this, include the respective header files. In this case, include the following in <em>src/main.c</em></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/* Include file from our library */
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>#include &quot;led_driver.h&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cm">/* Include file from our library */</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;led_driver.h&quot;</span><span class="cp"></span>
 </code></pre></div>
 <p>Now you can call the library functions as desired. </p>
 <h2 id="30-tutorial-question"><strong>3.0 Tutorial Question</strong></h2>
@@ -956,18 +955,20 @@ This can be followed by any source code required to implement the application/dr
 <p>Refer to the <a href="https://docs.zephyrproject.org/latest/reference/peripherals/gpio.html">Zephyr GPIO API</a></p>
 <h2 id="40-sample-solution"><strong>4.0 Sample Solution</strong></h2>
 <p>A sample solution is uploaded in the docs repository. Find located within,</p>
-<blockquote>
+<ul>
+<li>
 <p>tute_solutions/blinky_tute_ext/src/</p>
+</li>
+<li>
 <p>tute_solutions/lib/led_driver/</p>
-</blockquote>
-<p>This code can be built with:</p>
-<blockquote>
-<p>west build -p -b <board_name></p>
-</blockquote>
+</li>
+</ul>
+<p>This code can be built with:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>west build -p -b &lt;board_name&gt;
+</code></pre></div></p>
 <p>and flashed with</p>
-<blockquote>
-<p>west flash -r 'runner'</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>west flash -r <span class="s1">&#39;runner&#39;</span>
+</code></pre></div>
 <p>Refer to the board flashing tutorials for additional build/flash guides.</p>
 
   <hr>
@@ -975,7 +976,7 @@ This can be followed by any source code required to implement the application/dr
   <small>
     
       Last update:
-      2022-02-17
+      2022-02-19
     
   </small>
 </div>
