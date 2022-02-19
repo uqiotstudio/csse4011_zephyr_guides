@@ -7,13 +7,13 @@ Complete following OS tutes
   1. Getting Started
   2. First Program
 
-## **1.1 Test Hardware**
+### **1.1 Test Hardware**
 
 * Thingy52
 * 2x mUSB Cable
 * Segger J-Link EDU mini
 
-## Installing SEGGER Tools
+## **2.0 Installing SEGGER Tools**
 
 **NOTE: For flashing to work, you must first install [J-Link Software and Documentation pack](https://www.segger.com/downloads/jlink/) in your VM**, use the `64-bit DEB` installer for **Debian**. 
 
