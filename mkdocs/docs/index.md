@@ -13,4 +13,4 @@ The tutorials in each of these sections are meant to help you prepare for upcomi
 If you have any questions/issues, feel free to ask us on Ed or to come along to the pracs!
  <br />
  <br />
-Wilfred MK,
+Thulith Wilfred,

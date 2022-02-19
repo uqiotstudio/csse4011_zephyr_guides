@@ -56,7 +56,7 @@ Reboot (If this was a fresh OS install, typically kernel is upgraded)
 ```shell
 sudo reboot
 ```
-Update sources list by adding the Kitware APT repo (contains cmake etc...)
+**[Skip kitware for Debian: This is for Ubuntu]** Update sources list by adding the Kitware APT repo (contains cmake etc...)
 ```shell
 cd ~  
 
@@ -64,6 +64,7 @@ wget https://apt.kitware.com/kitware-archive.sh
 sudo bash kitware-archive.sh
 sudo rm bash kitware-archive.sh                                   - Remove script
 ```
+
 Install cmake, python3 and dtc (device tree compiler)
 ```shell
 sudo apt install --no-install-recommends git cmake ninja-build gperf \
@@ -71,12 +72,20 @@ sudo apt install --no-install-recommends git cmake ninja-build gperf \
         python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
         make gcc gcc-multilib g++-multilib libsdl2-dev
 ```
+**[Installing CMAKE for Debian]**
+```
+sudo apt remove cmake                   - Remove out of date default package
+pip3 install cmake --upgrade            - Install upto date CMAKE
+```
+**Log out and back in** for pip3 app path to be exported into your environment. 
+
 Verify dependencies are installed before continuing
 ```shell
 cmake --version
 python3 --version
 dtc --version
 ```
+
 ## **3.0 Get Zephyr and Install Python dependencies**
 Install West (Zephyr Meta-tool)
 ```shell
@@ -91,17 +100,17 @@ cd /home/user
 mkdir csse4011/
 cd csse4011/
 
-west init -m https://github.com/zephyrproject-rtos/zephyr --mr v2.7.0 zephyrproject 
+west init -m https://github.com/zephyrproject-rtos/zephyr --mr v2.7.1 zephyrproject 
 ```
 
-or 
+or **[this is not recommended, use latest stable v2.7.1 as above]**
 
 ```shell
-west init zephyrproject/               - Latest version of Zephyr (the development tree, might be unstable)
+west init zephyrproject/               - Latest version of Zephyr (the development tree)
 ```
 Get Zephyr Source Code (Gets ALL of the source)
 ```shell
-cd ~/zephyrproject
+cd zephyrproject
 west update                                 - Might take awhile 
 ```
 Export a Zephyr CMake package. This allows CMake to automatically load boilerplate code required for building Zephyr applications.
@@ -146,7 +155,7 @@ If the installation was successful, we should now be able to build a basic blink
 
 The '-b' option specifies a board to build for, in this case the particle_boron, followed by the path to source.
 ```shell
-cd ~/zephyrproject/zephyr
+cd ~/csse4011/zephyrproject/zephyr/
 
 west build -p auto -b particle_argon samples/basic/blinky
 ```
@@ -166,3 +175,17 @@ exit
 ```
 
 Additional information for setting up other runners can be found [here](https://docs.zephyrproject.org/latest/guides/west/build-flash-debug.html)
+
+
+## **6.0 Setting Zephyr Base**
+
+Setting `$ZEPHYR_BASE` allows you to invoke west from outside the source directory to build your applications. So we will add this environment to be set at login by `bashrc`. If you are using a different shell `fish` or `zsh`, make sure you set this within those config files. 
+
+If you installed Zephyr elsewhere, **adjust the following accordingly**.
+
+```SHELL
+echo "# Add Zephyr Base Location to Path
+export ZEPHYR_BASE=~/csse4011/zephyrproject/zephyr" >> ~/.bashrc 
+
+source ~/.bashrc
+```
