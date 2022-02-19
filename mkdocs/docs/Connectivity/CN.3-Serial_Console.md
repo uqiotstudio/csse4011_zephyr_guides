@@ -182,4 +182,6 @@ Hello World
 
 A sample application has been provided, this application includes all the steps mentioned above. You can test the console by flashing it to the Arduino Sense Board.
 
-Sample is located in **REPO_TOP/tute_solutions/console_example/**
+Sample is located in:
+
+* REPO_TOP/tute_solutions/console_example/

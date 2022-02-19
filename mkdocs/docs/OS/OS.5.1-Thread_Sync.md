@@ -136,7 +136,7 @@ Condition variables should be used with a mutex to signal changing conditions/st
 
 ## **3.0 Tutorial Question**
 
-> 1. Use two semaphores to enforce synchronization between the two blinky threads created in tute OS.4-Threading.
+> **1. Use two semaphores to enforce synchronization between the two blinky threads created in tute OS.4-Threading.**
 
 The implementation should only use delays to indicate that the led visibly blinks. 
 
@@ -144,14 +144,18 @@ The implementation should only use delays to indicate that the led visibly blink
 
 A sample solution is uploaded in the docs repository. Find located within,
 
-> tute_solutions/OS-5.1_tute/src/
+* tute_solutions/OS-5.1_tute/src/
 
 This code can be built with:
 
-> west build -p -b <board_name>
+```SHELL
+west build -p -b <board_name>
+```
 
 and flashed with
 
-> west flash -r 'runner'
+```SHELL
+west flash -r 'runner'
+```
 
 Refer to the board flashing tutorials for additional build/flash guides.

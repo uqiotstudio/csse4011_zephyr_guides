@@ -138,7 +138,7 @@ This tutorial is a guide for implementing basic message queues in Zephyr RTOS, i
 
 A sample solution is provided under, 
 
-**REPO_TOP/tute_soltions/OS-5.2_tute/**
+* REPO_TOP/tute_soltions/OS-5.2_tute/
 
 this solution implements the above functionality into a Zephyr application. Feel free to use it and modify it.
 

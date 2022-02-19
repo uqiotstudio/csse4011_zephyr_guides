@@ -152,4 +152,6 @@ CSSE4011:~$led off
 
 A sample application has been provided, this application includes all the steps mentioned above. You can test the shell commands to toggle the onboard led by flashing it to the Arduino Sense Board.
 
-Sample is located in **REPO_TOP/tute_solutions/shell_cmd_sample/**
+Sample is located in:
+
+* REPO_TOP/tute_solutions/shell_cmd_sample/

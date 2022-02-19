@@ -44,7 +44,7 @@ In this example, the library files are in *lib/led_driver/*, where:
 
 First include necessary Zephyr headers files required by the application, in this case, for an led to toggle, we use. 
 
-```
+```C
 #include <zephyr.h>
 #include <device.h>
 #include <devicetree.h>
@@ -59,7 +59,7 @@ This can be followed by any source code required to implement the application/dr
 
 The header file can be made as per usual using typical syntax. There are no particular restrictions on the way this is implemented. 
 
-```
+```C
 #ifdef LED_DRIVER_H
 #define LED_DRIVER_H
 
@@ -77,7 +77,7 @@ int led0_init(void);
 
 With this, you can now created a basic library to implement re-usable code. However, to add this to the build system of this intended application. You must add these files to the CMakeLists file of the target application. In this case the following file  *blinky_tute_ext/CMakeLists.txt*
 
-```
+```CMAKE
 Append the following to the CMakeLists.txt file
 
 
@@ -91,7 +91,6 @@ target_sources(app PRIVATE
                         src/main.c
                         ../lib/led_driver/led_driver.c
                         )
-)
 ```
 
 **Note:** That relative paths are interpreted as relative to the current source directory. 
@@ -106,7 +105,7 @@ You can also use a seperate CMakeLists files to compile your libraries using a h
 
 Finally, we can now use the library code within our target application. To do this, include the respective header files. In this case, include the following in *src/main.c*
 
-```
+```C
 /* Include file from our library */
 #include "led_driver.h"
 ```
@@ -129,16 +128,19 @@ Refer to the [Zephyr GPIO API](https://docs.zephyrproject.org/latest/reference/p
 
 A sample solution is uploaded in the docs repository. Find located within,
 
-> tute_solutions/blinky_tute_ext/src/
+* tute_solutions/blinky_tute_ext/src/
 
-> tute_solutions/lib/led_driver/
+* tute_solutions/lib/led_driver/
 
 This code can be built with:
-
-> west build -p -b <board_name>
+```SHELL
+west build -p -b <board_name>
+```
 
 and flashed with
 
-> west flash -r 'runner'
+```SHELL
+west flash -r 'runner'
+```
 
 Refer to the board flashing tutorials for additional build/flash guides.

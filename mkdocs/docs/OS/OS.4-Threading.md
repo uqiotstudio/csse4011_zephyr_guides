@@ -112,42 +112,43 @@ Priorities for threads should be chosen carefully based on the application. You 
 The kernel’s priority-based scheduler allows an application’s thread to share the CPU. There are two different 'types' of threads in Zephyr with respect to the scheduler. These are 'Pre-emptive' and 'Cooperative' threads. In summary, once a cooperative thread becomes the current thread, it remains the current thread until it performs an action that makes it unready. Whereas, a preemptive thread becomes the current thread, it remains the current thread until a higher priority thread becomes ready, or until the thread performs an action that makes it unready [see here](https://docs.zephyrproject.org/latest/reference/kernel/scheduling/index.html).
 
 
+* A cooperative thread has a negative priority value. 
 
-
->A cooperative thread has a negative priority value. 
-
->A preemptible thread has a non-negative priority value. 
+* A preemptible thread has a non-negative priority value. 
 
 
 
 In application [as per](https://docs.zephyrproject.org/latest/reference/kernel/scheduling/index.html), 
 
->Use cooperative threads for device drivers and other performance-critical work.
+* Use cooperative threads for device drivers and other performance-critical work.
 
->Use cooperative threads to implement mutually exclusion without the need for a kernel object, such as a mutex.
+* Use cooperative threads to implement mutually exclusion without the need for a kernel object, such as a mutex.
 
->Use preemptive threads to give priority to time-sensitive processing over less time-sensitive processing.
+* Use preemptive threads to give priority to time-sensitive processing over less time-sensitive processing.
 
 
 ## **3.0 Tutorial Question:**
 
 Copy the zephyr/sample/blinky program to a working application directory, then, implement two threads, where one thread will turn on the led, and the other thread will turn off the led. Use either the thingy52 or the Arduino Sense to test your code.
 
->Question: What is wrong with an implementation like this? Why is this not ideal, what type of issues might you run into?
-
+>**Question: What is wrong with an implementation like this? Why is this not ideal, what type of issues might you run into?**
 
 ## **3.1 Sample Solution**
 
 A sample solution is uploaded in the docs repository. Find located within,
 
-> tute_solutions/OS4_tute/src/
+* tute_solutions/OS4_tute/src/
+
 
 This code can be built with:
 
-> west build -p -b <board_name>
+```SHELL
+west build -p -b <board_name>
+```
 
 and flashed with
-
-> west flash -r 'runner'
+```SHELL
+west flash -r 'runner'
+```
 
 Refer to the board flashing tutorials for additional build/flash guides.

@@ -135,4 +135,6 @@ You should see that the **top-led led is now flashing orange** alongside the red
 
 A sample application has been provided, this application includes all the steps mentioned above.
 
-Sample is located in **REPO_TOP/tute_solutions/gpio_sample/**
+Sample is located in:
+
+* REPO_TOP/tute_solutions/gpio_sample/

@@ -88,7 +88,13 @@ Verify that the following exist within your sample dir
         └── src/
             └── main.c
 ```
-Add ZEPHYR_BASE to path (Lets you build from outside the Zephyr Source Dir). Append the following line to the end of 'bashrc'.
+Add ZEPHYR_BASE to path (Lets you build from outside the Zephyr Source Dir). Append the following line to the end of 'bashrc' (If you haven't already from **OS.1**). **For text editing** you can use `nano` instead of `vim` as it is usually installed by default. 
+
+**To install vim.** 
+```
+sudo apt install vim
+```
+
 ```
 vim ~/.bashrc                               or use any text editor
     
@@ -123,4 +129,4 @@ If flashing fails, refer to the end of `OS.1-Getting Started` and follow instruc
 
 A sample of this is located within
 
-> tute_solutions/blinky_tute/
+* tute_solutions/blinky_tute/

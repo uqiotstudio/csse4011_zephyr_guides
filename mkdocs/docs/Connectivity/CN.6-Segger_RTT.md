@@ -213,4 +213,6 @@ Sample applications (shell/console) have been provided, these applications inclu
 
 Shell sample is located in **REPO_TOP/tute_solutions/segger_rtt_shell/**
 
-Console sample is located in **REPO_TOP/tute_solutions/segger_rtt_console/**
+Console sample is located in:
+
+* REPO_TOP/tute_solutions/segger_rtt_console/
