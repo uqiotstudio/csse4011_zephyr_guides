@@ -97,7 +97,7 @@ Use `DT_NODELABEL` to get the respective node_id for for `gpio0` from DTS.
 ```C
 /* DeviceTree get node ID from label */
 #define GPIO0 DT_NODELABEL(gpio0)
-#define GPIO_A0 0x0D                //PIN PO.13
+#define GPIO0_13 0x0D                //PIN PO.13
 ```
 In our main function, let's init the GPIO PIN.
 ```C
