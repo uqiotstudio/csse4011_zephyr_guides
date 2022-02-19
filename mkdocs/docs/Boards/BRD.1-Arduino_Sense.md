@@ -2,7 +2,7 @@
 
 ## 1.0 Prerequisites
 
-Complete follwing OS tutes
+Complete following OS tutes
 
   1. Getting Started
   2. First Program
