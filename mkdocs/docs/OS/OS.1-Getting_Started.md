@@ -103,7 +103,7 @@ cd csse4011/
 west init -m https://github.com/zephyrproject-rtos/zephyr --mr v2.7.1 zephyrproject 
 ```
 
-or **[this is not recommended, use latest stable v2.7.1 as above]**
+or **[this is not recommended, use latest stable v2.7.1 as above or v3.0.0]**
 
 ```shell
 west init zephyrproject/               - Latest version of Zephyr (the development tree)
