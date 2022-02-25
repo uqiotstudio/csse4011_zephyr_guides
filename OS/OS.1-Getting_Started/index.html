@@ -375,8 +375,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#50-build-a-sample-program-blinky" class="md-nav__link">
-    5.0 Build a Sample Program (Blinky)
+  <a href="#50-install-jlinksoftwaresegger-tools" class="md-nav__link">
+    5.0 Install JLinkSoftware/SEGGER Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#60-build-a-sample-program-blinky" class="md-nav__link">
+    6.0 Build a Sample Program (Blinky)
   </a>
   
 </li>
@@ -799,8 +806,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#50-build-a-sample-program-blinky" class="md-nav__link">
-    5.0 Build a Sample Program (Blinky)
+  <a href="#50-install-jlinksoftwaresegger-tools" class="md-nav__link">
+    5.0 Install JLinkSoftware/SEGGER Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#60-build-a-sample-program-blinky" class="md-nav__link">
+    6.0 Build a Sample Program (Blinky)
   </a>
   
 </li>
@@ -943,30 +957,57 @@ Set udev rules, which allow you to flash most Zephyr boards as a regular user
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>sudo udevadm control --reload
 </code></pre></div></p>
-<h2 id="50-build-a-sample-program-blinky"><strong>5.0 Build a Sample Program (Blinky)</strong></h2>
-<p>If the installation was successful, we should now be able to build a basic blinky program. In the following command, the '-p auto' option automatically cleans byproducts from a previous build if necessary, which is useful if you try building another sample.</p>
-<p>The '-b' option specifies a board to build for, in this case the particle_boron, followed by the path to source.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span> ~/csse4011/zephyrproject/zephyr/
+<h2 id="50-install-jlinksoftwaresegger-tools"><strong>5.0 Install JLinkSoftware/SEGGER Tools</strong></h2>
+<p><strong>NOTE: For flashing to work (using Segger JLink devices), you must first install <a href="https://www.segger.com/downloads/jlink/">J-Link Software and Documentation pack</a> in your VM</strong>, use the <code>64-bit DEB</code> installer for <strong>Debian/Ubuntu</strong>. </p>
+<p>To install this, open up a terminal and navigate to download location.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span> ~/Downloads
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>west build -p auto -b particle_argon samples/basic/blinky
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1">#Make sure the file name is right, versions change often</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>sudo dpkg -i JLink_Linux_V762_x86_64.deb
+</code></pre></div>
+<p>Make sure that the JLink device is connected up properly to the Thingy52 device, and ensure that the power switch is to the left (facing you - on position). It is a good idea to have the device connected via mUSB for charging during this procedure.</p>
+<p>Once this has been completed, you can test that it is functional with</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>$ JLinkExe
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>SEGGER J-Link Commander V7.62 <span class="o">(</span>Compiled Feb <span class="m">16</span> <span class="m">2022</span> <span class="m">16</span>:09:54<span class="o">)</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>DLL version V7.62, compiled Feb <span class="m">16</span> <span class="m">2022</span> <span class="m">16</span>:09:39
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>Connecting to J-Link via USB...O.K.
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>Firmware: J-Link EDU Mini V1 compiled Dec  <span class="m">7</span> <span class="m">2021</span> <span class="m">08</span>:38:51
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>Hardware version: V1.00
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>S/N: <span class="m">801026632</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>License<span class="o">(</span>s<span class="o">)</span>: FlashBP, GDB
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>USB speed mode: Full speed <span class="o">(</span><span class="m">12</span> MBit/s<span class="o">)</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="nv">VTref</span><span class="o">=</span><span class="m">3</span>.286V
+</code></pre></div>
+<p>at this point if you get</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Connecting to J-Link via USB...FAILED: Cannot connect to J-Link.
+</code></pre></div>
+<p>This means that either your connections are wrong or more likely that the VM has not been passed the USB from host. You can test this by running.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>lsusb
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>Bus <span class="m">001</span> Device <span class="m">003</span>: ID <span class="m">1366</span>:0101 SEGGER J-Link PLUS
+</code></pre></div>
+If you do not see this device, check if the host can see this device, if so, you will need to configure the VM to allow passthrough for the SEGGER EDU Mini.</p>
+<h2 id="60-build-a-sample-program-blinky"><strong>6.0 Build a Sample Program (Blinky)</strong></h2>
+<p>If the installation was successful, we should now be able to build a basic blinky program. In the following command, the '-p auto' option automatically cleans byproducts from a previous build if necessary, which is useful if you try building another sample.</p>
+<p>The '-b' option specifies a board to build for, in this case the particle_argon, followed by the path to the app source.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">cd</span> ~/csse4011/zephyrproject/zephyr/
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>west build -p auto -b particle_argon samples/basic/blinky
 </code></pre></div>
 Flash the sample program. Make a sure a 'runner' is connected. You will be given a Segger J-Link device to be used with the Particle Argon.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>west flash -r jlink
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>west flash -r jlink
 </code></pre></div></p>
 <p>Option '-r' specifies to flash using JLink, west is capable of tapping into different runners for flashing your devices, later we will explore how to specify runners in the CMakeLists file. </p>
-<p>If flashing fails, a runner may need to be installed. When using a Segger J-Link Device. Download and install the following <a href="https://www.segger.com/downloads/jlink/">JLink Software</a>. Under 'J-Link Software and Documentation Pack', download the 'Linux - 64-bit DEB Installer'. Run the installer and install JLink software.</p>
-<p>Installation can be verified by running the following command from a terminal
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>JLinkExe
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nb">exit</span> 
-</code></pre></div></p>
 <p>Additional information for setting up other runners can be found <a href="https://docs.zephyrproject.org/latest/guides/west/build-flash-debug.html">here</a></p>
 <h2 id="60-setting-zephyr-base"><strong>6.0 Setting Zephyr Base</strong></h2>
 <p>Setting <code>$ZEPHYR_BASE</code> allows you to invoke west from outside the source directory to build your applications. So we will add this environment to be set at login by <code>bashrc</code>. If you are using a different shell <code>fish</code> or <code>zsh</code>, make sure you set this within those config files. </p>
 <p>If you installed Zephyr elsewhere, <strong>adjust the following accordingly</strong>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nb">echo</span> <span class="s2">&quot;# Add Zephyr Base Location to Path</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="s2">export ZEPHYR_BASE=~/csse4011/zephyrproject/zephyr&quot;</span> &gt;&gt; ~/.bashrc 
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="nb">source</span> ~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">echo</span> <span class="s2">&quot;# Add Zephyr Base Location to Path</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="s2">export ZEPHYR_BASE=~/csse4011/zephyrproject/zephyr&quot;</span> &gt;&gt; ~/.bashrc 
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nb">source</span> ~/.bashrc
 </code></pre></div>
 
   <hr>
@@ -974,7 +1015,7 @@ Flash the sample program. Make a sure a 'runner' is connected. You will be given
   <small>
     
       Last update:
-      2022-02-24
+      2022-02-25
     
   </small>
 </div>
