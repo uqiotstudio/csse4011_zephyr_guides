@@ -10,11 +10,13 @@ Typically, a command will `hook` into a `piece of code` or a `callback function`
 
 ## 1.1 Test Hardware
 
-* Arduino Sense Board
+* Particle Argon
+  
+* 2 x mUSB Cable
 
-* mUSB Cable
+* Segger J-Link EDU mini
 
-**This implementation is valid for Zephyr RTOS Version 2.7.XX**
+**This implementation is valid for Zephyr RTOS Version 3.0.XX**
 
 ## 1.2. Prerequisites
 
@@ -24,7 +26,7 @@ Ensure that you have completed/understand the following tutorials.
 
 ## 1.3 Setup
 
-Connect the Arduino sense board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine). 
+Connect the Particle Argon board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine). 
 
 ## **2.0 Zephyr Shell Command Implementation**
 
@@ -46,7 +48,7 @@ cd -R shell_sample/* shell_cmd_sample/
 
 ### **2.1 Implementing a Shell Command**
 
-In this tutorial, we will explore using shell commands, to toggle on and off the onboard led. This should give you a general idea of how commands should be implemented/used. For more information on the following see [here](https://docs.zephyrproject.org/2.7.0/reference/shell/index.html).
+In this tutorial, we will explore using shell commands, to toggle on and off the onboard led. This should give you a general idea of how commands should be implemented/used. For more information on the following see [here](https://docs.zephyrproject.org/3.0.0/reference/shell/index.html).
 
 Zephyr allows you to create commands that have sub-commands, these can be useful for instance, if you wanted a top level command (`root command - level 0`) for a particular sub-system/hardware, and then sub-commands (`static/dynamic sub-commands - level > 0`) that perform unique a function for that system. It can be thought of as a tree of commands.
 
@@ -104,8 +106,8 @@ static int cmd_led_ctrl_on(const struct shell *shell, size_t argc,
         if (dev == NULL) {
                 return ENODEV;
         }
-        /* Pin default is Active low (as per FLAGS) */
-        return gpio_pin_set(dev, PIN, (int)0);
+
+        return gpio_pin_set(dev, PIN, 1);
 }
 
 /* Command Handler for toggling led0 off, note that it assumes
@@ -121,8 +123,8 @@ static int cmd_led_ctrl_off(const struct shell *shell, size_t argc,
         if (dev == NULL) {
                 return ENODEV;
         }
-        /* Pin default is active low */
-        return gpio_pin_set(dev, PIN, (int)1);
+        
+        return gpio_pin_set(dev, PIN, 0);
 }
 ```
 Since we copied the boilerplate from `CN-4 Shell`, make sure to cleanup the `while()` loop in `main()` that toggles the gpio, but leave the code that initializes the `led-gpio pin`. Alternatively, you could make two other subcommands to init/deinit the pin.
@@ -144,13 +146,13 @@ Subcommands:
   on   :Turn led on.
   off  :Turn led off.
 CSSE4011:~$
-CSSE4011:~$led on
 CSSE4011:~$led off
+CSSE4011:~$led on
 ```
 
 ## **3.0 Sample Application**
 
-A sample application has been provided, this application includes all the steps mentioned above. You can test the shell commands to toggle the onboard led by flashing it to the Arduino Sense Board.
+A sample application has been provided, this application includes all the steps mentioned above. You can test the shell commands to toggle the onboard led by flashing it to the Particle Argon Board.
 
 Sample is located in:
 

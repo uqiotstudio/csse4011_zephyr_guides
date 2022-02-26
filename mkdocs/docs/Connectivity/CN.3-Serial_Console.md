@@ -9,13 +9,15 @@ Once USB console is setup, it can be used for printk() debugging, and/or to exam
 
 ## 1.1 Test Hardware
 
-This implementation will explore setting up the console on the Arduino Sense board.
+This implementation will explore setting up the console on the Particle Argon.
 
-* Arduino Sense Board
+* Particle Argon
+  
+* 2 x mUSB Cable
 
-* mUSB Cable
+* Segger J-Link EDU mini
 
-**This implementation is valid for Zephyr RTOS Version 2.7.XX**
+**This implementation is valid for Zephyr RTOS Version 3.0.XX**
 
 ## 1.2. Prerequisites
 
@@ -32,16 +34,16 @@ Ensure that you have completed/understand the following tutorials.
 Create a new application directory for a sample console application. 
 
 ```shell
-    cd ~/csse4011/csse4011_repo/
-    mkdir -p apps/console_sample/
+cd ~/csse4011/csse4011_repo/
+mkdir -p apps/console_sample/
 ```
 
 For setting up a basic boilerplate for our application, we will use the provided blinky sample in Zephyr. 
 
 ```shell
-    cd ~/csse4011/zephyrproject/zephyr/samples/basic/blinky
-    cp -R * ~/csse4011/csse4011_repo/apps/console_sample/
-    cd ~/csse4011/csse4011_repo/apps/console_sample/
+cd ~/csse4011/zephyrproject/zephyr/samples/basic/blinky
+cp -R * ~/csse4011/csse4011_repo/apps/console_sample/
+cd ~/csse4011/csse4011_repo/apps/console_sample/
 ```
 
 ### **2.2 Enable USB Drivers [prj.conf]**
@@ -54,7 +56,8 @@ Start by editing the **prj.conf** file. Append the following config options. The
 CONFIG_GPIO=y
 
 #------------------------------ENABLE USB---------------------------------------
-CONFIG_BOARD_ARDUINO_NANO_33_BLE_EN_USB_CONSOLE=y
+#Add this line if building for the Arduino Sense Board
+#CONFIG_BOARD_ARDUINO_NANO_33_BLE_EN_USB_CONSOLE=y
 CONFIG_USB_DEVICE_STACK=y
 CONFIG_USB_DEVICE_PRODUCT="USB Console Tute"
 
@@ -68,7 +71,7 @@ Optionally, you can add the following config statements to add some flavour to t
 
 ```CONF
 #--------------------------------USB OPTIONS----------------------------------
-CONFIG_USB_DEVICE_PRODUCT="Arduino Nano BLE - Zephyr"
+CONFIG_USB_DEVICE_PRODUCT="Particle Argon - Zephyr"
 CONFIG_USB_DEVICE_MANUFACTURER="Wilfred MK"
 CONFIG_USB_DEVICE_VID=0xC553
 CONFIG_USB_DEVICE_PID=0x4011
@@ -76,7 +79,7 @@ CONFIG_USB_DEVICE_PID=0x4011
 ```
 ### **2.3 Setting up CDC-ACM [app.overlay]**
 
-Zephyr v2.7 require an overlay file to be added to specify Communication Device Class - Abstract Control Model (CDC-ACM). The CDC ACM can be used as backends for Zephyr Subsystems, such as console and shell. 
+Zephyr v2.7/3.0 requires an overlay file to be added to specify Communication Device Class - Abstract Control Model (CDC-ACM). The CDC ACM can be used as backends for Zephyr Subsystems, such as console and shell. 
 
 There is detailed information about how an overlay is implemented and it's purpose in this sub-system which can be found [here](https://docs.zephyrproject.org/latest/reference/usb/uds_cdc_acm.html). 
 
@@ -107,7 +110,7 @@ Copy the following overlay details into the newly created file. This is adding a
 
 At this point, ensure that there are no compile errors by running
 ```shell
-west build -p -b arduino_nano_33_ble
+west build -p -b particle_argon
 ```
 
 and now we tell our application to initialize the USB and print some data.
@@ -153,8 +156,8 @@ main(void)
 
 This application can now be built and flashed using:
 ```shell
-west  build -p auto -b arduino_nano_33_ble
-west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
+west  build -p auto -b particle_argon
+west flash -r jlink   
 ```
 
 Since this is now a **'new usb device'**, **you will need to pass through USB from your host machine to the VM to open the console within your CSSE4011 VM** Typically, you might have to unplug and reconnect the device for the pass through to take effect. Alternatively, you should be able to view the console on the host machine also.
@@ -163,7 +166,8 @@ See that the device is connected
 ```shell
 lsusb  #Command to show currently attached USB devices
 
-Bus 001 Device 099: ID c553:4011 Wilfred MK Arduino Nano BLE - Zephyr #You will see this if you added the USB OPTIONS from above
+#You will see this if you added the USB OPTIONS from above
+Bus 001 Device 099: ID c553:4011 Wilfred MK Particle Argon - Zephyr
 ```
 
 First install screen (App that can monitor terminal)
@@ -180,7 +184,7 @@ Hello World
 
 ## **2.6 Sample Application**
 
-A sample application has been provided, this application includes all the steps mentioned above. You can test the console by flashing it to the Arduino Sense Board.
+A sample application has been provided, this application includes all the steps mentioned above. You can test the console by flashing it to the Particle Argon Board.
 
 Sample is located in:
 

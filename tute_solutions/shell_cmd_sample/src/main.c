@@ -61,8 +61,8 @@ static int cmd_led_ctrl_on(const struct shell *shell, size_t argc,
 	if (dev == NULL) {
 		return ENODEV;
 	}
-	/* Pin default is Active low (as per FLAGS) */
-	return gpio_pin_set(dev, PIN, (int)0);
+
+	return gpio_pin_set(dev, PIN, 1);
 }
 
 /* Command Handler for toggling led0 off, note that it assumes
@@ -78,8 +78,8 @@ static int cmd_led_ctrl_off(const struct shell *shell, size_t argc,
 	if (dev == NULL) {
 		return ENODEV;
 	}
-	/* Pin default is active low */
-	return gpio_pin_set(dev, PIN, (int)1);
+
+	return gpio_pin_set(dev, PIN, 0);
 }
 
 

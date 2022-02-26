@@ -6,10 +6,13 @@ The following tutorial explores exposing the board GPIO (General Purpose Input/O
 
 ## **1.1 Test Hardware**
 
-* Arduino Sense Board
-* mUSB Cable
+* Particle Argon
+  
+* 2 x mUSB Cable
 
-**This implementation is valid for Zephyr RTOS Version 2.7.XX**
+* Segger J-Link EDU mini
+
+**This implementation is valid for Zephyr RTOS Version 3.0.XX**
 
 ## **1.2. Prerequisites**
 
@@ -51,17 +54,17 @@ An extensive guide to DeviceTree Source (DTS) implementation can be found [here]
 
 When an application is built for a particular board, Zephyr creates a final `zephyr.dts` file in the build directory. This file concatenates all selected hardware into this "final devicetree". Typically, it's a good idea to start here to see what the hardware description looks like for the current configuration of your build.
 
-For instance, lets try building this boilerplate blinky app for the `Arduino_Nano_Sense`.
+For instance, lets try building this boilerplate blinky app for the `Particle_Argon`.
 ```shell
 cd ~/csse4011/csse4011_repo/apps/gpio_sample/
-west  build -p auto -b arduino_nano_33_ble
+west  build -p auto -b particle_argon
 ```
-Once the build is complete, you can open up the "final DTS" at:
+Once the build is complete, you can open up the "final DTS" (typically used for debugging) at:
 ```shell
 cd build/zephyr
 vim zephyr.dts
 ```
-Here we can see the **hardware description** for the `Arduino_Nano_Sense`. This information is exposed to userland/application in Zephyr, using a set of `macros` [see here](https://docs.zephyrproject.org/2.7.0/reference/devicetree/api.html#generic-apis).
+Here we can see the **hardware description** for the `Particle_Argon`. This information is exposed to userland/application in Zephyr, using a set of `macros` [see here](https://docs.zephyrproject.org/2.7.0/reference/devicetree/api.html#generic-apis).
 
 In this tutorial, we are interested in GPIO, so we will look at how to toggle a particular GPIO pin from looking at the `zephyr.dts` file.
 
@@ -86,8 +89,9 @@ Here, `DT_ALIAS()` is used to find the reference `led0` within the DTS. This is 
 When you follow the `led0` alias in `zephyr.dts`, you will notice that it simply maps to a GPIO pin. Aliases can help abstract the hardware within the devicetree and make them easy to access. 
 
 ### **2.4 DeviceTree GPIO Access**
-Lets investigate toggling a particular GPIO that is not aliased. We will use the `Arduino_Nano_Sense` for this tute. You can find the board pinout [here](https://content.arduino.cc/assets/Pinout-NANOsense_latest.pdf). We will use the GPIO pin `P0.13` (internally connected to the top left led) for this. This pin maps on `P0`, in the `zephyr.dts` this is `gpio0`. For instance, pin `D6`, will be in `gpio1`. 
+Lets investigate toggling a particular GPIO **without** using it's alias. Why not just make an alias for it? So we can learn how to use `DT-Macros` in Zephyr.
 
+ We will use the `Particle Argon` for this tute. You can find the board pinout [here](https://docs.particle.io/assets/images/argon/argon-block-diagram.png). We will use the GPIO pin `P0.13` (internally connected to the RGB-red led). This pin maps on `P0` (**port 0**), in the `zephyr.dts` this is `gpio0`. For instance, pin `D6 (p1.11)`, will be in `gpio1`. 
 
 Start by editing the source file and append the following
 ```shell
@@ -125,11 +129,11 @@ while (1) {
 
 This application can now be built and flashed using:
 ```shell
-west  build -p auto -b arduino_nano_33_ble
-west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
+west  build -p auto -b particle_argon
+west flash -r jlink
 ```
 
-You should see that the **top-led led is now flashing orange** alongside the red led (led0) from the boilerplate code. 
+You should see that the **red led is now flashing** as well as the blue led (led0) from the boilerplate code (if you didn't remove that code). 
 
 ## **4.1 Sample Application**
 

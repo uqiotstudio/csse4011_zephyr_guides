@@ -10,11 +10,13 @@ Typically, logging is coupled with a command line interface. In addition to the 
 
 ## 1.1 Test Hardware
 
-* Arduino Sense Board
+* Particle Argon
+  
+* 2 x mUSB Cable
 
-* mUSB Cable
+* Segger J-Link EDU mini
 
-**This implementation is valid for Zephyr RTOS Version 2.7.XX**
+**This implementation is valid for Zephyr RTOS Version 3.0.XX**
 
 ## 1.2. Prerequisites
 
@@ -119,8 +121,8 @@ while (1) {
 
 This application can now be built and flashed using:
 ```shell
-west  build -p auto -b arduino_nano_33_ble
-west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
+west  build -p auto -b particle_argon
+west flash -r jlink 
 ```
 
 Once flashed,
@@ -138,7 +140,7 @@ sudo screen /dev/ttyACM0
 
 ## **4.1 Sample Application**
 
-A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Arduino Sense Board.
+A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Particle Argon.
 
 Sample is located in:
 

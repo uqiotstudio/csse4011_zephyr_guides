@@ -11,11 +11,15 @@ Zephyr also allows for Shell to be used as a backend for the Zephyr Logging API.
 
 ## 1.1 Test Hardware
 
-*  Arduino Sense Board
+This implementation will explore setting up shell on the Particle Argon.
 
-* mUSB Cable
+* Particle Argon
+  
+* 2 x mUSB Cable
 
-**This implementation is valid for Zephyr RTOS Version 2.7.XX**
+* Segger J-Link EDU mini
+
+**This implementation is valid for Zephyr RTOS Version 3.0.XX**
 
 ## 1.2. Prerequisites
 
@@ -25,7 +29,7 @@ Ensure that you have completed/understand the following tutorials.
 
 ## 1.3 Setup
 
-Connect the Arduino sense board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine).
+Connect the Particle Argon board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine).
 
 ## **2.0 Zephyr Shell Implementation**
 
@@ -68,7 +72,7 @@ CONFIG_USB_DEVICE_PRODUCT="Zephyr USB shell sample"
 #-----------------------------------------------------------------------------
 
 #--------------------------------USB_OPTIONS----------------------------------
-CONFIG_USB_DEVICE_PRODUCT="Arduino Nano BLE - Zephyr"
+CONFIG_USB_DEVICE_PRODUCT="Particle Argon - Zephyr"
 CONFIG_USB_DEVICE_MANUFACTURER="Wilfred MK"
 CONFIG_USB_DEVICE_VID=0xC553
 CONFIG_USB_DEVICE_PID=0x4011
@@ -146,7 +150,7 @@ set(DTC_OVERLAY_FILE dtc_shell.overlay)
 
 At this point, ensure that there are no compile errors by running
 ```shell
-west build -p -b arduino_nano_33_ble
+west build -p -b particle_argon
 ```
 
 and now we tell our application to initialize the USB stack.
@@ -191,8 +195,8 @@ main(void)
 
 This application can now be built and flashed using:
 ```shell
-west  build -p auto -b arduino_nano_33_ble
-west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
+west  build -p auto -b particle_argon
+west flash -r jlink   
 ```
 Since this is now a **'new usb device'**, **you will need to pass through USB from your host machine to the VM to open the shell within your CSSE4011 VM** Typically, you might have to unplug and reconnect the device for the pass through to take effect. Alternatively, you should be able to view the shell on the host machine also.
 
@@ -200,7 +204,8 @@ See that the device is connected
 ```shell
 lsusb  #Command to show currently attached USB devices
 
-Bus 001 Device 099: ID c553:4011 Wilfred MK Arduino Nano BLE - Zephyr #You will see this if you added the USB OPTIONS from above
+#You will see this if you added the USB OPTIONS from above
+Bus 001 Device 099: ID c553:4011 Wilfred MK Particle Argon - Zephyr
 ```
 
 First install screen (App that can monitor terminal)
@@ -233,7 +238,7 @@ Threads:
 
 ## **2.7 Sample Application**
 
-A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Arduino Sense Board.
+A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Particle Argon.
 
 Sample is located in:
 
