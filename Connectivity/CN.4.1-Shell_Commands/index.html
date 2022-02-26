@@ -304,6 +304,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../OS/OS.1.5-Zephyr_Version_Changes/" class="md-nav__link">
+        1.5 Zephyr Versions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../OS/OS.2-First_Program/" class="md-nav__link">
         2.0 First Program
       </a>
@@ -723,6 +737,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.4-Particle_Argon/" class="md-nav__link">
+        4.0 Particle Argon
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -849,20 +877,23 @@
 <h2 id="11-test-hardware">1.1 Test Hardware</h2>
 <ul>
 <li>
-<p>Arduino Sense Board</p>
+<p>Particle Argon</p>
 </li>
 <li>
-<p>mUSB Cable</p>
+<p>2 x mUSB Cable</p>
+</li>
+<li>
+<p>Segger J-Link EDU mini</p>
 </li>
 </ul>
-<p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
+<p><strong>This implementation is valid for Zephyr RTOS Version 3.0.XX</strong></p>
 <h2 id="12-prerequisites">1.2. Prerequisites</h2>
 <p>Ensure that you have completed/understand the following tutorials. </p>
 <ul>
 <li>OS.1, OS.2, OS.2.1, BRD.1 and <strong>CN.4-Shell</strong></li>
 </ul>
 <h2 id="13-setup">1.3 Setup</h2>
-<p>Connect the Arduino sense board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine). </p>
+<p>Connect the Particle Argon board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine). </p>
 <h2 id="20-zephyr-shell-command-implementation"><strong>2.0 Zephyr Shell Command Implementation</strong></h2>
 <h3 id="21-boilerplate"><strong>2.1 Boilerplate</strong></h3>
 <p>In the previous tutorial <code>(CN.4 - Shell)</code> we set up the Zephyr Shell through USB. We will use that as our boilerplate for this tutorial and add to it the functionality required to implement shell commands.</p>
@@ -874,7 +905,7 @@ Copy shell sample files (from <code>CN.4 - Shell</code>) into new directory for 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span> -R shell_sample/* shell_cmd_sample/
 </code></pre></div></p>
 <h3 id="21-implementing-a-shell-command"><strong>2.1 Implementing a Shell Command</strong></h3>
-<p>In this tutorial, we will explore using shell commands, to toggle on and off the onboard led. This should give you a general idea of how commands should be implemented/used. For more information on the following see <a href="https://docs.zephyrproject.org/2.7.0/reference/shell/index.html">here</a>.</p>
+<p>In this tutorial, we will explore using shell commands, to toggle on and off the onboard led. This should give you a general idea of how commands should be implemented/used. For more information on the following see <a href="https://docs.zephyrproject.org/3.0.0/reference/shell/index.html">here</a>.</p>
 <p>Zephyr allows you to create commands that have sub-commands, these can be useful for instance, if you wanted a top level command (<code>root command - level 0</code>) for a particular sub-system/hardware, and then sub-commands (<code>static/dynamic sub-commands - level &gt; 0</code>) that perform unique a function for that system. It can be thought of as a tree of commands.</p>
 <p>Here, we will look at creating a <strong>root command</strong> (led) with <strong>two static commands</strong> (on/off). However, you can refer here [1] for the api guide for more information on other types of commands.</p>
 <p>First, </p>
@@ -918,8 +949,8 @@ create the level 1 subcommands for <code>on</code> and <code>off</code>, which a
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dev</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ENODEV</span><span class="p">;</span><span class="w"></span>
 <a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">        </span><span class="cm">/* Pin default is Active low (as per FLAGS) */</span><span class="w"></span>
-<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">gpio_pin_set</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">PIN</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">gpio_pin_set</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">PIN</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
 <a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">}</span><span class="w"></span>
 <a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
 <a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="cm">/* Command Handler for toggling led0 off, note that it assumes</span>
@@ -935,8 +966,8 @@ create the level 1 subcommands for <code>on</code> and <code>off</code>, which a
 <a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dev</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ENODEV</span><span class="p">;</span><span class="w"></span>
 <a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="w">        </span><span class="cm">/* Pin default is active low */</span><span class="w"></span>
-<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">gpio_pin_set</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">PIN</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">gpio_pin_set</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">PIN</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 <a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 Since we copied the boilerplate from <code>CN-4 Shell</code>, make sure to cleanup the <code>while()</code> loop in <code>main()</code> that toggles the gpio, but leave the code that initializes the <code>led-gpio pin</code>. Alternatively, you could make two other subcommands to init/deinit the pin.</p>
@@ -954,11 +985,11 @@ Since we copied the boilerplate from <code>CN-4 Shell</code>, make sure to clean
 <a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  on   :Turn led on.
 <a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  off  :Turn led off.
 <a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>CSSE4011:~$
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>CSSE4011:~$led on
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>CSSE4011:~$led off
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>CSSE4011:~$led off
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>CSSE4011:~$led on
 </code></pre></div>
 <h2 id="30-sample-application"><strong>3.0 Sample Application</strong></h2>
-<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell commands to toggle the onboard led by flashing it to the Arduino Sense Board.</p>
+<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell commands to toggle the onboard led by flashing it to the Particle Argon Board.</p>
 <p>Sample is located in:</p>
 <ul>
 <li>REPO_TOP/tute_solutions/shell_cmd_sample/</li>
@@ -969,7 +1000,7 @@ Since we copied the boilerplate from <code>CN-4 Shell</code>, make sure to clean
   <small>
     
       Last update:
-      2022-02-19
+      2022-02-26
     
   </small>
 </div>

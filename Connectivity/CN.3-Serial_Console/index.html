@@ -304,6 +304,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../OS/OS.1.5-Zephyr_Version_Changes/" class="md-nav__link">
+        1.5 Zephyr Versions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../OS/OS.2-First_Program/" class="md-nav__link">
         2.0 First Program
       </a>
@@ -730,6 +744,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.4-Particle_Argon/" class="md-nav__link">
+        4.0 Particle Argon
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -860,16 +888,19 @@
 <h2 id="10-motivation"><strong>1.0 Motivation</strong></h2>
 <p>Once USB console is setup, it can be used for printk() debugging, and/or to examine the internal data structures of an application where required.                     </p>
 <h2 id="11-test-hardware">1.1 Test Hardware</h2>
-<p>This implementation will explore setting up the console on the Arduino Sense board.</p>
+<p>This implementation will explore setting up the console on the Particle Argon.</p>
 <ul>
 <li>
-<p>Arduino Sense Board</p>
+<p>Particle Argon</p>
 </li>
 <li>
-<p>mUSB Cable</p>
+<p>2 x mUSB Cable</p>
+</li>
+<li>
+<p>Segger J-Link EDU mini</p>
 </li>
 </ul>
-<p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
+<p><strong>This implementation is valid for Zephyr RTOS Version 3.0.XX</strong></p>
 <h2 id="12-prerequisites">1.2. Prerequisites</h2>
 <p>Ensure that you have completed/understand the following tutorials. </p>
 <ul>
@@ -879,13 +910,13 @@
 <h3 id="21-boilerplate"><strong>2.1 Boilerplate</strong></h3>
 <p><em>The following commands assume that you have setup your files/directories following the respective tutorial(s).</em></p>
 <p>Create a new application directory for a sample console application. </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>    <span class="nb">cd</span> ~/csse4011/csse4011_repo/
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    mkdir -p apps/console_sample/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span> ~/csse4011/csse4011_repo/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>mkdir -p apps/console_sample/
 </code></pre></div>
 <p>For setting up a basic boilerplate for our application, we will use the provided blinky sample in Zephyr. </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    <span class="nb">cd</span> ~/csse4011/zephyrproject/zephyr/samples/basic/blinky
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    cp -R * ~/csse4011/csse4011_repo/apps/console_sample/
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="nb">cd</span> ~/csse4011/csse4011_repo/apps/console_sample/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span> ~/csse4011/zephyrproject/zephyr/samples/basic/blinky
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>cp -R * ~/csse4011/csse4011_repo/apps/console_sample/
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">cd</span> ~/csse4011/csse4011_repo/apps/console_sample/
 </code></pre></div>
 <h3 id="22-enable-usb-drivers-prjconf"><strong>2.2 Enable USB Drivers [prj.conf]</strong></h3>
 <p>To enable the existing USB drivers, a few config options need to be added to our project. A detailed guide for the USB API is found <a href="https://docs.zephyrproject.org/latest/reference/usb/uds_cdc_acm.html">here</a>, which you may need to refer to for additional information. </p>
@@ -893,26 +924,27 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>CONFIG_GPIO=y
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>#------------------------------ENABLE USB---------------------------------------
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>CONFIG_BOARD_ARDUINO_NANO_33_BLE_EN_USB_CONSOLE=y
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>CONFIG_USB_DEVICE_STACK=y
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>CONFIG_USB_DEVICE_PRODUCT=&quot;USB Console Tute&quot;
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>CONFIG_SERIAL=y
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>CONFIG_CONSOLE=y
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>CONFIG_UART_CONSOLE=y
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>CONFIG_UART_LINE_CTRL=y
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>#------------------------------------------------------------------------------
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>#Add this line if building for the Arduino Sense Board
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>#CONFIG_BOARD_ARDUINO_NANO_33_BLE_EN_USB_CONSOLE=y
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>CONFIG_USB_DEVICE_STACK=y
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>CONFIG_USB_DEVICE_PRODUCT=&quot;USB Console Tute&quot;
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>CONFIG_SERIAL=y
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>CONFIG_CONSOLE=y
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>CONFIG_UART_CONSOLE=y
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>CONFIG_UART_LINE_CTRL=y
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>#------------------------------------------------------------------------------
 </code></pre></div>
 Optionally, you can add the following config statements to add some flavour to the USB Stack... These commands let you set USB device ID parameters. </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>#--------------------------------USB OPTIONS----------------------------------
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>CONFIG_USB_DEVICE_PRODUCT=&quot;Arduino Nano BLE - Zephyr&quot;
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>CONFIG_USB_DEVICE_PRODUCT=&quot;Particle Argon - Zephyr&quot;
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>CONFIG_USB_DEVICE_MANUFACTURER=&quot;Wilfred MK&quot;
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>CONFIG_USB_DEVICE_VID=0xC553
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>CONFIG_USB_DEVICE_PID=0x4011
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>#-----------------------------------------------------------------------------
 </code></pre></div>
 <h3 id="23-setting-up-cdc-acm-appoverlay"><strong>2.3 Setting up CDC-ACM [app.overlay]</strong></h3>
-<p>Zephyr v2.7 require an overlay file to be added to specify Communication Device Class - Abstract Control Model (CDC-ACM). The CDC ACM can be used as backends for Zephyr Subsystems, such as console and shell. </p>
+<p>Zephyr v2.7/3.0 requires an overlay file to be added to specify Communication Device Class - Abstract Control Model (CDC-ACM). The CDC ACM can be used as backends for Zephyr Subsystems, such as console and shell. </p>
 <p>There is detailed information about how an overlay is implemented and it's purpose in this sub-system which can be found <a href="https://docs.zephyrproject.org/latest/reference/usb/uds_cdc_acm.html">here</a>. </p>
 <p>For this particular example, start by making an <strong>app.overlay</strong>. If there exists a file named <strong>app.overlay</strong> in the app directory, it get added to the build system by default (See <a href="https://docs.zephyrproject.org/latest/guides/dts/howtos.html">here</a>, for device tree overlays). </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span> ~/csse4011/csse4011_repo/apps/console_sample/        <span class="c1">#App Directory</span>
@@ -934,7 +966,7 @@ Optionally, you can add the following config statements to add some flavour to t
 </code></pre></div>
 <h3 id="24-initializing-the-driver-mainc"><strong>2.4 Initializing the Driver [main.c]</strong></h3>
 <p>At this point, ensure that there are no compile errors by running
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>west build -p -b arduino_nano_33_ble
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>west build -p -b particle_argon
 </code></pre></div></p>
 <p>and now we tell our application to initialize the USB and print some data.</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>vim src/main.c
@@ -973,14 +1005,15 @@ Optionally, you can add the following config statements to add some flavour to t
 </code></pre></div></p>
 <h3 id="25-testing"><strong>2.5 Testing</strong></h3>
 <p>This application can now be built and flashed using:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>west  build -p auto -b arduino_nano_33_ble
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>west flash --bossac<span class="o">=</span><span class="nv">$HOME</span>/csse4011/BOSSA/BOSSA/bin/bossac   <span class="c1">#Check the Path is correct</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>west  build -p auto -b particle_argon
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>west flash -r jlink   
 </code></pre></div></p>
 <p>Since this is now a <strong>'new usb device'</strong>, <strong>you will need to pass through USB from your host machine to the VM to open the console within your CSSE4011 VM</strong> Typically, you might have to unplug and reconnect the device for the pass through to take effect. Alternatively, you should be able to view the console on the host machine also.</p>
 <p>See that the device is connected 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>lsusb  <span class="c1">#Command to show currently attached USB devices</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Bus <span class="m">001</span> Device <span class="m">099</span>: ID c553:4011 Wilfred MK Arduino Nano BLE - Zephyr <span class="c1">#You will see this if you added the USB OPTIONS from above</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1">#You will see this if you added the USB OPTIONS from above</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>Bus <span class="m">001</span> Device <span class="m">099</span>: ID c553:4011 Wilfred MK Particle Argon - Zephyr
 </code></pre></div></p>
 <p>First install screen (App that can monitor terminal)
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>sudo apt-get install screen
@@ -992,7 +1025,7 @@ Optionally, you can add the following config statements to add some flavour to t
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>Hello World
 </code></pre></div></p>
 <h2 id="26-sample-application"><strong>2.6 Sample Application</strong></h2>
-<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the console by flashing it to the Arduino Sense Board.</p>
+<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the console by flashing it to the Particle Argon Board.</p>
 <p>Sample is located in:</p>
 <ul>
 <li>REPO_TOP/tute_solutions/console_example/</li>

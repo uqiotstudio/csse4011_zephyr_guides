@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/about/">
+        <link rel="canonical" href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.1.5-Zephyr_Version_Changes/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
     
     
       
-        <title>Overview - CSSE4011 Tutorial Docs</title>
+        <title>1.5 Zephyr Versions - CSSE4011 Tutorial Docs</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#zephyr-rtos-guides" class="md-skip">
+        <a href="#csse4011-tute-15-zephyr-version-changes" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              1.5 Zephyr Versions
             
           </span>
         </div>
@@ -276,66 +276,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Overview
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
         Overview
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    Summary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#topic-brief" class="md-nav__link">
-    Topic Brief
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    Notes:
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -359,11 +304,66 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../OS.1.5-Zephyr_Version_Changes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          1.5 Zephyr Versions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         1.5 Zephyr Versions
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-motivation" class="md-nav__link">
+    1.0 Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-upgradingdowngrading" class="md-nav__link">
+    2.0 Upgrading/Downgrading
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-build-an-app" class="md-nav__link">
+    3.0 Build an app
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -736,22 +736,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    Summary
+  <a href="#10-motivation" class="md-nav__link">
+    1.0 Motivation
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#topic-brief" class="md-nav__link">
-    Topic Brief
+  <a href="#20-upgradingdowngrading" class="md-nav__link">
+    2.0 Upgrading/Downgrading
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    Notes:
+  <a href="#30-build-an-app" class="md-nav__link">
+    3.0 Build an app
   </a>
   
 </li>
@@ -768,71 +768,75 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/edit/master/docs/OS/about.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/edit/master/docs/OS/OS.1.5-Zephyr_Version_Changes.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="zephyr-rtos-guides">Zephyr RTOS - Guides</h1>
-<h2 id="summary">Summary</h2>
-<p>The following set of tutorials are intended to help students get setup with Zephyr RTOS on their newly setup virtual machines (Debian based), and to get a basic application to compile. </p>
-<p>These tutorials are intended to be <strong>attempted in order</strong>, particularly the first few.</p>
-<h2 id="topic-brief">Topic Brief</h2>
+<h1 id="csse4011-tute-15-zephyr-version-changes">CSSE4011: Tute 1.5 - Zephyr Version Changes</h1>
+<h2 id="10-motivation"><strong>1.0 Motivation</strong></h2>
+<p>This guide will cover how you can go about quickly changing the version of Zephyr. Why might you want to do this?</p>
 <ul>
-<li>OS.1 - Getting Started <ul>
-<li>Cloning and setting up Zephyr RTOS (installing toolchains and other required packages), on Debian/Ubuntu.</li>
-<li>Building and flashing sample blinky app</li>
+<li>Newly implemented features you  might want to try.</li>
+<li>Bug fixes</li>
+<li>Compatibility Issues</li>
+<li>Worked on version X, but not on version Y.</li>
 </ul>
-</li>
-<li>OS.2 - First Program<ul>
-<li>Setting up and building a Zephyr application (outside Zephyr source directory)</li>
-<li>Setting up app working directories</li>
-</ul>
-</li>
-<li>OS.2.1 - Building Tips<ul>
-<li>Basics of the build system</li>
-<li>Tips to customize build system</li>
-<li>Including config files</li>
-</ul>
-</li>
-<li>OS.2.2 - Implementing Libraries<ul>
-<li>Library directory structures</li>
-<li>Adding library to app build system</li>
-</ul>
-</li>
-<li>OS.4 - Threading<ul>
-<li>Introduction to threads</li>
-<li>Thread implementation in Zephyr RTOS</li>
-</ul>
-</li>
-<li>OS.5.1 - Thread Synchronization<ul>
-<li>Introduction to thread synchronization</li>
-<li>Semphore, Mutex and Condition Variables implementation</li>
-</ul>
-</li>
-<li>OS.5.2 - Thread Communication (ITC)<ul>
-<li>Introduction to inter-thread-communication (ITC)</li>
-<li>Basic communication primitives</li>
-<li>Implementation of Zephyr message queues.</li>
-</ul>
-</li>
-</ul>
-<h2 id="notes">Notes:</h2>
-<ul>
-<li>
-<p>The following tutorials were created with <strong>reference to Zephyr RTOS V2.7.XX</strong>. </p>
-</li>
-<li>
-<p>Through these guide, the reference to the environment variable <strong><code>(REPO_TOP)</code></strong> refers to the top level directory of within tutedocs. </p>
-</li>
-</ul>
+<h2 id="20-upgradingdowngrading"><strong>2.0 Upgrading/Downgrading</strong></h2>
+<p>Start by navigating to Zephyr source location.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$ <span class="nb">cd</span> zephyrproject/zephyr/
+</code></pre></div>
+fetch any updates/changes
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$ git fetch --all
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$ git checkout main
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">#Bring across all changes</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>$ git pull
+</code></pre></div>
+To see what the latest releases
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$ git tag -l <span class="p">|</span> tail
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>...
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>zephyr-v2.5.0
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>zephyr-v2.6.0
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>zephyr-v2.7.0
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>zephyr-v2.7.1
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>zephyr-v3.0.0
+</code></pre></div>
+checkout the desired release tag/version
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ git checkout zephyr-v3.0.0
+</code></pre></div>
+Update <code>west</code> to match release requirements
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>west update
+</code></pre></div></p>
+<h2 id="30-build-an-app"><strong>3.0 Build an app</strong></h2>
+<p>Any app you build now (assuming this is where <code>ZEPHYR_BASE</code> is poiting to) will build now on the version you have changed to. If you have build errors, make sure to remove the <code>build/</code> directory for the application. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$ west build -p -b particle_argon samples/basic/blinky
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>.
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>.
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>.
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>-- west build: building application
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="o">[</span><span class="m">1</span>/157<span class="o">]</span> Preparing syscall dependency handling
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="o">[</span><span class="m">2</span>/157<span class="o">]</span> Generating include/generated/version.h
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>-- Zephyr version: <span class="m">3</span>.0.0 <span class="o">(</span>/home/twilfred/Embedded_Dev/zephyrproject/zephyr<span class="o">)</span>, build: zephyr-v3.0.0
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="o">[</span><span class="m">147</span>/157<span class="o">]</span> Linking C executable zephyr/zephyr_pre0.elf
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="o">[</span><span class="m">151</span>/157<span class="o">]</span> Linking C executable zephyr/zephyr_pre1.elf
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="o">[</span><span class="m">157</span>/157<span class="o">]</span> Linking C executable zephyr/zephyr.elf
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>Memory region         Used Size  Region Size  %age Used
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>           FLASH:       <span class="m">19128</span> B         <span class="m">1</span> MB      <span class="m">1</span>.82%
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>            SRAM:        <span class="m">4168</span> B       <span class="m">256</span> KB      <span class="m">1</span>.59%
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>        IDT_LIST:          <span class="m">0</span> GB         <span class="m">2</span> KB      <span class="m">0</span>.00%
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2022-02-17
+      2022-02-26
     
   </small>
 </div>
@@ -849,7 +853,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../about/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Contents" rel="prev">
+        <a href="../OS.1-Getting_Started/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 1.0 Getting Started" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -858,20 +862,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Contents
+              1.0 Getting Started
             </div>
           </div>
         </a>
       
       
         
-        <a href="../OS.1-Getting_Started/" class="md-footer__link md-footer__link--next" aria-label="Next: 1.0 Getting Started" rel="next">
+        <a href="../OS.2-First_Program/" class="md-footer__link md-footer__link--next" aria-label="Next: 2.0 First Program" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              1.0 Getting Started
+              2.0 First Program
             </div>
           </div>
           <div class="md-footer__button md-icon">

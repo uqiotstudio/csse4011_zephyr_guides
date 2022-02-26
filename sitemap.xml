@@ -26,6 +26,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Boards/BRD.4-Particle_Argon/</loc>
+         <lastmod>2022-02-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Boards/about/</loc>
          <lastmod>2022-02-26</lastmod>
          <changefreq>daily</changefreq>
@@ -72,6 +77,11 @@
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.1-Getting_Started/</loc>
+         <lastmod>2022-02-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.1.5-Zephyr_Version_Changes/</loc>
          <lastmod>2022-02-26</lastmod>
          <changefreq>daily</changefreq>
     </url>

@@ -304,6 +304,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../OS/OS.1.5-Zephyr_Version_Changes/" class="md-nav__link">
+        1.5 Zephyr Versions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../OS/OS.2-First_Program/" class="md-nav__link">
         2.0 First Program
       </a>
@@ -744,6 +758,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.4-Particle_Argon/" class="md-nav__link">
+        4.0 Particle Argon
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -889,22 +917,26 @@
 <p>A shell or a command line interface (CLI) allows for a user to interact with the OS in real time. Shell commands can be used to issue unique commands to a device or change application logic. For example, a command to read run-time statistics of threads or to turn an led on or off etc...</p>
 <p>Zephyr also allows for Shell to be used as a backend for the Zephyr Logging API. The logging API is explored in <strong><em>CN.5-Logging</em></strong>.</p>
 <h2 id="11-test-hardware">1.1 Test Hardware</h2>
+<p>This implementation will explore setting up shell on the Particle Argon.</p>
 <ul>
 <li>
-<p>Arduino Sense Board</p>
+<p>Particle Argon</p>
 </li>
 <li>
-<p>mUSB Cable</p>
+<p>2 x mUSB Cable</p>
+</li>
+<li>
+<p>Segger J-Link EDU mini</p>
 </li>
 </ul>
-<p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
+<p><strong>This implementation is valid for Zephyr RTOS Version 3.0.XX</strong></p>
 <h2 id="12-prerequisites">1.2. Prerequisites</h2>
 <p>Ensure that you have completed/understand the following tutorials. </p>
 <ul>
 <li>OS.1, OS.2, OS.2.1 and BRD.1</li>
 </ul>
 <h2 id="13-setup">1.3 Setup</h2>
-<p>Connect the Arduino sense board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine).</p>
+<p>Connect the Particle Argon board to the host machine and ensure that the development environment has access to the device (USB passthrough to virtual machine).</p>
 <h2 id="20-zephyr-shell-implementation"><strong>2.0 Zephyr Shell Implementation</strong></h2>
 <h3 id="21-boilerplate"><strong>2.1 Boilerplate</strong></h3>
 <p><em>The following commands assume that you have setup your files/directories following the respective tutorial(s).</em></p>
@@ -930,7 +962,7 @@ Append the following, then save and exit the editor.
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>#-----------------------------------------------------------------------------
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>#--------------------------------USB_OPTIONS----------------------------------
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>CONFIG_USB_DEVICE_PRODUCT=&quot;Arduino Nano BLE - Zephyr&quot;
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>CONFIG_USB_DEVICE_PRODUCT=&quot;Particle Argon - Zephyr&quot;
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>CONFIG_USB_DEVICE_MANUFACTURER=&quot;Wilfred MK&quot;
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>CONFIG_USB_DEVICE_VID=0xC553
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>CONFIG_USB_DEVICE_PID=0x4011
@@ -992,7 +1024,7 @@ At the top of the file, append the following to add the newly created config fil
 </code></pre></div></p>
 <h3 id="25-initializing-the-driver-mainc"><strong>2.5 Initializing the Driver [main.c]</strong></h3>
 <p>At this point, ensure that there are no compile errors by running
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>west build -p -b arduino_nano_33_ble
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>west build -p -b particle_argon
 </code></pre></div></p>
 <p>and now we tell our application to initialize the USB stack.</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>vim src/main.c
@@ -1031,14 +1063,15 @@ At the top of the file, append the following to add the newly created config fil
 </code></pre></div></p>
 <h3 id="26-testing"><strong>2.6 Testing</strong></h3>
 <p>This application can now be built and flashed using:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>west  build -p auto -b arduino_nano_33_ble
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>west flash --bossac<span class="o">=</span><span class="nv">$HOME</span>/csse4011/BOSSA/BOSSA/bin/bossac   <span class="c1">#Check the Path is correct</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>west  build -p auto -b particle_argon
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>west flash -r jlink   
 </code></pre></div>
 Since this is now a <strong>'new usb device'</strong>, <strong>you will need to pass through USB from your host machine to the VM to open the shell within your CSSE4011 VM</strong> Typically, you might have to unplug and reconnect the device for the pass through to take effect. Alternatively, you should be able to view the shell on the host machine also.</p>
 <p>See that the device is connected 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>lsusb  <span class="c1">#Command to show currently attached USB devices</span>
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>Bus <span class="m">001</span> Device <span class="m">099</span>: ID c553:4011 Wilfred MK Arduino Nano BLE - Zephyr <span class="c1">#You will see this if you added the USB OPTIONS from above</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1">#You will see this if you added the USB OPTIONS from above</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>Bus <span class="m">001</span> Device <span class="m">099</span>: ID c553:4011 Wilfred MK Particle Argon - Zephyr
 </code></pre></div></p>
 <p>First install screen (App that can monitor terminal)
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>sudo apt-get install screen
@@ -1062,7 +1095,7 @@ You can press 'tab' to see the currently enabled options through shell.
 <a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>        stack size 2048, unused 1176, usage 872 / 2048 (42 %)
 </code></pre></div>
 <h2 id="27-sample-application"><strong>2.7 Sample Application</strong></h2>
-<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Arduino Sense Board.</p>
+<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Particle Argon.</p>
 <p>Sample is located in:</p>
 <ul>
 <li>REPO_TOP/tute_solutions/shell_example/</li>
@@ -1073,7 +1106,7 @@ You can press 'tab' to see the currently enabled options through shell.
   <small>
     
       Last update:
-      2022-02-19
+      2022-02-26
     
   </small>
 </div>

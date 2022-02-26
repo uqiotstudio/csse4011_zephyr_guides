@@ -304,6 +304,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../OS/OS.1.5-Zephyr_Version_Changes/" class="md-nav__link">
+        1.5 Zephyr Versions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../OS/OS.2-First_Program/" class="md-nav__link">
         2.0 First Program
       </a>
@@ -737,6 +751,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.4-Particle_Argon/" class="md-nav__link">
+        4.0 Particle Argon
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -874,10 +902,17 @@
 <p>The following tutorial explores exposing the board GPIO (General Purpose Input/Output) to userspace (an app) within Zephyr. Zephyr does things a little differently when it comes to interacting with hardware. In this tutorial, we will use the GPIO API to interact with GPIO pins. </p>
 <h2 id="11-test-hardware"><strong>1.1 Test Hardware</strong></h2>
 <ul>
-<li>Arduino Sense Board</li>
-<li>mUSB Cable</li>
+<li>
+<p>Particle Argon</p>
+</li>
+<li>
+<p>2 x mUSB Cable</p>
+</li>
+<li>
+<p>Segger J-Link EDU mini</p>
+</li>
 </ul>
-<p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
+<p><strong>This implementation is valid for Zephyr RTOS Version 3.0.XX</strong></p>
 <h2 id="12-prerequisites"><strong>1.2. Prerequisites</strong></h2>
 <p>Ensure that you have completed/understand the following tutorials. </p>
 <ul>
@@ -903,15 +938,15 @@ For setting up a basic boilerplate for our application, we will use the provided
 </code></pre></div>
 <p>An extensive guide to DeviceTree Source (DTS) implementation can be found <a href="https://docs.zephyrproject.org/2.7.0/guides/dts/intro.html">here</a> &amp; <a href="https://docs.zephyrproject.org/2.7.0/guides/dts/howtos.html#dt-howtos">here</a>. Later in this course, you might need to describe hardware in a DTS overlay file and add it to the build system for Zephyr to access particular hardware that you may need to use. Adding DTS overlays has been covered in <code>OS.2.1-Building_Tips</code>. </p>
 <p>When an application is built for a particular board, Zephyr creates a final <code>zephyr.dts</code> file in the build directory. This file concatenates all selected hardware into this "final devicetree". Typically, it's a good idea to start here to see what the hardware description looks like for the current configuration of your build.</p>
-<p>For instance, lets try building this boilerplate blinky app for the <code>Arduino_Nano_Sense</code>.
+<p>For instance, lets try building this boilerplate blinky app for the <code>Particle_Argon</code>.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span> ~/csse4011/csse4011_repo/apps/gpio_sample/
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>west  build -p auto -b arduino_nano_33_ble
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>west  build -p auto -b particle_argon
 </code></pre></div>
-Once the build is complete, you can open up the "final DTS" at:
+Once the build is complete, you can open up the "final DTS" (typically used for debugging) at:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span> build/zephyr
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>vim zephyr.dts
 </code></pre></div>
-Here we can see the <strong>hardware description</strong> for the <code>Arduino_Nano_Sense</code>. This information is exposed to userland/application in Zephyr, using a set of <code>macros</code> <a href="https://docs.zephyrproject.org/2.7.0/reference/devicetree/api.html#generic-apis">see here</a>.</p>
+Here we can see the <strong>hardware description</strong> for the <code>Particle_Argon</code>. This information is exposed to userland/application in Zephyr, using a set of <code>macros</code> <a href="https://docs.zephyrproject.org/2.7.0/reference/devicetree/api.html#generic-apis">see here</a>.</p>
 <p>In this tutorial, we are interested in GPIO, so we will look at how to toggle a particular GPIO pin from looking at the <code>zephyr.dts</code> file.</p>
 <h3 id="22-gpio-interaction"><strong>2.2 GPIO Interaction</strong></h3>
 <p>Typically, when you interact with new hardware, you must first enable the kernel driver for it, this is usually done using a kernel configuration file (KConfig). In our case for GPIO, it is enabled in the <code>prj.conf</code> file in the application directory with <code>CONFIG_GPIO=y</code>. Most boards will typically have basic hardware functionality like gpio, uart and i2c enabled by default in the board definitions (in the Zephyr source). You can refer to <code>OS.2.1-Building_Tips</code> for a guide on adding segmented KConf files to the build system. </p>
@@ -928,7 +963,8 @@ Here we can see the <strong>hardware description</strong> for the <code>Arduino_
 Here, <code>DT_ALIAS()</code> is used to find the reference <code>led0</code> within the DTS. This is a special case of using an alias. If we look in the <code>zephyr.dts</code> file, you will notice that <code>led0</code> is specified as <code>aliases{}</code>. So this macro "returns a node identifier for the node which is aliased".</p>
 <p>When you follow the <code>led0</code> alias in <code>zephyr.dts</code>, you will notice that it simply maps to a GPIO pin. Aliases can help abstract the hardware within the devicetree and make them easy to access. </p>
 <h3 id="24-devicetree-gpio-access"><strong>2.4 DeviceTree GPIO Access</strong></h3>
-<p>Lets investigate toggling a particular GPIO that is not aliased. We will use the <code>Arduino_Nano_Sense</code> for this tute. You can find the board pinout <a href="https://content.arduino.cc/assets/Pinout-NANOsense_latest.pdf">here</a>. We will use the GPIO pin <code>P0.13</code> (internally connected to the top left led) for this. This pin maps on <code>P0</code>, in the <code>zephyr.dts</code> this is <code>gpio0</code>. For instance, pin <code>D6</code>, will be in <code>gpio1</code>. </p>
+<p>Lets investigate toggling a particular GPIO <strong>without</strong> using it's alias. Why not just make an alias for it? So we can learn how to use <code>DT-Macros</code> in Zephyr.</p>
+<p>We will use the <code>Particle Argon</code> for this tute. You can find the board pinout <a href="https://docs.particle.io/assets/images/argon/argon-block-diagram.png">here</a>. We will use the GPIO pin <code>P0.13</code> (internally connected to the RGB-red led). This pin maps on <code>P0</code> (<strong>port 0</strong>), in the <code>zephyr.dts</code> this is <code>gpio0</code>. For instance, pin <code>D6 (p1.11)</code>, will be in <code>gpio1</code>. </p>
 <p>Start by editing the source file and append the following
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>vim src/main.c
 </code></pre></div>
@@ -956,10 +992,10 @@ Notice here, that <code>device_get_binding()</code> will not except a <code>NODE
 </code></pre></div>
 <h2 id="40-testing"><strong>4.0 Testing</strong></h2>
 <p>This application can now be built and flashed using:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>west  build -p auto -b arduino_nano_33_ble
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>west flash --bossac<span class="o">=</span><span class="nv">$HOME</span>/csse4011/BOSSA/BOSSA/bin/bossac   <span class="c1">#Check the Path is correct</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>west  build -p auto -b particle_argon
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>west flash -r jlink
 </code></pre></div></p>
-<p>You should see that the <strong>top-led led is now flashing orange</strong> alongside the red led (led0) from the boilerplate code. </p>
+<p>You should see that the <strong>red led is now flashing</strong> as well as the blue led (led0) from the boilerplate code (if you didn't remove that code). </p>
 <h2 id="41-sample-application"><strong>4.1 Sample Application</strong></h2>
 <p>A sample application has been provided, this application includes all the steps mentioned above.</p>
 <p>Sample is located in:</p>
@@ -972,7 +1008,7 @@ Notice here, that <code>device_get_binding()</code> will not except a <code>NODE
   <small>
     
       Last update:
-      2022-02-19
+      2022-02-26
     
   </small>
 </div>

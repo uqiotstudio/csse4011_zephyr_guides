@@ -304,6 +304,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../OS/OS.1.5-Zephyr_Version_Changes/" class="md-nav__link">
+        1.5 Zephyr Versions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../OS/OS.2-First_Program/" class="md-nav__link">
         2.0 First Program
       </a>
@@ -743,6 +757,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Boards/BRD.4-Particle_Argon/" class="md-nav__link">
+        4.0 Particle Argon
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -889,13 +917,16 @@
 <h2 id="11-test-hardware">1.1 Test Hardware</h2>
 <ul>
 <li>
-<p>Arduino Sense Board</p>
+<p>Particle Argon</p>
 </li>
 <li>
-<p>mUSB Cable</p>
+<p>2 x mUSB Cable</p>
+</li>
+<li>
+<p>Segger J-Link EDU mini</p>
 </li>
 </ul>
-<p><strong>This implementation is valid for Zephyr RTOS Version 2.7.XX</strong></p>
+<p><strong>This implementation is valid for Zephyr RTOS Version 3.0.XX</strong></p>
 <h2 id="12-prerequisites">1.2. Prerequisites</h2>
 <p>Ensure that you have completed/understand the following tutorials. </p>
 <ul>
@@ -963,8 +994,8 @@ append the following.
 </code></pre></div>
 <h2 id="40-testing"><strong>4.0 Testing</strong></h2>
 <p>This application can now be built and flashed using:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>west  build -p auto -b arduino_nano_33_ble
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>west flash --bossac<span class="o">=</span><span class="nv">$HOME</span>/csse4011/BOSSA/BOSSA/bin/bossac   <span class="c1">#Check the Path is correct</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>west  build -p auto -b particle_argon
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>west flash -r jlink 
 </code></pre></div></p>
 <p>Once flashed,
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo screen /dev/ttyACM0
@@ -976,7 +1007,7 @@ append the following.
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>[00:00:08.203,430] &lt;inf&gt; sample_module: Led is currently: On
 </code></pre></div>
 <h2 id="41-sample-application"><strong>4.1 Sample Application</strong></h2>
-<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Arduino Sense Board.</p>
+<p>A sample application has been provided, this application includes all the steps mentioned above. You can test the shell by flashing it to the Particle Argon.</p>
 <p>Sample is located in:</p>
 <ul>
 <li>REPO_TOP/tute_solutions/logging_example/</li>
@@ -987,7 +1018,7 @@ append the following.
   <small>
     
       Last update:
-      2022-02-19
+      2022-02-26
     
   </small>
 </div>
