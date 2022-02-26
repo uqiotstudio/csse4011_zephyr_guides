@@ -40,8 +40,9 @@ Tute 3: Web Dashboard               [TODO]
 A step-by-step guide to building Zephyr applications for the following boards, that are to be used within the course. 
 ```MD
 Tute 1: Arduino Sense             [OK]
-Tute 2: Thingy52                  [TODO]
-Tute 3: IOT Board                 [TODO]
+Tute 2: Thingy52                  [OK]
+Tute 3: nRF52840 Dongle           [OK]
+Tute 4: Particle Argon            [OK]
 ```
 
 ## Notes

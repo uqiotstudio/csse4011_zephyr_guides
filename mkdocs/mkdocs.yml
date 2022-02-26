@@ -31,6 +31,8 @@ nav:
       - '1.0 Arduino Sense BLE': Boards/BRD.1-Arduino_Sense.md
       - '2.0 Thingy52': Boards/BRD.2-Thingy52.md
       - '3.0 nRF Dongle': Boards/BRD.3-Dongle_NRF52840.md
+      - '4.0 Particle Argon': Boards/BRD.4-Particle_Argon.md
+
 
 
 theme: 
