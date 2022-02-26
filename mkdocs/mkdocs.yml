@@ -10,6 +10,7 @@ nav:
   - Operating System: 
       - 'Overview' : OS/about.md
       - '1.0 Getting Started': OS/OS.1-Getting_Started.md
+      - '1.5 Zephyr Versions': OS/OS.1.5-Zephyr_Version_Changes.md
       - '2.0 First Program': OS/OS.2-First_Program.md
       - '2.1 Building Tips': OS/OS.2.1-Building_Tips.md
       - '2.2 Implementing Libraries': OS/OS.2.2-Implementing_Libraries.md
@@ -19,7 +20,7 @@ nav:
   - Connectivity: 
       - 'Overview': Connectivity/about.md
       - '1.0 GPIO' : Connectivity/CN.1-GPIO.md
-      - '2.0 Sensors': Connectivity/CN.2-Sensors.md
+#      - '2.0 Sensors': Connectivity/CN.2-Sensors.md
       - '3.0 Serial Console': Connectivity/CN.3-Serial_Console.md
       - '4.0 Shell': Connectivity/CN.4-Shell.md
       - '4.1 Shell Commands': Connectivity/CN.4.1-Shell_Commands.md

@@ -5,6 +5,7 @@
 A set of tutorials focused on getting upto speed with Zephyr RTOS and it's feature set/implementation.
 ```MD
 Tute 1: Getting Started               [OK]
+    1.5: Zephyr Version Changes       [OK]
 Tute 2: First program                 [OK]
     2.1: Building Tips                [OK]
     2.2: Implementing Libraries       [OK]
