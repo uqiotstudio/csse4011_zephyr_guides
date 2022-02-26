@@ -905,11 +905,13 @@
 </ul>
 <h2 id="20-thread-communication-in-zephyr"><strong>2.0 Thread Communication in Zephyr</strong></h2>
 <h3 id="21-data-passing-in-zephyr"><strong>2.1 Data Passing in Zephyr</strong></h3>
-<p>Zephyr RTOS offers a few different options for ITC. To name a few,
-* First in first out buffers (FIFO)
-* Last in first out buffer (LIFO)
-* Stacks
-*  Message queues, Mailboxes and Pipes</p>
+<p>Zephyr RTOS offers a few different options for ITC. To name a few,</p>
+<ul>
+<li>First in first out buffers (FIFO)</li>
+<li>Last in first out buffer (LIFO)</li>
+<li>Stacks</li>
+<li>Message queues, Mailboxes and Pipes</li>
+</ul>
 <p>Some of these are ideal for particular use cases, to determine which ITC protocol might best fit an application, refer to the <em>Data Passing</em> <a href="https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing">guidelines table</a>. More information on the implementation of each primitive can be found in the api guides (links below the <a href="https://docs.zephyrproject.org/latest/reference/kernel/index.html#data-passing">table</a>).</p>
 <h3 id="22-general-message-queues"><strong>2.2 General Message Queues</strong></h3>
 <p>In this tutorial, we will focus on implementing a message queues between threads. As they can be typically be used for a wide range of applications, it is a good starting point for learning ITC in Zephyr. The api guide can be found <a href="https://docs.zephyrproject.org/latest/reference/kernel/data_passing/message_queues.html">here</a>.</p>
