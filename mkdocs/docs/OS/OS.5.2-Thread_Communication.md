@@ -19,7 +19,7 @@ Ensure that you have completed/understand the following tutorials.
 
 ### **2.1 Data Passing in Zephyr**
 
-Zephyr RTOS (as of V2.7.XX) offers a few different options for ITC. To name a few,
+Zephyr RTOS offers a few different options for ITC. To name a few,
 * First in first out buffers (FIFO)
 * Last in first out buffer (LIFO)
 * Stacks
