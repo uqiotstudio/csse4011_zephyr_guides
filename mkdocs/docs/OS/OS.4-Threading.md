@@ -129,7 +129,7 @@ In application [as per](https://docs.zephyrproject.org/latest/reference/kernel/s
 
 ## **3.0 Tutorial Question:**
 
-Copy the zephyr/sample/blinky program to a working application directory, then, implement two threads, where one thread will turn on the led, and the other thread will turn off the led. Use either the thingy52 or the Arduino Sense to test your code.
+Copy the zephyr/sample/blinky program to a working application directory, then, implement two threads, where one thread will turn on the led, and the other thread will turn off the led. Use any of the boards to test your code.
 
 >**Question: What is wrong with an implementation like this? Why is this not ideal, what type of issues might you run into?**
 
@@ -137,7 +137,7 @@ Copy the zephyr/sample/blinky program to a working application directory, then, 
 
 A sample solution is uploaded in the docs repository. Find located within,
 
-* tute_solutions/OS4_tute/src/
+* REPO_TOP/tute_soltions/threading_sample
 
 
 This code can be built with:

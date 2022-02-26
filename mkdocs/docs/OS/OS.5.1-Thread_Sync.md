@@ -144,7 +144,7 @@ The implementation should only use delays to indicate that the led visibly blink
 
 A sample solution is uploaded in the docs repository. Find located within,
 
-* tute_solutions/OS-5.1_tute/src/
+* tute_solutions/thread_sync_sample
 
 This code can be built with:
 

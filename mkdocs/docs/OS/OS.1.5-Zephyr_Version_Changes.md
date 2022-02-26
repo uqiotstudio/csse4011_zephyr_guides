@@ -46,7 +46,7 @@ west update
 
 ## **3.0 Build an app**
 
-Any app you build now (assuming this is where `ZEPHYR_BASE` is poiting to) will build now on the version you have changed to. If you have build errors, make sure to remove the `build/` directory for the application. 
+Any app you build now (assuming this is where `ZEPHYR_BASE` is pointing to) will build now on the version you have changed to. If you have build errors, make sure to remove the `build/` directory for the application.
 
 ```SHELL
 $ west build -p -b particle_argon samples/basic/blinky

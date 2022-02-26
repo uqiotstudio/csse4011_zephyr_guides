@@ -20,6 +20,7 @@ Ensure that you have completed/understand the following tutorials.
 ### **2.1 Data Passing in Zephyr**
 
 Zephyr RTOS offers a few different options for ITC. To name a few,
+
 * First in first out buffers (FIFO)
 * Last in first out buffer (LIFO)
 * Stacks
@@ -107,8 +108,8 @@ consumer_thread(void)
 
 This application can now be built and flashed using:
 ```shell
-west  build -p auto -b arduino_nano_33_ble
-west flash --bossac=$HOME/csse4011/BOSSA/BOSSA/bin/bossac   #Check the Path is correct
+west  build -p auto -b particle_argon
+west flash -r jlink
 ```
 As per previous guides on Shell and Console implementation, attach a session to screen. 
 ```shell
@@ -138,7 +139,7 @@ This tutorial is a guide for implementing basic message queues in Zephyr RTOS, i
 
 A sample solution is provided under, 
 
-* REPO_TOP/tute_soltions/OS-5.2_tute/
+* REPO_TOP/tute_soltions/thread_comms_sample/
 
 this solution implements the above functionality into a Zephyr application. Feel free to use it and modify it.
 
