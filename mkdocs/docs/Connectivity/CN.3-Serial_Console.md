@@ -98,7 +98,7 @@ Copy the following overlay details into the newly created file. This is adding a
 
 &zephyr_udc0 {
         cdc_acm_uart0: cdc_acm_uart0 {
-                compatible = "zephyr,cdc-acm-uart";:q
+                compatible = "zephyr,cdc-acm-uart";
                 label = "CDC_ACM_0";
         };
 };
