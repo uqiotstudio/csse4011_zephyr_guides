@@ -905,7 +905,7 @@
 </ul>
 <h2 id="20-thread-communication-in-zephyr"><strong>2.0 Thread Communication in Zephyr</strong></h2>
 <h3 id="21-data-passing-in-zephyr"><strong>2.1 Data Passing in Zephyr</strong></h3>
-<p>Zephyr RTOS (as of V2.7.XX) offers a few different options for ITC. To name a few,
+<p>Zephyr RTOS offers a few different options for ITC. To name a few,
 * First in first out buffers (FIFO)
 * Last in first out buffer (LIFO)
 * Stacks
@@ -975,8 +975,8 @@ Now, we will add another thread (alongside main), so we can test the ITC between
 </code></pre></div>
 <h3 id="24-testing"><strong>2.4 Testing</strong></h3>
 <p>This application can now be built and flashed using:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>west  build -p auto -b arduino_nano_33_ble
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>west flash --bossac<span class="o">=</span><span class="nv">$HOME</span>/csse4011/BOSSA/BOSSA/bin/bossac   <span class="c1">#Check the Path is correct</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>west  build -p auto -b particle_argon
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>west flash -r jlink
 </code></pre></div>
 As per previous guides on Shell and Console implementation, attach a session to screen. 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo screen /dev/ttyACM0
@@ -1001,7 +1001,7 @@ As per previous guides on Shell and Console implementation, attach a session to 
 <h2 id="30-sample-solution"><strong>3.0 Sample Solution</strong></h2>
 <p>A sample solution is provided under, </p>
 <ul>
-<li>REPO_TOP/tute_soltions/OS-5.2_tute/</li>
+<li>REPO_TOP/tute_soltions/thread_comms_sample/</li>
 </ul>
 <p>this solution implements the above functionality into a Zephyr application. Feel free to use it and modify it.</p>
 
@@ -1010,7 +1010,7 @@ As per previous guides on Shell and Console implementation, attach a session to 
   <small>
     
       Last update:
-      2022-02-19
+      2022-02-26
     
   </small>
 </div>
