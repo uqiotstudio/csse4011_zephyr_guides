@@ -2,122 +2,122 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/about/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Boards/BRD.1-Arduino_Sense/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Boards/BRD.2-Thingy52/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Boards/BRD.3-Dongle_NRF52840/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Boards/BRD.4-Particle_Argon/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Boards/about/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.1-GPIO/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.2-Sensors/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.3-Serial_Console/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.4-Shell/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.4.1-Shell_Commands/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.5-Logging/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/CN.6-Segger_RTT/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/Connectivity/about/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.1-Getting_Started/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.1.5-Zephyr_Version_Changes/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.2-First_Program/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.2.1-Building_Tips/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.2.2-Implementing_Libraries/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.4-Threading/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.5.1-Thread_Sync/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/OS.5.2-Thread_Communication/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/uqembeddedsys-projects/csse4011_zephyr_guides/OS/about/</loc>
-         <lastmod>2022-02-26</lastmod>
+         <lastmod>2022-03-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
