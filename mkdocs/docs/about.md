@@ -14,14 +14,14 @@ Tute 4: Threading                     [OK]
 Tute 5: Thread Synchronisation        
     5.1: Thread Sync                  [OK]
     5.2: Thread Communications (ITC)  [OK]
-Tute 6: File Systems                  [TODO]
+Tute 6: File Systems                  [N/A]
 ```
 ## Connectivity
 
 A set of tutorials that expose connectivity / I/O features of Zephyr RTOS
 ```MD
 Tute 1: GPIO                        [OK]
-Tute 2: Sensors                     [OK]
+Tute 2: Sensors                     [N/A]
 Tute 3: Serial Console              [OK]
 Tute 4: Shell                       [OK]
     Tute 4.1: Shell Commands        [OK]
@@ -32,9 +32,9 @@ Tute 6: Segger RTT                  [OK]
 
 The following set of tutorials will focus on introducing networking within Zephyr RTOS.
 ```MD
-Tute 1: BLE                         [TODO]
-Tute 2: Lorawan                     [TODO]
-Tute 3: Web Dashboard               [TODO]
+Tute 1: BLE                         [N/A]
+Tute 2: Lorawan                     [N/A]
+Tute 3: Web Dashboard               [N/A]
 ```
 ## Boards
 
