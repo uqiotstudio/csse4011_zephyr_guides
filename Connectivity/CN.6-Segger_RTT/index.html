@@ -1001,7 +1001,7 @@ and add in:
 <p>Now, we will add these to the build system (as per <code>OS2.1 - Building Tips</code>)
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>vim CMakeLists.txt
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>set<span class="o">(</span>CONF_FILE segger_rtt.conf<span class="o">)</span>      
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>set<span class="o">(</span>CONF_FILE segger_rtt_console.conf<span class="o">)</span>
 </code></pre></div>
 Now you can compile and flash this application. See below <strong><code>4.0 Testing</code></strong> for more. Be sure to add a <code>printk()</code>, so you can see some output in the console.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1061,7 +1061,7 @@ and add the following
 <p>Now, we will add these to the build system (as per <code>OS2.1 - Building Tips</code>)
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>vim CMakeLists.txt
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>set<span class="o">(</span>CONF_FILE shell.conf segger_rtt.conf<span class="o">)</span>      
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>set<span class="o">(</span>CONF_FILE shell.conf segger_rtt_shell.conf<span class="o">)</span>
 </code></pre></div>
 Now you can compile and flash this application.</p>
 <h2 id="40-testing"><strong>4.0 Testing</strong></h2>
@@ -1131,7 +1131,7 @@ Try setting the <code>-RTTChannel 0</code>
   <small>
     
       Last update:
-      2022-02-19
+      2022-03-14
     
   </small>
 </div>
