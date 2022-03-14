@@ -64,7 +64,7 @@ Now, we will add these to the build system (as per `OS2.1 - Building Tips`)
 ```shell 
 vim CMakeLists.txt
 
-set(CONF_FILE segger_rtt.conf)      
+set(CONF_FILE segger_rtt_console.conf)
 ```
 Now you can compile and flash this application. See below **`4.0 Testing`** for more. Be sure to add a `printk()`, so you can see some output in the console.
 
@@ -141,7 +141,7 @@ Now, we will add these to the build system (as per `OS2.1 - Building Tips`)
 ```shell 
 vim CMakeLists.txt
 
-set(CONF_FILE shell.conf segger_rtt.conf)      
+set(CONF_FILE shell.conf segger_rtt_shell.conf)
 ```
 Now you can compile and flash this application.
 
