@@ -28,7 +28,7 @@
 #endif
 
 /* Thread Definitions */
-#define STACK_SIZE 256
+#define STACK_SIZE 512
 #define PRIORITY 3
 
 /* Thread Prototypes */
