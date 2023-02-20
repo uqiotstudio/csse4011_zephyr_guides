@@ -381,15 +381,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#50-install-jlinksoftwaresegger-tools" class="md-nav__link">
-    5.0 Install JLinkSoftware/SEGGER Tools
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#60-build-a-sample-program-blinky" class="md-nav__link">
-    6.0 Build a Sample Program (Blinky)
+  <a href="#50-build-a-sample-program-blinky-for-the-a-board" class="md-nav__link">
+    5.0 Build a Sample Program (Blinky) for the a Board
   </a>
   
 </li>
@@ -856,15 +849,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#50-install-jlinksoftwaresegger-tools" class="md-nav__link">
-    5.0 Install JLinkSoftware/SEGGER Tools
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#60-build-a-sample-program-blinky" class="md-nav__link">
-    6.0 Build a Sample Program (Blinky)
+  <a href="#50-build-a-sample-program-blinky-for-the-a-board" class="md-nav__link">
+    5.0 Build a Sample Program (Blinky) for the a Board
   </a>
   
 </li>
@@ -972,93 +958,48 @@ Setup Zephyr Folder
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>mkdir<span class="w"> </span>csse4011/
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">cd</span><span class="w"> </span>csse4011/
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>west<span class="w"> </span>init<span class="w"> </span>-m<span class="w"> </span>https://github.com/zephyrproject-rtos/zephyr<span class="w"> </span>--mr<span class="w"> </span>v3.0.0<span class="w"> </span>zephyrproject<span class="w"> </span>
-</code></pre></div></p>
-<p>or <strong>[this is not recommended, use latest stable v3.0.0]</strong></p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>west<span class="w"> </span>init<span class="w"> </span>zephyrproject/<span class="w">               </span>-<span class="w"> </span>Latest<span class="w"> </span>version<span class="w"> </span>of<span class="w"> </span>Zephyr<span class="w"> </span><span class="o">(</span>the<span class="w"> </span>development<span class="w"> </span>tree<span class="o">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>west<span class="w"> </span>init<span class="w"> </span>zephyrproject/<span class="w">               </span>-<span class="w"> </span>Latest<span class="w"> </span>version<span class="w"> </span>of<span class="w"> </span>Zephyr<span class="w"> </span><span class="o">(</span>the<span class="w"> </span>development<span class="w"> </span>tree<span class="o">)</span>
 </code></pre></div>
 Get Zephyr Source Code (Gets ALL of the source)
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span><span class="w"> </span>zephyrproject
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>west<span class="w"> </span>update<span class="w">                                 </span>-<span class="w"> </span>Might<span class="w"> </span>take<span class="w"> </span>awhile<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span><span class="w"> </span>zephyrproject
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>west<span class="w"> </span>update<span class="w">                                 </span>-<span class="w"> </span>Might<span class="w"> </span>take<span class="w"> </span>awhile<span class="w"> </span>
 </code></pre></div>
 Export a Zephyr CMake package. This allows CMake to automatically load boilerplate code required for building Zephyr applications.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>west<span class="w"> </span>zephyr-export
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>west<span class="w"> </span>zephyr-export
 </code></pre></div>
 Zephyr’s scripts/requirements.txt file declares additional Python dependencies. Install them with pip3.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>-r<span class="w"> </span>~/csse4011/zephyrproject/zephyr/scripts/requirements.txt
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>-r<span class="w"> </span>~/csse4011/zephyrproject/zephyr/scripts/requirements.txt
 </code></pre></div></p>
 <h2 id="40-installing-the-toolchains"><strong>4.0 Installing the toolchains</strong></h2>
 <p>This tutorial will focus on installing the Zephyr SDK. You may also use 3rd party toolchains, however, for this course, the SDK will be sufficient. Note that Zephyr SDK is not available of Windows or MacOs. You will need to install a 3rd party toolchain, see <a href="https://docs.zephyrproject.org/latest/getting_started/toolchain_3rd_party_x_compilers.html">here</a>.</p>
 <p>Download the Zephyr SDK installer
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">cd</span><span class="w"> </span>~
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>wget<span class="w"> </span>https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.13.2/zephyr-sdk-0.13.2-linux-x86_64-setup.run
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">cd</span><span class="w"> </span>~
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>wget<span class="w"> </span>https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.13.2/zephyr-sdk-0.13.2-linux-x86_64-setup.run
 </code></pre></div>
 Install the SDK to /opt/ , see <a href="https://docs.zephyrproject.org/latest/getting_started/index.html">here</a> for other potential installation locations
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>zephyr-sdk-0.13.2-linux-x86_64-setup.run
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>sudo<span class="w"> </span>./zephyr-sdk-0.13.2-linux-x86_64-setup.run<span class="w"> </span>--<span class="w"> </span>-d<span class="w"> </span>/opt/zephyr-sdk-0.13.2
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>zephyr-sdk-0.13.2-linux-x86_64-setup.run
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>sudo<span class="w"> </span>./zephyr-sdk-0.13.2-linux-x86_64-setup.run<span class="w"> </span>--<span class="w"> </span>-d<span class="w"> </span>/opt/zephyr-sdk-0.13.2
 </code></pre></div>
 Remove SDK Installer (Optional)
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>~
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>rm<span class="w"> </span>zephyr-sdk-0.13.2-linux-x86_64-setup.run
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span><span class="w"> </span>~
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>rm<span class="w"> </span>zephyr-sdk-0.13.2-linux-x86_64-setup.run
 </code></pre></div>
 Set udev rules, which allow you to flash most Zephyr boards as a regular user
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>cp<span class="w"> </span>/opt/zephyr-sdk-0.13.2/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules<span class="w"> </span>/etc/udev/rules.d
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>sudo<span class="w"> </span>cp<span class="w"> </span>/opt/zephyr-sdk-0.13.2/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules<span class="w"> </span>/etc/udev/rules.d
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload
 </code></pre></div></p>
-<h2 id="50-install-jlinksoftwaresegger-tools"><strong>5.0 Install JLinkSoftware/SEGGER Tools</strong></h2>
-<p><strong>NOTE: For flashing to work (using Segger JLink devices), you must first install <a href="https://www.segger.com/downloads/jlink/">J-Link Software and Documentation pack</a> in your VM</strong>, use the <code>64-bit DEB</code> installer for <strong>Debian/Ubuntu</strong>. </p>
-<p>To install this, open up a terminal and navigate to download location.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span><span class="w"> </span>~/Downloads
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1">#Make sure the file name is right, versions change often</span>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>JLink_Linux_V762_x86_64.deb
-</code></pre></div>
-<p>Make sure that the JLink device is connected up properly to the Thingy52 device, and ensure that the power switch is to the left (facing you - on position). It is a good idea to have the device connected via mUSB for charging during this procedure.</p>
-<p>Once this has been completed, you can test that it is functional with</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>$<span class="w"> </span>JLinkExe
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>SEGGER<span class="w"> </span>J-Link<span class="w"> </span>Commander<span class="w"> </span>V7.62<span class="w"> </span><span class="o">(</span>Compiled<span class="w"> </span>Feb<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">2022</span><span class="w"> </span><span class="m">16</span>:09:54<span class="o">)</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>DLL<span class="w"> </span>version<span class="w"> </span>V7.62,<span class="w"> </span>compiled<span class="w"> </span>Feb<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">2022</span><span class="w"> </span><span class="m">16</span>:09:39
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>Connecting<span class="w"> </span>to<span class="w"> </span>J-Link<span class="w"> </span>via<span class="w"> </span>USB...O.K.
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>Firmware:<span class="w"> </span>J-Link<span class="w"> </span>EDU<span class="w"> </span>Mini<span class="w"> </span>V1<span class="w"> </span>compiled<span class="w"> </span>Dec<span class="w">  </span><span class="m">7</span><span class="w"> </span><span class="m">2021</span><span class="w"> </span><span class="m">08</span>:38:51
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>Hardware<span class="w"> </span>version:<span class="w"> </span>V1.00
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>S/N:<span class="w"> </span><span class="m">801026632</span>
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>License<span class="o">(</span>s<span class="o">)</span>:<span class="w"> </span>FlashBP,<span class="w"> </span>GDB
-<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>USB<span class="w"> </span>speed<span class="w"> </span>mode:<span class="w"> </span>Full<span class="w"> </span>speed<span class="w"> </span><span class="o">(</span><span class="m">12</span><span class="w"> </span>MBit/s<span class="o">)</span>
-<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="nv">VTref</span><span class="o">=</span><span class="m">3</span>.286V
-</code></pre></div>
-<p>at this point if you get</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Connecting<span class="w"> </span>to<span class="w"> </span>J-Link<span class="w"> </span>via<span class="w"> </span>USB...FAILED:<span class="w"> </span>Cannot<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>J-Link.
-</code></pre></div>
-<p>This means that either your connections are wrong or more likely that the VM has not been passed the USB from host. You can test this by running.</p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>lsusb
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>Bus<span class="w"> </span><span class="m">001</span><span class="w"> </span>Device<span class="w"> </span><span class="m">003</span>:<span class="w"> </span>ID<span class="w"> </span><span class="m">1366</span>:0101<span class="w"> </span>SEGGER<span class="w"> </span>J-Link<span class="w"> </span>PLUS
-</code></pre></div>
-If you do not see this device, check if the host can see this device, if so, you will need to configure the VM to allow passthrough for the SEGGER EDU Mini.</p>
-<h2 id="60-build-a-sample-program-blinky"><strong>6.0 Build a Sample Program (Blinky)</strong></h2>
-<p>If the installation was successful, we should now be able to build a basic blinky program. In the following command, the '-p auto' option automatically cleans byproducts from a previous build if necessary, which is useful if you try building another sample.</p>
-<p>The '-b' option specifies a board to build for, in this case the particle_argon, followed by the path to the app source.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">cd</span><span class="w"> </span>~/csse4011/zephyrproject/zephyr/
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>west<span class="w"> </span>build<span class="w"> </span>-p<span class="w"> </span>auto<span class="w"> </span>-b<span class="w"> </span>particle_argon<span class="w"> </span>samples/basic/blinky
-</code></pre></div>
-Flash the sample program. Make a sure a 'runner' is connected. You will be given a Segger J-Link device to be used with the Particle Argon.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>west<span class="w"> </span>flash<span class="w"> </span>-r<span class="w"> </span>jlink
-</code></pre></div></p>
-<p>Option '-r' specifies to flash using JLink, west is capable of tapping into different runners for flashing your devices, later we will explore how to specify runners in the CMakeLists file. </p>
-<p>Additional information for setting up other runners can be found <a href="https://docs.zephyrproject.org/latest/guides/west/build-flash-debug.html">here</a></p>
+<h2 id="50-build-a-sample-program-blinky-for-the-a-board"><strong>5.0 Build a Sample Program (Blinky) for the a Board</strong></h2>
+<p>Refer to tutorial that covers the board, you are using.</p>
 <h2 id="60-setting-zephyr-base"><strong>6.0 Setting Zephyr Base</strong></h2>
 <p>Setting <code>$ZEPHYR_BASE</code> allows you to invoke west from outside the source directory to build your applications. So we will add this environment to be set at login by <code>bashrc</code>. If you are using a different shell <code>fish</code> or <code>zsh</code>, make sure you set this within those config files. </p>
 <p>If you installed Zephyr elsewhere, <strong>adjust the following accordingly</strong>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;# Add Zephyr Base Location to Path</span>
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="s2">export ZEPHYR_BASE=~/csse4011/zephyrproject/zephyr&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc<span class="w"> </span>
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;# Add Zephyr Base Location to Path</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="s2">export ZEPHYR_BASE=~/csse4011/zephyrproject/zephyr&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc<span class="w"> </span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 
   <hr>
