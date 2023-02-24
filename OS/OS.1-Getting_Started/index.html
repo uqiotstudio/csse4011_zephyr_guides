@@ -971,23 +971,23 @@ Zephyr’s scripts/requirements.txt file declares additional Python dependencies
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>-r<span class="w"> </span>~/csse4011/zephyrproject/zephyr/scripts/requirements.txt
 </code></pre></div></p>
 <h2 id="40-installing-the-toolchains"><strong>4.0 Installing the toolchains</strong></h2>
-<p>This tutorial will focus on installing the Zephyr SDK. You may also use 3rd party toolchains, however, for this course, the SDK will be sufficient. Note that Zephyr SDK is not available of Windows or MacOs. You will need to install a 3rd party toolchain, see <a href="https://docs.zephyrproject.org/latest/getting_started/toolchain_3rd_party_x_compilers.html">here</a>.</p>
-<p>Download the Zephyr SDK installer
+<p>This tutorial will focus on installing the Zephyr SDK. <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases/latest">Download Link</a>.</p>
+<p>Download and extract the Zephyr SDK installer. It is recommended to download the minimal installation for you architecture (e.g. x86 for intel CPU based computers)
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">cd</span><span class="w"> </span>~
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>wget<span class="w"> </span>https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.13.2/zephyr-sdk-0.13.2-linux-x86_64-setup.run
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>tar<span class="w"> </span>-xvf<span class="w"> </span>&lt;name_of_downloadfile_.gz&gt;
 </code></pre></div>
 Install the SDK to /opt/ , see <a href="https://docs.zephyrproject.org/latest/getting_started/index.html">here</a> for other potential installation locations
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>zephyr-sdk-0.13.2-linux-x86_64-setup.run
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>zephyr-sdk-&lt;version_namber&gt;linux-x86_64-setup.run
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>sudo<span class="w"> </span>./zephyr-sdk-0.13.2-linux-x86_64-setup.run<span class="w"> </span>--<span class="w"> </span>-d<span class="w"> </span>/opt/zephyr-sdk-0.13.2
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>sudo<span class="w"> </span>./zephyr-sdk--&lt;version_namber&gt;-linux-x86_64-setup.run<span class="w"> </span>--<span class="w"> </span>-d<span class="w"> </span>/opt/zephyr-sdk-0.13.2
 </code></pre></div>
 Remove SDK Installer (Optional)
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span><span class="w"> </span>~
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>rm<span class="w"> </span>zephyr-sdk-0.13.2-linux-x86_64-setup.run
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>rm<span class="w"> </span>zephyr-sdk--&lt;version_namber&gt;-linux-x86_64-setup.run
 </code></pre></div>
 Set udev rules, which allow you to flash most Zephyr boards as a regular user
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>sudo<span class="w"> </span>cp<span class="w"> </span>/opt/zephyr-sdk-0.13.2/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules<span class="w"> </span>/etc/udev/rules.d
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>sudo<span class="w"> </span>cp<span class="w"> </span>/opt/zephyr-sdk--&lt;version_namber&gt;/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules<span class="w"> </span>/etc/udev/rules.d
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload
 </code></pre></div></p>
